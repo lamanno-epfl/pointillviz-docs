@@ -388,9 +388,9 @@
         }
       ],
       "figure": {
-        "alt": "A multi-section atlas composed into one montage, coloured by cell type.",
-        "caption": "One live montage of many sections.",
-        "meta": "Mouse colon · several sections · [removed] cells"
+        "alt": "Fourteen mouse tissues of one tissue microarray composed into one montage, every cell coloured by its Epcam level: the epithelia of the small intestine, colon and salivary gland bright orange and magenta, the stomach, bladder and kidney a dimmer purple, and brain, lymph node, liver and lung grey.",
+        "caption": "One live montage of 14 tissues, every cell coloured by its Epcam level.",
+        "meta": "Xenium 5K · 14 mouse tissues · 549,995 cells"
       }
     },
     {
