@@ -1,0 +1,425 @@
+{
+ "importing": {
+  "card": {
+   "file": "importing-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "importing-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "importing-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "importing-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "phone": [
+   {
+    "file": "importing-phone-720.webp",
+    "w": 720,
+    "h": 415
+   },
+   {
+    "file": "importing-phone-920.webp",
+    "w": 920,
+    "h": 530
+   }
+  ],
+  "og": {
+   "file": "og/importing.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "2d-data": {
+  "card": {
+   "file": "2d-data-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "2d-data-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "2d-data-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "2d-data-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/2d-data.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "loop": {
+   "file": "2d-data-loop.mp4",
+   "w": 1280,
+   "h": 800,
+   "bytes": 883459,
+   "crf": 25,
+   "dur": 5.97,
+   "source": "NEW/N3_lens_slow.mp4",
+   "corner": "br"
+  }
+ },
+ "3d-data": {
+  "card": {
+   "file": "3d-data-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "3d-data-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "3d-data-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "3d-data-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "thumb": [
+   {
+    "file": "3d-data-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "3d-data-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
+  "og": {
+   "file": "og/3d-data.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "loop": {
+   "file": "3d-data-loop.mp4",
+   "w": 1280,
+   "h": 800,
+   "bytes": 864676,
+   "crf": 34,
+   "dur": 3.97,
+   "source": "proto/S09_imc_her2.mp4",
+   "corner": "tl"
+  }
+ },
+ "atlases": {
+  "card": {
+   "file": "atlases-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "atlases-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "atlases-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "atlases-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/atlases.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "multimodal": {
+  "tiles": {
+   "rna": {
+    "360": {
+     "file": "multimodal-rna-360.webp",
+     "w": 360,
+     "h": 360
+    },
+    "700": {
+     "file": "multimodal-rna-700.webp",
+     "w": 700,
+     "h": 700
+    }
+   },
+   "atac": {
+    "360": {
+     "file": "multimodal-atac-360.webp",
+     "w": 360,
+     "h": 360
+    },
+    "700": {
+     "file": "multimodal-atac-700.webp",
+     "w": 700,
+     "h": 700
+    }
+   },
+   "h3k27ac": {
+    "360": {
+     "file": "multimodal-h3k27ac-360.webp",
+     "w": 360,
+     "h": 360
+    },
+    "700": {
+     "file": "multimodal-h3k27ac-700.webp",
+     "w": 700,
+     "h": 700
+    }
+   },
+   "h3k27me3": {
+    "360": {
+     "file": "multimodal-h3k27me3-360.webp",
+     "w": 360,
+     "h": 360
+    },
+    "700": {
+     "file": "multimodal-h3k27me3-700.webp",
+     "w": 700,
+     "h": 700
+    }
+   }
+  },
+  "card": {
+   "file": "multimodal-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "large": {
+   "file": "multimodal-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "og": {
+   "file": "og/multimodal.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "images": {
+  "card": {
+   "file": "images-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "images-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "images-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "images-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/images.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "polygons": {
+  "card": {
+   "file": "polygons-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "polygons-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "polygons-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "polygons-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/polygons.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "transcripts": {
+  "card": {
+   "file": "transcripts-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "transcripts-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "transcripts-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "transcripts-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/transcripts.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "loop": {
+   "file": "transcripts-loop.mp4",
+   "w": 1280,
+   "h": 800,
+   "bytes": 950452,
+   "crf": 38,
+   "dur": 4.67,
+   "source": "proto/S01_dive_glow.mp4",
+   "corner": "br"
+  }
+ },
+ "exporting": {
+  "card": {
+   "file": "exporting-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "exporting-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "exporting-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "exporting-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/exporting.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "tool-store": {
+  "card": {
+   "file": "tool-store-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "tool-store-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "tool-store-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "tool-store-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/tool-store.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "ai-assistant": {
+  "card": {
+   "file": "ai-assistant-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "ai-assistant-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "ai-assistant-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "ai-assistant-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "phone": [
+   {
+    "file": "ai-assistant-phone-720.webp",
+    "w": 720,
+    "h": 576
+   },
+   {
+    "file": "ai-assistant-phone-980.webp",
+    "w": 980,
+    "h": 784
+   }
+  ],
+  "og": {
+   "file": "og/ai-assistant.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
+ "_home": {
+  "plate": {
+   "cells": 135231,
+   "560": {
+    "file": "home-plate-560.webp",
+    "w": 560,
+    "h": 702
+   },
+   "1000": {
+    "file": "home-plate-1000.webp",
+    "w": 1000,
+    "h": 1253
+   }
+  },
+  "og": {
+   "file": "og/home.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ }
+}

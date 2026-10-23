@@ -1,0 +1,892 @@
+{
+  "about": "The content of docs.pointillviz.com. Edit this file, then run tools/build_docs.py from the workspace (see README.md). Copy follows the house style of brief/CONTENT.md. keywords are hidden search terms (other spellings, file formats, tool names); links are buttons beside a page’s status.",
+  "site": {
+    "origin": "https://docs.pointillviz.com/",
+    "eyebrow": "PointillViz docs",
+    "headline": "From your first import to your first figure.",
+    "lede": "Eleven tutorials, in the order you will need them. They are in preparation, and each page already lists what it will cover.",
+    "search": {
+      "label": "Search the docs",
+      "placeholder": "Search titles and summaries…",
+      "none": "No page matches “{query}”. Try another word, or browse the topics below.",
+      "none_page": "No page matches “{query}”. Try another word.",
+      "count": "{n} pages match",
+      "one": "1 page matches",
+      "placeholder_side": "Search the docs…",
+      "also": "Covers"
+    },
+    "start_here": {
+      "label": "Start here",
+      "line": "New to PointillViz? Bring in one section, explore it, export a figure.",
+      "steps": [
+        {
+          "page": "importing",
+          "line": "An .h5ad to the viewer, in three steps."
+        },
+        {
+          "page": "2d-data",
+          "line": "Colours, the Lens, regions and gates."
+        },
+        {
+          "page": "exporting",
+          "line": "Figures at up to 8×, results as CSV."
+        }
+      ]
+    },
+    "shell": {
+      "home": "Docs home",
+      "crumb_root": "Docs",
+      "status_badge": "Tutorial in preparation",
+      "status_line": "This tutorial is being written. The outline below shows what it will cover.",
+      "outline": "Outline",
+      "toc": "On this page",
+      "prev": "Previous",
+      "next": "Next",
+      "copy": "Copy",
+      "copied": "Copied",
+      "contents": "Contents",
+      "contents_close": "Close",
+      "section_link": "Link to this section",
+      "skeleton_param_head": [
+        "Parameter",
+        "Type",
+        "Default",
+        "What it does"
+      ],
+      "topics": "{n} topics",
+      "topic": "1 topic",
+      "theme": "Switch to light theme",
+      "loop_pause": "Pause",
+      "loop_play": "Play",
+      "loop_label": "motion",
+      "on_page": "On this page"
+    },
+    "meta": {
+      "home": {
+        "title": "PointillViz docs",
+        "description": "Tutorials for PointillViz: importing data, 2D and 3D data, atlases, multimodal sections, images, polygons, transcripts, exporting, tools and the assistant.",
+        "og_title": "PointillViz docs",
+        "og_description": "From your first import to your first figure: eleven tutorials for PointillViz, in preparation.",
+        "og_image_alt": "PointillViz docs: from your first import to your first figure, beside nine captures of the viewer."
+      },
+      "not_found": {
+        "title": "Page not found · PointillViz docs",
+        "description": "No page at this address. Search the docs, or start with Importing.",
+        "heading": "No page at this address.",
+        "line": "Search the docs, or start with Importing.",
+        "link": "Docs home"
+      }
+    },
+    "plate": {
+      "case": "2d",
+      "label": "2D · Section",
+      "meta": "Xenium 5K · mouse colon · 135,232 cells",
+      "alt": "A Xenium 5K mouse colon section, rolled into a spiral: every cell drawn as a point in its cell-type colour."
+    }
+  },
+  "groups": [
+    {
+      "name": "Start",
+      "id": "start",
+      "line": "Bring your data in."
+    },
+    {
+      "name": "Data",
+      "id": "data",
+      "line": "Sections, volumes, atlases and modalities."
+    },
+    {
+      "name": "Layers",
+      "id": "layers",
+      "line": "Images, outlines and molecules with the cells."
+    },
+    {
+      "name": "Results",
+      "id": "results",
+      "line": "Figures and tables to take with you."
+    },
+    {
+      "name": "Extend",
+      "id": "extend",
+      "line": "Community tools and the AI assistant."
+    }
+  ],
+  "pages": [
+    {
+      "slug": "importing",
+      "group": "Start",
+      "title": "Importing",
+      "summary": "Bring an .h5ad into PointillViz: the import wizard maps its fields onto the viewer and converts it.",
+      "keywords": [
+        "h5ad",
+        "AnnData",
+        "obsm",
+        "obs",
+        "wizard",
+        "upload",
+        "convert",
+        "coordinates",
+        "units",
+        "spatial",
+        "Xenium",
+        "scanpy",
+        "command line",
+        "new dataset"
+      ],
+      "sections": [
+        {
+          "title": "What you need",
+          "preview": [
+            "note"
+          ]
+        },
+        {
+          "title": "Upload a file or point to one",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Map fields onto the viewer",
+          "preview": [
+            "figure",
+            "table"
+          ]
+        },
+        {
+          "title": "Convert and open",
+          "preview": [
+            "tip"
+          ]
+        },
+        {
+          "title": "From the command line",
+          "preview": [
+            "code",
+            "caution"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "The import wizard at its Map fields step: the Spatial panel set to 2D spatial, with the spatial obsm key and pixel units, and the Cells panel with a cell-type column of 73 types, an automatic palette and the hierarchy options.",
+        "caption": "Map fields, the wizard’s second step: where the cells sit, in which units, and which column holds their types.",
+        "meta": "Xenium 5K · mouse colon · 135,232 cells"
+      }
+    },
+    {
+      "slug": "2d-data",
+      "group": "Data",
+      "case": "2d",
+      "case_label": "2D section",
+      "title": "2D data",
+      "summary": "Explore one tissue section: colour it by type or gene, read the Lens, draw regions and gate cells.",
+      "keywords": [
+        "UMAP",
+        "embedding",
+        "cluster",
+        "clusters",
+        "Xenium",
+        "cell type",
+        "hierarchy",
+        "gene",
+        "expression",
+        "pathway",
+        "Lens",
+        "loupe",
+        "Lasso",
+        "region",
+        "differential expression",
+        "volcano",
+        "Gating",
+        "gate",
+        "section",
+        "tissue"
+      ],
+      "sections": [
+        {
+          "title": "Cell types and hierarchies",
+          "preview": [
+            "figure",
+            "note"
+          ]
+        },
+        {
+          "title": "Genes and pathways",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Under the lens",
+          "preview": [
+            "tip"
+          ]
+        },
+        {
+          "title": "Lasso and region comparison",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Gating",
+          "preview": [
+            "code",
+            "caution"
+          ]
+        },
+        {
+          "title": "The Tools gallery",
+          "preview": [],
+          "keywords": [
+            "Cell-type distribution",
+            "composition",
+            "Alluvial plot",
+            "UMAP cluster explorer",
+            "Niche enrichment",
+            "Colocalization",
+            "Violin plot",
+            "Split distribution",
+            "Ridgeline plot",
+            "Marker dot plot",
+            "Radial profiles",
+            "Expression Landscape",
+            "Distance gradient",
+            "Spatial gene patterns",
+            "Moran’s I",
+            "Pathway gallery",
+            "Ligand–receptor",
+            "LIANA"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "The Lens over a mouse colon section coloured by cell type: its loupe on the mucosa, and the Under the lens panel listing the cell types in view and in the loupe.",
+        "caption": "Under the lens: the cell types in view, recounted as the view moves.",
+        "meta": "Xenium 5K · mouse colon · 135,232 cells"
+      }
+    },
+    {
+      "slug": "3d-data",
+      "group": "Data",
+      "case": "3d",
+      "case_label": "3D volume",
+      "title": "3D data",
+      "summary": "Orbit a volume, cut it into slabs and select the cells inside them.",
+      "keywords": [
+        "3D",
+        "volume",
+        "imaging mass cytometry",
+        "IMC",
+        "z",
+        "slab",
+        "orbit",
+        "rotate",
+        "protein",
+        "HER2",
+        "breast",
+        "tumour"
+      ],
+      "sections": [
+        {
+          "title": "Import 3D coordinates",
+          "preview": [
+            "code",
+            "note"
+          ]
+        },
+        {
+          "title": "Orbit, pan and zoom",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Cut a slab",
+          "preview": [
+            "figure",
+            "table"
+          ]
+        },
+        {
+          "title": "Select through a slab",
+          "preview": [
+            "tip"
+          ]
+        },
+        {
+          "title": "The Lens in 3D",
+          "preview": [
+            "caution"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "A HER2⁺ breast carcinoma imaged by 3D imaging mass cytometry, drawn as a volume of cells coloured by HER2, with the Scale and orientation panel and its X, Y and Z bars.",
+        "caption": "A volume of cells coloured by HER2, orbiting, with its scale and orientation.",
+        "meta": "3D imaging mass cytometry · HER2⁺ breast carcinoma · 108,486 cells"
+      }
+    },
+    {
+      "slug": "atlases",
+      "group": "Data",
+      "case": "atlas",
+      "case_label": "Atlas",
+      "title": "Atlases",
+      "summary": "Compose harmonized sections into one live montage, and compare conditions over every cell of the cohort.",
+      "keywords": [
+        "atlas",
+        "cohort",
+        "montage",
+        "sections",
+        "condition",
+        "differential abundance",
+        "harmonized",
+        "level of detail",
+        "QC",
+        "quality",
+        "Xenium",
+        "composition",
+        "section comparison"
+      ],
+      "sections": [
+        {
+          "title": "Import a directory of sections",
+          "preview": [
+            "code",
+            "note"
+          ]
+        },
+        {
+          "title": "The section strip",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Level of detail",
+          "preview": [
+            "table",
+            "tip"
+          ]
+        },
+        {
+          "title": "The Atlas tab",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Differential abundance",
+          "preview": [
+            "caution"
+          ]
+        },
+        {
+          "title": "Section quality",
+          "preview": []
+        }
+      ],
+      "figure": {
+        "alt": "A multi-section atlas composed into one montage, coloured by cell type.",
+        "caption": "One live montage of many sections.",
+        "meta": "Mouse colon · several sections · [removed] cells"
+      }
+    },
+    {
+      "slug": "multimodal",
+      "group": "Data",
+      "case": "omics",
+      "case_label": "Multi-omics",
+      "title": "Multimodal",
+      "summary": "Compare RNA, chromatin accessibility, histone marks and protein measured on the same spots.",
+      "keywords": [
+        "multi-omics",
+        "multiomics",
+        "modality",
+        "ATAC",
+        "chromatin",
+        "accessibility",
+        "histone",
+        "H3K27ac",
+        "H3K27me3",
+        "protein",
+        "Spatial-Mux-seq",
+        "coupling",
+        "agreement",
+        "lead–lag",
+        "blend",
+        "split",
+        "side by side"
+      ],
+      "sections": [
+        {
+          "title": "Declare modalities at import",
+          "preview": [
+            "code",
+            "note"
+          ]
+        },
+        {
+          "title": "Find a feature across modalities",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Single, side by side, blend or split",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Coupling and agreement",
+          "preview": [
+            "table",
+            "tip"
+          ]
+        },
+        {
+          "title": "States and lead–lag",
+          "preview": [
+            "caution"
+          ]
+        },
+        {
+          "title": "Protein channels",
+          "preview": []
+        }
+      ],
+      "figure": {
+        "alt": "Pde10a in RNA, ATAC, H3K27ac and H3K27me3, four maps of the same mouse brain section side by side.",
+        "caption": "One gene, Pde10a, in four modalities measured on the same spots.",
+        "meta": "Spatial-Mux-seq · mouse brain · 9,686 spots",
+        "plates": [
+          {
+            "key": "rna",
+            "name": "RNA",
+            "detail": "expression",
+            "hue": "#6FE0BD"
+          },
+          {
+            "key": "atac",
+            "name": "ATAC",
+            "detail": "open chromatin",
+            "hue": "#5B8CFF"
+          },
+          {
+            "key": "h3k27ac",
+            "name": "H3K27ac",
+            "detail": "active mark",
+            "hue": "#FF8A3D"
+          },
+          {
+            "key": "h3k27me3",
+            "name": "H3K27me3",
+            "detail": "repressive mark",
+            "hue": "#D16BFF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "images",
+      "group": "Layers",
+      "title": "Images",
+      "summary": "Lay H&E and multiplexed stains under the cells, and set each channel’s colour and levels.",
+      "keywords": [
+        "TIFF",
+        "OME-TIFF",
+        "OME-Zarr",
+        "H&E",
+        "DAPI",
+        "channel",
+        "stain",
+        "immunofluorescence",
+        "multiplexed",
+        "pyramid",
+        "registration",
+        "levels",
+        "gamma",
+        "histology"
+      ],
+      "sections": [
+        {
+          "title": "Supported files",
+          "preview": [
+            "table",
+            "note"
+          ]
+        },
+        {
+          "title": "Attach an image",
+          "preview": [
+            "steps",
+            "code"
+          ]
+        },
+        {
+          "title": "Registration",
+          "preview": [
+            "caution"
+          ]
+        },
+        {
+          "title": "Channels and colours",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Levels and gamma",
+          "preview": [
+            "tip"
+          ]
+        },
+        {
+          "title": "Several images at once",
+          "preview": []
+        }
+      ],
+      "figure": {
+        "alt": "The Image tab beside the H&E image of a mouse colon section: the H&E and Xenium DAPI layers, opacity, cells hidden, the levels histogram with gamma, and saturation.",
+        "caption": "The Image tab: H&E under the cells, with its opacity, levels and gamma.",
+        "meta": "Xenium 5K · mouse colon · H&E"
+      }
+    },
+    {
+      "slug": "polygons",
+      "group": "Layers",
+      "title": "Polygons",
+      "summary": "Draw cells as their segmentation outlines, from the whole section down to a single cell.",
+      "keywords": [
+        "segmentation",
+        "boundaries",
+        "outline",
+        "outlines",
+        "nucleus",
+        "nuclei",
+        "cell shape",
+        "shapes",
+        "fill"
+      ],
+      "sections": [
+        {
+          "title": "Import cell and nucleus boundaries",
+          "preview": [
+            "code",
+            "note"
+          ]
+        },
+        {
+          "title": "From points to outlines",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Colour outlines by any layer",
+          "preview": [
+            "steps",
+            "tip"
+          ]
+        },
+        {
+          "title": "Outlines at every zoom",
+          "preview": [
+            "table",
+            "caution"
+          ]
+        },
+        {
+          "title": "Outlines in exported figures",
+          "preview": []
+        }
+      ],
+      "figure": {
+        "alt": "Cells of a mouse colon fold drawn as their segmentation polygons, each filled and outlined in its cell-type colour, with its nucleus outlined inside.",
+        "caption": "Cells as their segmentation outlines, filled and outlined in their cell-type colours, each with its nucleus.",
+        "meta": "Xenium 5K · mouse colon"
+      }
+    },
+    {
+      "slug": "transcripts",
+      "group": "Layers",
+      "title": "Transcripts",
+      "summary": "Draw every detected molecule over the cells, and replay sequencing depth from 1% to 100%.",
+      "keywords": [
+        "molecules",
+        "transcript",
+        "spots",
+        "RNA",
+        "detected",
+        "Depth replay",
+        "sequencing depth",
+        "saturation",
+        "glow",
+        "crisp",
+        "Xenium"
+      ],
+      "sections": [
+        {
+          "title": "Attach a molecule table",
+          "preview": [
+            "code",
+            "note"
+          ]
+        },
+        {
+          "title": "Pick up to 12 genes",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Show all transcripts",
+          "preview": [
+            "caution"
+          ]
+        },
+        {
+          "title": "Glow or crisp",
+          "preview": [
+            "figure",
+            "table"
+          ]
+        },
+        {
+          "title": "Depth replay",
+          "preview": [
+            "tip"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "Molecules of Epcam, Acta2 and Lyz1 as green, pink and cyan glowing spots over the greyed cells of a Xenium 5K mouse tissue microarray.",
+        "caption": "Every detected molecule of Epcam, Acta2 and Lyz1, drawn as glowing spots over the cells.",
+        "meta": "Xenium 5K · mouse tissue microarray"
+      }
+    },
+    {
+      "slug": "exporting",
+      "group": "Results",
+      "title": "Exporting",
+      "summary": "Save views as PNG, PDF or SVG figures at up to 8×, and computed results as CSV files.",
+      "keywords": [
+        "PNG",
+        "PDF",
+        "SVG",
+        "CSV",
+        "figure",
+        "Capture",
+        "screenshot",
+        "legend",
+        "scale bar",
+        "resolution",
+        "download",
+        "report",
+        "8×"
+      ],
+      "sections": [
+        {
+          "title": "Capture views",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Export one view",
+          "preview": [
+            "figure",
+            "table"
+          ]
+        },
+        {
+          "title": "Compose a figure from several views",
+          "preview": [
+            "tip"
+          ]
+        },
+        {
+          "title": "Legends, scale bars and resolution",
+          "preview": [
+            "note"
+          ]
+        },
+        {
+          "title": "Results as CSV files",
+          "preview": [
+            "code"
+          ]
+        },
+        {
+          "title": "Pathway maps as a PDF report",
+          "preview": [
+            "caution"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "A captured view of cells coloured by type, with the cell-type legend beside it.",
+        "caption": "A view written by Capture, with its cell-type legend.",
+        "meta": "Xenium 5K · mouse colon"
+      }
+    },
+    {
+      "slug": "tool-store",
+      "group": "Extend",
+      "title": "Tool Store",
+      "summary": "Install community tools, run them like built-in analyses, and publish your own.",
+      "keywords": [
+        "plugin",
+        "plugins",
+        "community tool",
+        "install",
+        "pvtool",
+        "manifest",
+        "plugin.json",
+        "tool.py",
+        "gates",
+        "validate",
+        "publish",
+        "scaffold",
+        "pack",
+        "verified",
+        "store",
+        "Categorical Chords",
+        "Cell-Type Co-occurrence",
+        "Cell-Type Percolation",
+        "Conditional Contact Odds",
+        "Expression Hotspots",
+        "Getis-Ord",
+        "Interface Coherence",
+        "Local Cell Density",
+        "neighbourhood mixing",
+        "Ripley’s Cross-L",
+        "Spatial Scale Spectrum",
+        "Tissue Permeability",
+        "Vector Field"
+      ],
+      "links": [
+        {
+          "label": "Browse the Tool Store",
+          "href": "https://store.pointillviz.com/"
+        },
+        {
+          "label": "Build & publish",
+          "href": "https://store.pointillviz.com/publish/"
+        }
+      ],
+      "sections": [
+        {
+          "title": "What a tool is",
+          "preview": [
+            "code",
+            "note"
+          ]
+        },
+        {
+          "title": "Install a tool",
+          "preview": [
+            "steps",
+            "caution"
+          ]
+        },
+        {
+          "title": "Run a tool",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Sweep a parameter",
+          "preview": [
+            "table",
+            "tip"
+          ]
+        },
+        {
+          "title": "Write and publish your own",
+          "preview": []
+        },
+        {
+          "title": "The nine gates",
+          "preview": [
+            "gates"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "The Tool Store: published community tools with their artwork, tags and verified badges.",
+        "caption": "The Tool Store, as it runs beside the viewer.",
+        "meta": "12 tools · 9 gates"
+      }
+    },
+    {
+      "slug": "ai-assistant",
+      "group": "Extend",
+      "title": "AI assistant",
+      "summary": "Ask in plain language: a coding agent reads your data, runs tools and publishes results to a notebook.",
+      "keywords": [
+        "MCP",
+        "Claude",
+        "Claude Code",
+        "Codex",
+        "ChatGPT",
+        "Antigravity",
+        "agent",
+        "coding agent",
+        "AI",
+        "LLM",
+        "notebook",
+        "prompt",
+        "steer",
+        "chat"
+      ],
+      "sections": [
+        {
+          "title": "Turn the Assistant on",
+          "preview": [
+            "steps",
+            "note"
+          ]
+        },
+        {
+          "title": "Choose a runtime and a model",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "What the agent sees",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Viewer control: Off, Ask, Allow",
+          "preview": [
+            "tip"
+          ]
+        },
+        {
+          "title": "The notebook",
+          "preview": [
+            "code"
+          ]
+        },
+        {
+          "title": "Permissions and limits",
+          "preview": [
+            "caution"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "The Assistant panel beside a Spatial-Mux-seq mouse brain section coloured by cluster: its first notebook result, R01, a figure of chromatin signal against expression across RNA clusters, with its derivation script listed below.",
+        "caption": "The notebook beside the viewer: R01, a figure an agent published with its script. Answers are model output; the notebook shows what ran.",
+        "meta": "Spatial-Mux-seq · mouse brain · 9,686 spots"
+      }
+    }
+  ]
+}

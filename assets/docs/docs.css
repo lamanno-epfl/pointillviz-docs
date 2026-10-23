@@ -1,0 +1,1336 @@
+/* ==========================================================================
+   docs.pointillviz.com · docs.css
+   The docs shell, home and placeholder pages, on top of assets/pv/pv.css.
+   Built from the design system's tokens; theme-dependent values are tokens
+   declared in both theme blocks below (never [data-theme="light"] .thing).
+
+   0 Press states  4 Nav path        8  Page: status         12 Home: hero, start
+   1 Tokens        5 Search          9  Page: lead figure    13 Home: groups, cards
+   2 Shell         6 Sub-bar, drawer 10 Page: outline        14 Responsive, print
+   3 Sidebar       7 Page: header    11 Contents, pager
+   The 404 page, the status chip, the search field's focus, the Paper chip,
+   taps, card rings and the large-screen chrome are pv.css's (shared/pv).
+   ========================================================================== */
+
+
+/* 0 · Press states ========================================================= */
+
+/* pv.css turns the browser's grey tap flash off; the docs' own rows answer a
+   press themselves (cards and the pager are pv-cards, pressed by pv.css). */
+.dv-nav__link:active, .dv-nav__home:active, .dv-search__link:active, .dv-toc-inline summary:active { background-color: var(--pv-tint); }
+.dv-toc a:active, .dv-toc-inline a:active, .dv-card__outline a:active, .dv-crumbs a:active { color: var(--pv-text); }
+
+
+/* 1 · Tokens ============================================================== */
+
+:root {
+  --dv-side-w: 248px;
+  --dv-toc-w: 200px;
+  --dv-col-gap: clamp(32px, 3.6vw, 56px);
+  --dv-read: 47.5rem;            /* the reading column: 760 px */
+  --dv-subbar-h: 0px;
+  --dv-link-h: 34px;             /* one row of the docs path (sidebar) */
+  --dv-label-h: 22px;            /* a group label above it */
+}
+
+:root,
+[data-theme="dark"],
+.pv-drawer {
+  --dv-pt-ring: rgba(239, 230, 210, 0.36);   /* a page's point, not here */
+  --dv-pt-ring-hi: rgba(239, 230, 210, 0.7);
+  --dv-hero-dot: rgba(239, 230, 210, 0.075);
+  --dv-mark-bg: rgba(111, 224, 189, 0.16);   /* search hits */
+  --dv-start-bg: linear-gradient(180deg, rgba(23, 27, 56, 0.72), rgba(16, 19, 42, 0.92));
+  --dv-start-line: rgba(239, 230, 210, 0.16);
+  --dv-plate-chip: rgba(6, 7, 13, 0.74);     /* labels laid on a data plate */
+}
+
+[data-theme="light"] {
+  --dv-pt-ring: rgba(33, 28, 20, 0.34);
+  --dv-pt-ring-hi: rgba(33, 28, 20, 0.7);
+  --dv-hero-dot: rgba(33, 28, 20, 0.09);
+  --dv-mark-bg: rgba(23, 113, 90, 0.14);
+  --dv-start-bg: linear-gradient(180deg, #FFFDF8, #FBF6EA);
+  --dv-start-line: rgba(33, 28, 20, 0.14);
+}
+
+.dv-icon { width: 18px; height: 18px; flex: none; }
+
+
+/* 2 · Shell =============================================================== */
+
+.dv--page .dv-shell {
+  display: grid;
+  grid-template-columns: var(--dv-side-w) minmax(0, 1fr) var(--dv-toc-w);
+  column-gap: var(--dv-col-gap);
+  max-width: calc(var(--pv-page-wide) + 2 * var(--pv-gutter));
+  margin-inline: auto;
+  padding-inline: var(--pv-gutter);
+}
+/* The DOM reads sidebar, contents, article; the grid draws contents last. */
+.dv-side { grid-column: 1; grid-row: 1; }
+.dv-main { grid-column: 2; grid-row: 1; min-width: 0; padding-block: 36px 80px; }
+.dv-toc { grid-column: 3; grid-row: 1; }
+.dv-main:focus { outline: none; }
+.dv-article { max-width: var(--dv-read); }
+
+/* Anchors and focus land below the bar, and below the sub-bar on phones
+   (pv.css puts the offset on the targets; the home's groups set their own). */
+:root { --pv-scroll-offset: calc(var(--pv-topbar-block) + var(--dv-subbar-h) + 20px); }
+
+
+/* 3 · Sidebar ============================================================= */
+
+.dv-side {
+  position: sticky;
+  top: var(--pv-topbar-block);
+  align-self: start;
+  height: calc(100vh - var(--pv-topbar-block));
+  height: calc(100dvh - var(--pv-topbar-block));
+  margin-inline-start: -8px;      /* the hover rows hang into the gutter */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pv-line) transparent;
+  --dv-nav-bg: var(--pv-bg);
+}
+.dv-side__inner { padding: 28px 8px 48px; }
+
+.dv-search--side .pv-search__input {
+  height: 40px;
+  padding-left: 38px;
+  font-size: 0.875rem;
+}
+.dv-search--side .pv-search__icon { left: 13px; width: 15px; height: 15px; }
+.dv-search--side .pv-search__kbd { right: 9px; }
+
+.dv-nav { margin-top: 18px; }
+.dv-nav[hidden] { display: none; }
+.dv-nav__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 10px 4px 4px;
+  margin-bottom: 20px;
+  border-radius: var(--pv-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pv-text-2);
+  transition: color var(--pv-dur-hover) ease, background-color var(--pv-dur-hover) ease;
+}
+.dv-nav__home .dv-icon { width: 15px; height: 15px; color: var(--pv-text-3); transition: transform var(--pv-dur-ui) var(--pv-ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .dv-nav__home:hover { color: var(--pv-text); background: var(--pv-tint); }
+  .dv-nav__home:hover .dv-icon { transform: translateX(calc(var(--pv-rise) / -6)); }
+}
+
+
+/* 4 · The docs as a path ===================================================
+   Every page is a point on one dotted line, in reading order; the page you
+   are on is the lit point (the top bar's "you are here"). Group labels sit
+   beside the line. The geometry is fixed (--dv-label-h, --dv-link-h) so the
+   line starts and ends exactly on the first and last points. */
+
+.dv-nav__groups { position: relative; margin: 0; padding: 0; list-style: none; }
+.dv-nav__group { position: relative; padding-top: 16px; }
+.dv-nav__group:first-child { padding-top: 0; }
+.dv-nav__group::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-image: radial-gradient(circle at center, var(--pv-dot) 1px, transparent 1.4px);
+  background-size: 2px 6px;
+  background-repeat: repeat-y;
+  pointer-events: none;
+}
+.dv-nav__group:first-child::before { top: calc(var(--dv-label-h) + var(--dv-link-h) / 2); }
+.dv-nav__group:last-child::before { bottom: calc(var(--dv-link-h) / 2); }
+.dv-nav__label {
+  height: var(--dv-label-h);
+  padding-left: 28px;
+  font: 500 var(--pv-text-2xs) / 16px var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  color: var(--pv-text-3);
+}
+.dv-nav__list { margin: 0; padding: 0; list-style: none; }
+.dv-nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--dv-link-h);
+  padding: 4px 10px 4px 4px;
+  border-radius: var(--pv-radius-sm);
+  font-size: 0.90625rem;
+  line-height: 1.3;
+  color: var(--pv-text-2);
+  transition: color var(--pv-dur-hover) ease, background-color var(--pv-dur-hover) ease;
+}
+.dv-nav__pt {
+  position: relative;
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+.dv-nav__pt::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dv-pt-ring);
+  background: var(--dv-nav-bg);
+  transform: scale(0.875);
+  transition: border-color var(--pv-dur-hover) ease, background-color var(--pv-dur-hover) ease, transform var(--pv-dur-ui) var(--pv-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dv-nav__link:hover { color: var(--pv-text); background: var(--pv-tint); }
+  .dv-nav__link:hover .dv-nav__pt::before { border-color: var(--dv-pt-ring-hi); }
+}
+.dv-nav__link[aria-current="page"] {
+  color: var(--pv-text);
+  font-weight: 500;
+  background: var(--pv-tint);
+}
+.dv-nav__link[aria-current="page"] .dv-nav__pt::before {
+  transform: none;
+  border-color: var(--pv-accent);
+  background: var(--pv-accent);
+  box-shadow: 0 0 10px var(--pv-accent-glow);
+}
+
+/* The drawer's page you are on opens onto its sections. */
+.dv-nav__secs {
+  display: grid;
+  gap: 1px;
+  margin: 4px 0 8px;
+  padding: 0 0 0 28px;
+  list-style: none;
+}
+.dv-nav__secs a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 4px 8px;
+  border-radius: var(--pv-radius-sm);
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--pv-text-3);
+}
+.dv-nav__secs a::before {
+  content: "";
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pv-dot);
+}
+.dv-nav__secs a[aria-current] { color: var(--pv-text); }
+.dv-nav__secs a[aria-current]::before { background: var(--pv-accent); box-shadow: 0 0 8px var(--pv-accent-glow); }
+.dv-nav__secs a:active { background: var(--pv-tint); }
+
+
+/* 5 · Search ================================================================
+   A combobox over titles, summaries, headings and hidden keywords. Results
+   open under the field: over the page on the home and the 404 page, in the
+   sidebar in place of the path while you type. */
+
+.dv-search { position: relative; }
+.dv-search__status {
+  min-height: 0;
+  margin: 0;
+  font: 500 var(--pv-text-xs) / 1.45 var(--pv-font-mono);
+  letter-spacing: 0.02em;
+  color: var(--pv-text-3);
+}
+.dv-search__status:not(:empty) { margin-top: 10px; padding-inline: 4px; }
+.dv-search__list {
+  display: grid;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--pv-line);
+  border-radius: 14px;
+  background: var(--pv-surface);
+  box-shadow: var(--pv-shadow-1);
+}
+.dv-search__list[hidden] { display: none; }
+.dv-search__opt { border-radius: 9px; }
+.dv-search__link {
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px 11px;
+  border-radius: inherit;
+  color: var(--pv-text);
+  cursor: pointer;
+}
+.dv-search__top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.dv-search__title { font-weight: 600; font-size: 0.9375rem; line-height: 1.3; }
+.dv-search__group {
+  flex: none;
+  font: 500 var(--pv-text-2xs) / 1.3 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  color: var(--pv-text-3);
+}
+.dv-search__snip { font-size: 0.84375rem; line-height: 1.45; color: var(--pv-text-2); }
+.dv-search__snip--head { display: flex; gap: 8px; align-items: baseline; color: var(--pv-text); }
+.dv-search__snip--head::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pv-accent);
+  transform: translateY(-1px);
+}
+/* A match found only in the page's keywords says which one. */
+.dv-search__also {
+  font: 500 var(--pv-text-2xs) / 1.4 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-cap);
+  color: var(--pv-text-3);
+}
+.dv-search__opt[aria-selected="true"] { background: var(--pv-surface-3); box-shadow: inset 0 0 0 1px var(--pv-accent-line); }
+.dv-search mark {
+  padding: 0 1px;
+  border-radius: 3px;
+  background: var(--dv-mark-bg);
+  color: inherit;
+  box-shadow: inset 0 -1.5px 0 var(--pv-accent-line);
+}
+/* The field's own clear button, in the palette (WebKit and Blink draw one). */
+.dv-search .pv-search__input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-right: -26px;
+  border-radius: 50%;
+  background: var(--pv-text-3);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 5.5l9 9M14.5 5.5l-9 9' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / 18px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 5.5l9 9M14.5 5.5l-9 9' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center / 18px no-repeat;
+  cursor: pointer;
+}
+.dv-search .pv-search__input::-webkit-search-cancel-button:hover { background: var(--pv-text); }
+@media (hover: none) {
+  .dv-search__kbd { display: none; }
+}
+
+/* Home and 404: the results float over the page instead of pushing it. */
+.dv-search--home .dv-search__list,
+.dv-search--404 .dv-search__list {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  top: calc(var(--dv-field-h, 46px) + 8px);
+  margin: 0;
+  max-height: min(62vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  box-shadow: var(--pv-shadow-3);
+}
+.dv-search--home { --dv-field-h: 56px; }
+/* While the list is open its count is for screen readers only. */
+.dv-search:has(.dv-search__list:not([hidden])):is(.dv-search--home, .dv-search--404) .dv-search__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* 6 · Sub-bar and the contents drawer (under 1024 px) ===================== */
+
+.dv-subbar { display: none; }
+.dv-subbar__btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 40px;
+  padding: 0 15px 0 12px;
+  border: 1px solid var(--pv-line-2);
+  border-radius: var(--pv-radius-pill);
+  background: var(--pv-tint);
+  color: var(--pv-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color var(--pv-dur-hover) ease, border-color var(--pv-dur-hover) ease, transform var(--pv-dur-press) var(--pv-ease-out);
+}
+.dv-subbar__btn .dv-icon { width: 16px; height: 16px; color: var(--pv-accent); }
+.dv-subbar__btn:active { transform: scale(var(--pv-press)); }
+.dv-subbar__where {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  min-width: 0;
+  margin: 0;
+  font: 500 var(--pv-text-xs) / 1.3 var(--pv-font-mono);
+  letter-spacing: 0.03em;
+  color: var(--pv-text-3);
+}
+.dv-subbar__page { color: var(--pv-text-2); }
+.dv-subbar__sec[hidden] { display: none; }
+.dv-subbar__sec { display: contents; }
+.dv-subbar__secname { color: var(--pv-text); }
+/* Once a section is in view the bar names it: "Transcripts › Glow or crisp". */
+.dv-subbar.has-sec .dv-subbar__group,
+.dv-subbar.has-sec .dv-subbar__group + .dv-subbar__sep { display: none; }
+
+/* The contents drawer opens from the left, where the sidebar lives. The panel
+   itself never scrolls: its head (with Close, which takes focus) and the
+   search stay in place, and only the page list (or, while typing, the
+   results) scrolls under them. */
+.dv-drawer .pv-drawer__panel {
+  inset: 0 auto 0 0;
+  width: min(86vw, 340px);
+  gap: var(--pv-space-4);
+  overflow: hidden;
+  border-inline-start: 0;
+  border-inline-end: 1px solid var(--pv-line);
+  --dv-nav-bg: var(--pv-bg-2);
+}
+.dv-drawer .pv-drawer__head { flex: none; }
+@starting-style {
+  .dv-drawer[open] .pv-drawer__panel { transform: translateX(calc(var(--pv-shift) * -1)); opacity: 0; }
+}
+.dv-drawer.is-closing .pv-drawer__panel { transform: translateX(calc(var(--pv-shift) * -1)); }
+.dv-drawer__title {
+  margin: 0;
+  font: 500 var(--pv-text-xs) / 1 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  color: var(--pv-text-2);
+}
+.dv-drawer__nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.dv-drawer__nav > .dv-search { flex: none; display: flex; flex-direction: column; min-height: 0; }
+.dv-drawer__nav > .dv-search > :not(.dv-search__list) { flex: none; }
+.dv-drawer__nav > .dv-search:has(.dv-search__list:not([hidden])) { flex: 0 1 auto; }
+.dv-drawer__nav > .dv-nav,
+.dv-drawer__nav .dv-search__list {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pv-line) transparent;
+}
+/* The list fades out where it runs under the search and past the bottom. */
+.dv-drawer__nav > .dv-nav {
+  flex: 1 1 auto;
+  margin-top: 8px;
+  padding-block: 10px 28px;
+  -webkit-mask-image: linear-gradient(transparent, #000 10px, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(transparent, #000 10px, #000 calc(100% - 24px), transparent);
+}
+.dv-drawer__nav .dv-search__list { flex: 0 1 auto; }
+
+
+/* 7 · Page header ========================================================= */
+
+.dv-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 500 var(--pv-text-xs) / 1.5 var(--pv-font-mono);
+  letter-spacing: 0.04em;
+  color: var(--pv-text-3);
+}
+.dv-crumbs li + li::before {
+  content: "›";
+  content: "›" / "";
+  margin-inline: 9px;
+  color: var(--pv-text-3);
+}
+.dv-crumbs a {
+  display: inline-block;
+  padding-block: 4px;          /* a 24 px target on the 16 px line */
+  margin-block: -4px;
+  color: var(--pv-text-2);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color var(--pv-dur-hover) ease, text-decoration-color var(--pv-dur-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .dv-crumbs a:hover { color: var(--pv-text); text-decoration-color: var(--pv-line-2); }
+}
+/* A finger gets a little more. */
+@media (pointer: coarse) {
+  .dv-crumbs a { padding-block: 6px; margin-block: -6px; }
+}
+.dv-crumbs [aria-current] { color: var(--pv-text-3); }
+
+.dv-title { margin-top: 18px; }
+.dv-summary { margin-top: 14px; max-width: 40em; }
+
+
+/* 8 · "Tutorial in preparation" =========================================== */
+
+/* The state chip is pv.css's .pv-status (gold, as the store's). */
+.dv-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 24px;
+}
+.dv-status__line { font-size: 0.90625rem; line-height: 1.5; color: var(--pv-text-2); }
+.dv-status__links { display: flex; flex-wrap: wrap; gap: 10px; flex-basis: 100%; }
+.dv-status__links .pv-btn svg { width: 14px; height: 14px; color: var(--pv-text-3); }
+
+
+/* 9 · The page's real capture ============================================== */
+
+.dv-lead { margin-top: 30px; }
+.dv-lead__stage { aspect-ratio: 16 / 10; background: var(--pv-bg); }
+.dv-lead__stage > img,
+.dv-lead__stage > picture > img { width: 100%; height: 100%; object-fit: cover; }
+.dv-lead__stage > picture { display: block; width: 100%; height: 100%; }
+
+/* The capture is mounted on the ink, as the home's plate is: a dark mat all
+   round, with the registration marks on the mat, never on the app's panels. */
+.dv-lead__stage--mat {
+  --dv-mat: 14px;
+  padding: var(--dv-mat);
+  background: var(--pv-ink-0);
+}
+.dv-lead__stage--mat::after { inset: 5px; }
+.dv-lead__stage--mat > img,
+.dv-lead__stage--mat > picture > img,
+.dv-lead__stage--mat > .dv-loop { border-radius: 4px; }
+/* The caption, then the case or meta line under it, both from the left edge. */
+.dv-lead .pv-figure__caption { display: grid; justify-items: start; gap: 6px; }
+.dv-lead__caption { max-width: 60ch; text-wrap: pretty; }
+.dv-lead__case { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; text-align: start; }
+.dv-lead__case .pv-caselabel__title { font-size: var(--pv-text-2xs); }
+
+/* Motion: a muted loop of the instrument over its first frame. It plays only
+   in view, pauses off screen and in a hidden tab, and waits for a press under
+   reduced motion (docs.js). */
+.dv-lead__stage > .dv-loop {
+  position: absolute;
+  inset: var(--dv-mat, 0px);
+  width: calc(100% - 2 * var(--dv-mat, 0px));
+  height: calc(100% - 2 * var(--dv-mat, 0px));
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--pv-dur-panel) ease;
+  pointer-events: none;
+}
+.dv-lead__stage.is-playing .dv-loop { opacity: 1; }
+/* The button is the figure's own, in the stage's grid cell, at the corner the
+   capture leaves free (data-corner: tl, tr, bl, br). */
+.dv-lead > .dv-lead__stage,
+.dv-lead > .dv-loop__btn { grid-area: 1 / 1; }
+.dv-loop__btn {
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  justify-self: end;
+  margin: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 0 12px 0 10px;
+  border: 1px solid rgba(239, 230, 210, 0.22);
+  border-radius: var(--pv-radius-pill);
+  background: rgba(6, 7, 13, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #EFE6D2;
+  font: 500 var(--pv-text-2xs) / 1 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  transition: background-color var(--pv-dur-hover) ease, border-color var(--pv-dur-hover) ease;
+}
+.dv-loop__btn[data-corner^="t"] { align-self: start; }
+.dv-loop__btn[data-corner$="l"] { justify-self: start; }
+.dv-loop__btn[hidden] { display: none; }
+.dv-loop__btn .dv-icon { width: 12px; height: 12px; color: #6FE0BD; }
+.dv-loop__btn .dv-icon--play { display: none; }
+.dv-loop__btn[data-state="paused"] .dv-icon--play { display: block; }
+.dv-loop__btn[data-state="paused"] .dv-icon--pause { display: none; }
+.dv-loop__btn:focus-visible { outline-color: #6FE0BD; }
+@media (hover: hover) and (pointer: fine) {
+  .dv-loop__btn:hover { background: rgba(16, 19, 42, 0.9); border-color: rgba(239, 230, 210, 0.4); }
+}
+@media (pointer: coarse) {
+  .dv-loop__btn { min-height: 40px; padding-inline: 14px 16px; }
+}
+
+/* Multimodal: four plates of one gene, each named in its modality's hue. */
+.dv-lead__stage--plates { aspect-ratio: auto; padding: 10px; background: var(--pv-ink-0); }
+.dv-lead__stage--plates::after { inset: 4px; }
+.dv-plates {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dv-plate {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 20;
+  border-radius: 8px;
+  background: var(--pv-ink-1);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--dv-hue) 30%, transparent);
+}
+.dv-plate > img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+.dv-plate__label {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  pointer-events: none;
+}
+.dv-plate__name, .dv-plate__detail {
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: var(--dv-plate-chip, rgba(6, 7, 13, 0.74));
+  font: 500 var(--pv-text-2xs) / 1.15 var(--pv-font-mono);
+  letter-spacing: 0.06em;
+}
+.dv-plate__name { display: inline-flex; align-items: center; gap: 6px; color: #EFE6D2; }
+.dv-plate__name::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dv-hue);
+  box-shadow: 0 0 8px var(--dv-hue);
+}
+.dv-plate__detail { color: #B9B1A0; }
+
+
+/* 10 · The outline: real headings, house-style skeletons ==================== */
+
+.dv-toc-inline { display: none; }
+
+.dv-body { margin-top: 44px; }
+.dv-sec + .dv-sec { margin-top: 36px; }
+.dv-sec__head { display: flex; align-items: center; gap: 10px; }
+.dv-sec__title {
+  font-size: clamp(1.3125rem, 1.15rem + 0.55vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.016em;
+  text-wrap: balance;
+}
+/* A heading's own link: a hollow point that fills, shown on hover or focus. */
+.dv-anchor {
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity var(--pv-dur-hover) ease;
+}
+.dv-anchor::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pv-text-3);
+  transition: background-color var(--pv-dur-hover) ease, border-color var(--pv-dur-hover) ease;
+}
+.dv-sec__head:hover .dv-anchor, .dv-anchor:focus-visible { opacity: 1; }
+.dv-anchor:hover::before, .dv-anchor:focus-visible::before { border-color: var(--pv-accent); background: var(--pv-accent); }
+@media (hover: none) { .dv-anchor { display: none; } }
+
+.dv-preview {
+  display: grid;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 0.9375rem;
+}
+.dv-preview .pv-skeleton-lines { gap: 0.95em; }
+.dv-preview .pv-skeleton { display: block; height: 0.8em; }
+/* Unsampled tissue is swept once, section by section, as it comes into view
+   (docs.js adds .is-scanned, then takes it away): the shared loop never
+   runs here. */
+.dv-preview .pv-skeleton::after { animation: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .dv-sec.is-scanned .dv-preview .pv-skeleton::after { animation: pv-sweep 1.8s var(--pv-ease-in-out) 0.1s 1 both; }
+}
+
+/* steps: hollow points, so the real headings lead */
+.dv-sk-steps { gap: 10px; }
+.dv-sk-steps > li { grid-template-columns: 22px minmax(0, 1fr); column-gap: 12px; row-gap: 8px; }
+.dv-sk-steps > li::before {
+  grid-row: 1 / span 2;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  border: 1.5px solid var(--pv-skel-dot);
+  color: var(--pv-text-3);
+  font-size: var(--pv-text-2xs);
+}
+.dv-sk-steps > li:not(:last-child)::after { left: 10px; top: 26px; bottom: -8px; }
+.dv-sk-steps .pv-steps__title.pv-skeleton { height: 12px; margin: 5px 0 0; padding: 0; font-size: inherit; }
+.dv-sk-steps > li > .dv-sk-stepline { grid-column: 2; height: 9px; margin: 0; }
+
+/* figure: an unsampled field of points on the ink stage, 16:5 */
+.dv-sk-figure .pv-figure__stage { aspect-ratio: 16 / 5; }
+.dv-preview .dv-sk-field { position: absolute; inset: 0; width: auto; height: auto; aspect-ratio: auto; border-radius: 0; }
+.dv-sk-figure .pv-figure__caption > .pv-skeleton { flex: 1 1 auto; max-width: var(--w); align-self: center; }
+
+/* code: bars in the code colours, indented like code */
+.dv-sk-code pre { padding: 14px 18px 16px; overflow: hidden; }
+.dv-sk-code code { display: grid; grid-template-columns: minmax(0, 1fr); gap: 11px; }
+.dv-sk-row { display: flex; align-items: center; gap: 1ch; height: 10px; padding-left: calc(var(--i, 0) * 3ch); }
+.dv-sk-tok {
+  display: block;
+  width: var(--w);
+  max-width: 46%;
+  height: 9px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--c) 40%, transparent);
+}
+.dv-sk-code .pv-code__copy { pointer-events: none; }
+
+/* callouts */
+.dv-preview .pv-callout { gap: 10px; padding-bottom: 16px; }
+.dv-preview .pv-callout .pv-skeleton-lines { gap: 0.85em; }
+
+/* parameter table */
+.dv-sk-table > .pv-label { margin-bottom: 10px; }
+.dv-sk-table .pv-table td { padding-block: 11px; }
+.dv-sk-table .pv-skeleton { height: 9px; }
+.dv-sk-table .pv-skeleton.dv-sk-mono { border-radius: 3px; }
+
+/* the nine gates, not yet run (pv.css's strip: one row, or three rows of
+   three when the column is too narrow for "determinism" and "no_mutation").
+   imports is advisory and never blocks: a dashed ring. */
+.dv-sk-gates { padding: 18px 16px 16px; border: 1px solid var(--pv-line); border-radius: 12px; background: var(--pv-surface); }
+.dv-sk-gates .dv-sk-gate--advisory::before { border-style: dashed; border-color: var(--pv-text-3); }
+
+
+/* 11 · On this page, previous and next ======================================= */
+
+.dv-toc {
+  position: sticky;
+  top: var(--pv-topbar-block);
+  align-self: start;
+  max-height: calc(100vh - var(--pv-topbar-block));
+  max-height: calc(100dvh - var(--pv-topbar-block));
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.dv-toc__inner { padding: 40px 0 40px; }
+.dv-toc__label, .dv-toc-inline summary {
+  font: 500 var(--pv-text-2xs) / 1.3 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  color: var(--pv-text-3);
+}
+.dv-toc ol, .dv-toc-inline ol {
+  position: relative;
+  display: grid;
+  gap: 1px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* the rail is the sidebar's dotted line; the section in view is its lit point */
+.dv-toc ol::before, .dv-toc-inline ol::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 14px;
+  bottom: 14px;
+  width: 2px;
+  background-image: radial-gradient(circle at center, var(--pv-dot) 1px, transparent 1.4px);
+  background-size: 2px 6px;
+  background-repeat: repeat-y;
+}
+.dv-toc a, .dv-toc-inline a {
+  position: relative;
+  display: block;
+  padding: 6px 0 6px 20px;
+  font-size: 0.84375rem;
+  line-height: 1.4;
+  color: var(--pv-text-3);
+  transition: color var(--pv-dur-hover) ease;
+}
+.dv-toc a::before, .dv-toc-inline a::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: calc(6px + 0.7em - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pv-accent);
+  box-shadow: 0 0 9px var(--pv-accent-glow);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity var(--pv-dur-ui) var(--pv-ease-out), transform var(--pv-dur-ui) var(--pv-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dv-toc a:hover, .dv-toc-inline a:hover { color: var(--pv-text); }
+}
+.dv-toc a[aria-current], .dv-toc-inline a[aria-current] { color: var(--pv-text); }
+.dv-toc a[aria-current]::before, .dv-toc-inline a[aria-current]::before { opacity: 1; transform: none; }
+
+.dv-pager {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pv-gap);
+  margin-top: 56px;
+  padding-top: 28px;
+  position: relative;
+}
+.dv-pager::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background-image: radial-gradient(circle at center, var(--pv-dot) 1px, transparent 1.4px);
+  background-size: 6px 3px;
+  background-repeat: repeat-x;
+}
+.dv-pager__link { gap: 6px; padding: 18px 20px 20px; }
+.dv-pager__link--next { align-items: flex-end; text-align: end; }
+.dv-pager__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--pv-text-h4);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--pv-text);
+}
+.dv-pager__icon { width: 18px; height: 18px; color: var(--pv-accent); transition: transform var(--pv-dur-ui) var(--pv-ease-out); }
+.dv-pager__group { font: 400 var(--pv-text-xs) / 1.3 var(--pv-font-mono); letter-spacing: 0.04em; color: var(--pv-text-3); }
+@media (hover: hover) and (pointer: fine) {
+  .dv-pager__link--prev:hover .dv-pager__icon { transform: translateX(calc(var(--pv-rise) / -5)); }
+  .dv-pager__link--next:hover .dv-pager__icon { transform: translateX(calc(var(--pv-rise) / 5)); }
+}
+
+
+/* 12 · Home: hero, the specimen and the path to start on ===================== */
+
+.dv-home { overflow-x: clip; }
+.dv-home:focus { outline: none; }
+
+/* The words and the path to start on at the left; a real specimen at the
+   right, every cell in its own cell-type colour (the first screen shows
+   data). Under 1024 the plate comes between the words and the path. */
+.dv-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.82fr);
+  grid-template-areas: "intro plate" "start plate";
+  grid-template-rows: auto 1fr;
+  gap: 32px clamp(32px, 5vw, 80px);
+  align-items: start;
+  max-width: calc(var(--pv-page) + 2 * var(--pv-gutter));
+  margin-inline: auto;
+  padding: clamp(32px, 4.4vw, 64px) var(--pv-gutter) clamp(48px, 4.6vw, 68px);
+}
+/* The instrument's faint dot grid, fading out from the top left. */
+.dv-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 -40vw 0 -40vw;
+  z-index: -1;
+  background-image: radial-gradient(circle at center, var(--dv-hero-dot) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(70% 90% at 38% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(70% 90% at 38% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+.dv-hero__intro { grid-area: intro; padding-top: clamp(0px, 1.6vw, 24px); }
+.dv-hero__title {
+  margin-top: 24px;
+  max-width: 12.5em;
+  font-family: var(--pv-font-serif);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.55rem + 3.2vw, 4.25rem);
+  line-height: 1.03;
+  letter-spacing: var(--pv-track-display);
+  text-wrap: balance;
+}
+.dv-hero__lede { margin-top: 20px; max-width: 36em; }
+.dv-search--home { margin-top: 30px; max-width: 600px; }
+
+/* The specimen: the figure is its own ink stage (always dark), with the
+   corner label over a scrim. */
+.dv-hero__plate { grid-area: plate; justify-self: end; width: 100%; max-width: 480px; }
+.dv-specimen {
+  margin: 0;
+  background: var(--pv-ink-0);
+  border-radius: var(--pv-radius-xl);
+}
+.dv-specimen > img { width: 100%; height: auto; object-fit: cover; }
+.dv-specimen::after { inset: 14px; }
+.dv-specimen::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 92px;
+  background: linear-gradient(rgba(6, 7, 13, 0.9), rgba(6, 7, 13, 0.55) 60%, transparent);
+  pointer-events: none;
+}
+.dv-specimen__label {
+  position: absolute;
+  z-index: 2;
+  top: 30px;
+  left: 36px;
+  right: 30px;
+  pointer-events: none;
+}
+.dv-specimen__label .pv-caselabel__title { font-size: var(--pv-text-2xs); }
+/* A narrow plate (tablets, phones) keeps its label on two short lines. */
+.dv-specimen { container-type: inline-size; }
+@container (max-width: 420px) {
+  .dv-specimen__label { top: 22px; left: 26px; right: 18px; gap: 5px; }
+  .dv-specimen__label .pv-caselabel__meta { font-size: var(--pv-text-2xs); letter-spacing: 0.02em; }
+}
+
+/* Start here: three points on one dotted path. */
+.dv-start {
+  grid-area: start;
+  position: relative;
+  max-width: 700px;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--dv-start-line);
+  border-radius: var(--pv-radius-lg);
+  background: var(--dv-start-bg);
+}
+.dv-start__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font: 500 var(--pv-text-xs) / 1.3 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  color: var(--pv-accent);
+}
+.dv-start__label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pv-accent);
+  box-shadow: 0 0 10px var(--pv-accent-glow);
+}
+.dv-start__line { margin-top: 8px; font-size: 0.9375rem; line-height: 1.5; color: var(--pv-text); text-wrap: pretty; }
+.dv-start__path { margin-top: 18px; gap: 14px; }
+.dv-start__link {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pv-text);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--pv-dur-hover) ease, color var(--pv-dur-hover) ease;
+}
+/* The whole step (its point, name and line) is the link. */
+.dv-start__link::after {
+  content: "";
+  position: absolute;
+  inset: -6px -8px;
+  border-radius: 12px;
+}
+.dv-start__link:focus-visible { outline: none; }
+.dv-start__link:focus-visible::after { outline: 2px solid var(--pv-focus); outline-offset: 0; }
+.dv-start__link:active::after { background: var(--pv-tint); }
+@media (hover: hover) and (pointer: fine) {
+  .dv-start__step:hover .dv-start__link { color: var(--pv-accent); text-decoration-color: currentColor; }
+}
+@media (pointer: coarse) {
+  .dv-start__step { min-height: 44px; align-content: center; }
+}
+.dv-start__path > li > .dv-start__sum { margin-top: 2px; font-size: 0.84375rem; line-height: 1.45; color: var(--pv-text-2); }
+.dv-start .pv-steps > li::before { width: 24px; height: 24px; }
+.dv-start .pv-steps > li { grid-template-columns: 24px minmax(0, 1fr); column-gap: 12px; }
+.dv-start .pv-steps > li:not(:last-child)::after { left: 11px; top: 30px; bottom: -10px; }
+
+/* Wide: the path runs across, point to point, each name under its point. */
+@media (min-width: 1024px) {
+  .dv-start__path { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .dv-start .pv-steps > li { grid-template-columns: minmax(0, 1fr); row-gap: 10px; align-content: start; }
+  .dv-start .pv-steps > li::before { grid-row: 1; }
+  .dv-start .pv-steps > li:not(:last-child)::after {
+    left: 34px;
+    right: -14px;
+    top: 11px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background-image: radial-gradient(circle at center, var(--pv-dot) 1px, transparent 1.4px);
+    background-size: 6px 2px;
+    background-repeat: repeat-x;
+  }
+  .dv-start__path > li > .dv-start__sum { margin-top: 0; }
+}
+
+
+/* 13 · Home: the topics, group by group ========================================= */
+
+.dv-groups {
+  display: grid;
+  gap: clamp(40px, 4.2vw, 60px);
+  max-width: calc(var(--pv-page) + 2 * var(--pv-gutter));
+  margin-inline: auto;
+  padding: 0 var(--pv-gutter) clamp(64px, 7vw, 96px);
+}
+.dv-group {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  gap: 24px clamp(24px, 4.2vw, 64px);
+  align-items: start;
+  padding-top: 30px;
+  scroll-margin-top: calc(var(--pv-topbar-block) + 8px);
+}
+.dv-group::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background-image: radial-gradient(circle at center, var(--pv-dot) 1px, transparent 1.4px);
+  background-size: 6px 3px;
+  background-repeat: repeat-x;
+}
+.dv-group__head { position: sticky; top: calc(var(--pv-topbar-block) + 30px); }
+.dv-group__name { font-size: clamp(1.5rem, 1.3rem + 0.7vw, 2rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+.dv-group__line { margin-top: 8px; max-width: 24ch; font-size: 0.9375rem; line-height: 1.5; color: var(--pv-text-2); }
+
+.dv-group__cards { display: grid; gap: var(--pv-gap); }
+.dv-group--n4 .dv-group__cards, .dv-group--n2 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dv-group--n3 .dv-group__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* Wide screens: the four kinds of data side by side, as on the homepage. */
+@media (min-width: 1200px) {
+  .dv-group--n4 .dv-group__cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .dv-group--n4 .dv-card { --pv-card-pad: 16px; }
+  .dv-group--n4 .dv-card__summary { font-size: 0.875rem; line-height: 1.5; }
+}
+/* A row of cards reads as one table: picture, case, name, summary and the
+   foot's rule each start on one line across the row (a subgrid of five rows;
+   the foot takes the last). Only where a group's cards form a single row. */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 600px) {
+    .dv-group--n2 .dv-group__cards { row-gap: 8px; }
+    .dv-group--n2 .dv-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; row-gap: 8px; }
+    .dv-group--n2 .dv-card__body { display: contents; }
+    .dv-group--n2 .dv-card__foot { grid-row: -2 / -1; margin-top: 0; align-self: stretch; align-content: start; }
+  }
+  @media (min-width: 700px) {
+    .dv-group--n3 .dv-group__cards { row-gap: 8px; }
+    .dv-group--n3 .dv-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; row-gap: 8px; }
+    .dv-group--n3 .dv-card__body { display: contents; }
+    .dv-group--n3 .dv-card__foot { grid-row: -2 / -1; margin-top: 0; align-self: stretch; align-content: start; }
+  }
+  @media (min-width: 1200px) {
+    .dv-group--n4 .dv-group__cards { row-gap: 8px; }
+    .dv-group--n4 .dv-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; row-gap: 8px; }
+    .dv-group--n4 .dv-card__body { display: contents; }
+    .dv-group--n4 .dv-card__foot { grid-row: -2 / -1; margin-top: 0; align-self: stretch; align-content: start; }
+  }
+}
+
+.dv-card { --pv-card-pad: 18px; gap: 10px; }
+/* The case is named in the card (no stripe along its top edge). */
+.dv-card[data-case]::before { content: none; }
+.dv-card__media { margin-bottom: 8px; }
+.dv-card__media > img { transition: transform var(--pv-dur-panel) var(--pv-ease-out), filter var(--pv-dur-panel) var(--pv-ease-out); }
+.dv-card__body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1 1 auto; }
+.dv-caseline { margin: 0; font-size: var(--pv-text-2xs); }
+.dv-card__title { font-size: var(--pv-text-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; text-wrap: balance; }
+.dv-card__summary { font-size: 0.90625rem; line-height: 1.55; color: var(--pv-text-2); text-wrap: pretty; }
+.dv-card__note {
+  font: 400 var(--pv-text-xs) / 1.45 var(--pv-font-mono);
+  letter-spacing: 0.01em;
+  color: var(--pv-text-3);
+}
+.dv-card__links { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.875rem; font-weight: 500; }
+.dv-card__links a { display: inline-flex; align-items: center; gap: 5px; padding-block: 2px; }
+.dv-card__links svg { width: 13px; height: 13px; }
+/* The picture's line wraps on its own side; the topic count keeps the
+   right-hand end of the foot, on the last line. */
+.dv-card__foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 4px 14px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--pv-line-soft);
+  font: 400 var(--pv-text-xs) / 1.4 var(--pv-font-mono);
+  letter-spacing: 0.02em;
+  color: var(--pv-text-3);
+}
+.dv-card__count { justify-self: end; white-space: nowrap; color: var(--pv-text-2); }
+/* A hyphenated name in a technology line stays whole (Spatial-Mux-seq). */
+.dv-nw { white-space: nowrap; }
+/* The capture answers the pointer: its registration marks light up. */
+.dv-card .pv-figure__stage::after { transition: opacity var(--pv-dur-hover) ease; }
+@media (hover: hover) and (pointer: fine) {
+  .dv-card:hover .pv-figure__stage::after { --_b: var(--pv-accent); }
+  .dv-card:hover .dv-card__media > img { filter: brightness(1.08) saturate(1.06); }
+}
+.dv-card:focus-within .pv-figure__stage::after { --_b: var(--pv-accent); }
+
+/* One-page groups: the card lies on its side, with the page's outline. */
+.dv-card--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  column-gap: clamp(20px, 2.6vw, 32px);
+  align-items: stretch;
+}
+.dv-card--wide .dv-card__media { margin: 0; align-self: start; }
+.dv-card--wide .dv-card__body { padding-top: 4px; }
+.dv-card--wide .dv-card__title { font-size: var(--pv-text-h3); }
+.dv-card__outline { margin-top: 6px; }
+.dv-card__outline ol { margin: 10px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 20px; }
+.dv-card__outline li { break-inside: avoid; }
+.dv-card__outline a {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 4px 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--pv-text-2);
+  transition: color var(--pv-dur-hover) ease;
+}
+.dv-card__outline a::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dv-pt-ring);
+  transform: translateY(-1px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dv-card__outline a:hover { color: var(--pv-text); }
+  .dv-card__outline a:hover::before { border-color: var(--pv-accent); background: var(--pv-accent); }
+}
+
+
+/* 14 · Responsive and print ====================================================== */
+
+@media (max-width: 1279.98px) {
+  :root { --dv-side-w: 232px; --dv-toc-w: 184px; }
+}
+
+/* Under 1200: the contents move into the column, above the outline. */
+@media (max-width: 1199.98px) {
+  .dv--page .dv-shell { grid-template-columns: var(--dv-side-w) minmax(0, 1fr); }
+  .dv-toc { display: none; }
+  .dv-toc-inline {
+    display: block;
+    margin-top: 28px;
+    border: 1px solid var(--pv-line);
+    border-radius: 14px;
+    background: var(--pv-surface);
+  }
+  .dv-toc-inline summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 16px;
+    cursor: pointer;
+    list-style: none;
+    border-radius: 14px;
+  }
+  .dv-toc-inline summary::-webkit-details-marker { display: none; }
+  .dv-toc-inline summary::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-left: auto;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--pv-dur-ui) var(--pv-ease-out);
+  }
+  .dv-toc-inline[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+  .dv-toc-inline__n {
+    min-width: 22px;
+    padding: 2px 6px;
+    border: 1px solid var(--pv-line);
+    border-radius: var(--pv-radius-pill);
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .dv-toc-inline ol { margin: 0; padding: 2px 16px 14px; }
+  .dv-toc-inline ol::before { left: 20px; }
+  .dv-hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr); }
+}
+
+/* Under 1024: one column; the sidebar becomes the contents drawer. */
+@media (max-width: 1023.98px) {
+  :root:has(.dv--page) { --dv-subbar-h: 52px; }
+  .dv--page .dv-shell { display: block; max-width: calc(var(--dv-read) + 2 * var(--pv-gutter)); }
+  .dv-side { display: none; }
+  .dv-main { padding-top: 28px; }
+  .dv-subbar {
+    position: sticky;
+    top: var(--pv-topbar-block);
+    z-index: calc(var(--pv-z-topbar) - 1);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: var(--dv-subbar-h);
+    padding-inline: var(--pv-gutter);
+    background: color-mix(in srgb, var(--pv-bg) 86%, transparent);
+    -webkit-backdrop-filter: var(--pv-glass-filter);
+    backdrop-filter: var(--pv-glass-filter);
+    border-bottom: 1px solid var(--pv-line-soft);
+  }
+  .dv-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "intro intro" "plate start"; grid-template-rows: auto auto; align-items: center; }
+  .dv-hero__plate { justify-self: stretch; max-width: none; }
+  .dv-start { max-width: none; }
+  .dv-group { grid-template-columns: minmax(0, 1fr); }
+  .dv-group__head { position: static; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+  .dv-group__line { margin-top: 0; max-width: none; }
+}
+
+@media (max-width: 1023.98px) and (min-width: 700px) {
+  .dv-group--n3 .dv-card__summary { font-size: 0.875rem; }
+  /* The outline keeps two columns, so the words end near the picture's foot. */
+  .dv-card--wide .dv-card__outline ol { column-gap: 16px; }
+  .dv-card--wide .dv-card__outline a { font-size: 0.84375rem; }
+}
+
+@media (max-width: 699.98px) {
+  .dv-group--n3 .dv-group__cards { grid-template-columns: minmax(0, 1fr); }
+  .dv-card--wide { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
+}
+
+/* Phones: every topic is a compact row, a thumbnail beside its words. */
+@media (max-width: 599.98px) {
+  .dv-group__cards,
+  .dv-group--n4 .dv-group__cards,
+  .dv-group--n2 .dv-group__cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .dv-groups { gap: 40px; }
+  .dv-group { gap: 16px; padding-top: 24px; }
+  .dv-card,
+  .dv-card--wide {
+    --pv-card-pad: 14px;
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 6px 14px;
+    align-items: start;
+  }
+  .dv-card__body { display: contents; }
+  .dv-card .dv-card__media,
+  .dv-card--wide .dv-card__media { grid-column: 1; grid-row: 1 / span 3; margin: 0; border-radius: 8px; }
+  .dv-card__body > * { grid-column: 2; }
+  .dv-card__title, .dv-card--wide .dv-card__title { font-size: 1.0625rem; }
+  .dv-card__summary { font-size: 0.875rem; line-height: 1.5; }
+  .dv-card__outline { display: none; }
+  .dv-card__body > .dv-card__foot { display: block; grid-column: 1 / -1; margin-top: 6px; padding-top: 10px; }
+  .dv-card__count::before { content: "·"; content: "·" / ""; margin-inline: 0.55em; color: var(--pv-text-3); }
+
+  /* Previous and next stay side by side, compact. */
+  .dv-pager { gap: 10px; margin-top: 48px; padding-top: 24px; }
+  .dv-pager__link { padding: 14px 14px 15px; }
+  .dv-pager__title { gap: 6px; font-size: 1rem; }
+  .dv-pager__icon { width: 15px; height: 15px; }
+  .dv-sk-table th { white-space: normal; }
+  .dv-sk-table .pv-table th, .dv-sk-table .pv-table td { padding-inline: 10px; }
+
+  /* The sub-bar names only where you are: the page, then its section. */
+  .dv-subbar__group, .dv-subbar__group + .dv-subbar__sep { display: none; }
+  .dv-subbar__where { font: 500 0.8125rem / 1.25 var(--pv-font-sans); letter-spacing: 0; }
+  .dv-subbar.has-sec .dv-subbar__page,
+  .dv-subbar.has-sec .dv-subbar__sec > .dv-subbar__sep { display: none; }
+  .dv-subbar__secname { display: inline-flex; align-items: baseline; gap: 8px; }
+  .dv-subbar__secname::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--pv-accent);
+    box-shadow: 0 0 8px var(--pv-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  /* A figure with its own phone crop takes that crop's shape. */
+  .dv-lead__stage--art { aspect-ratio: var(--dv-phone-ratio); }
+
+  /* A narrower mat; the marks stay inside the stage's rounded corners. */
+  .dv-lead__stage--mat { --dv-mat: 9px; }
+  .dv-lead__stage--mat::after { inset: 4px; }
+
+  /* Pause leaves the picture (a 40 px button covers a fifth of a phone's
+     stage) and sits at the end of the caption row. */
+  .dv-lead:has(> .dv-loop__btn) { grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; }
+  .dv-lead > .dv-lead__stage { grid-column: 1 / -1; grid-row: 1; }
+  .dv-lead > .dv-loop__btn {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    justify-self: end;
+    margin: 0;
+    border-color: var(--pv-line-2);
+    background: var(--pv-tint);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    color: var(--pv-text);
+  }
+  .dv-lead > .dv-loop__btn .dv-icon { color: var(--pv-accent); }
+  .dv-lead > .dv-loop__btn:focus-visible { outline-color: var(--pv-focus); }
+  .dv-lead:has(> .dv-loop__btn) > figcaption { grid-column: 1; grid-row: 2; }
+
+  /* Plates: two by two. */
+  .dv-plates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-plate { aspect-ratio: 1; }
+
+  .dv-hero { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "plate" "start"; gap: 24px; padding-top: 28px; }
+  .dv-specimen { aspect-ratio: 16 / 10; border-radius: var(--pv-radius-lg); }
+  .dv-specimen > img { height: 100%; object-position: 50% 0%; }
+  .dv-specimen::before { height: 84px; }
+  .dv-start { padding: 16px 16px 18px; }
+  .dv-start__path { margin-top: 14px; gap: 12px; }
+  .dv-start__path > li > .dv-start__sum { margin-top: 1px; }
+  .dv-start__link::after { inset: -4px -8px; }
+}
+
+@media print {
+  .dv-side, .dv-toc, .dv-toc-inline, .dv-subbar, .dv-drawer, .dv-search, .dv-pager, .dv-anchor, .dv-loop, .dv-loop__btn { display: none !important; }
+  .dv--page .dv-shell { display: block; }
+  .dv-preview { display: none; }
+}

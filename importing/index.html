@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(d){try{var w=d.clientWidth||innerWidth;d.style.setProperty('--k',Math.min(Math.max(Math.min(w/1440,innerHeight/900),1),1.6).toFixed(4))}catch(e){}})(document.documentElement)</script>
+<meta name="theme-color" content="#06070D">
+<title>Importing · PointillViz docs</title>
+<meta name="description" content="Bring an .h5ad into PointillViz: the import wizard maps its fields onto the viewer and converts it.">
+<link rel="canonical" href="https://docs.pointillviz.com/importing/">
+<meta property="og:site_name" content="PointillViz">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Importing · PointillViz docs">
+<meta property="og:description" content="Bring an .h5ad into PointillViz: the import wizard maps its fields onto the viewer and converts it.">
+<meta property="og:url" content="https://docs.pointillviz.com/importing/">
+<meta property="og:image" content="https://docs.pointillviz.com/assets/media/og/importing.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The import wizard at its Map fields step: the Spatial panel set to 2D spatial, with the spatial obsm key and pixel units, and the Cells panel with a cell-type column of 73 types, an automatic palette and the hierarchy options.">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{var t=localStorage.getItem('pv-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="icon" href="../assets/pv/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,400&amp;family=Fraunces:opsz,wght@9..144,600&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap">
+<link rel="stylesheet" href="../assets/pv/pv.css">
+<link rel="stylesheet" href="../assets/docs/docs.css">
+<script src="../assets/pv/pv.js" defer></script>
+<script src="../assets/docs/docs.js" defer></script>
+<noscript><style>.pv-topbar__menu, .pv-theme-toggle { display: none !important; }</style></noscript>
+</head>
+<body class="dv dv--page" data-dv-root="../" data-dv-page="importing">
+<a class="pv-skip" href="#main">Skip to content</a>
+<header class="pv-topbar">
+  <div class="pv-topbar__inner">
+    <a class="pv-topbar__brand" href="https://pointillviz.com/">
+      <img src="../assets/pv/logo.svg" width="169" height="20" alt="PointillViz">
+    </a>
+    <nav class="pv-topbar__nav" aria-label="Main">
+      <ul>
+        <li><a href="https://pointillviz.com/">Overview</a></li>
+        <li><a href="../" aria-current="true">Docs</a></li>
+        <li><a href="https://store.pointillviz.com/">Tool Store</a></li>
+        <li><a href="#" data-placeholder="paper">Paper</a></li>
+      </ul>
+    </nav>
+    <div class="pv-topbar__end">
+      <button class="pv-theme-toggle" type="button" data-pv-theme-toggle aria-label="Switch to light theme" title="Switch to light theme">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3.4a6.6 6.6 0 0 1 0 13.2z" fill="currentColor"/></svg>
+        </button>
+      <button class="pv-topbar__menu" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="pv-drawer" data-pv-drawer-open="pv-drawer">
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="4" cy="4" r="1.6"/><circle cx="10" cy="4" r="1.6"/><circle cx="16" cy="4" r="1.6"/><circle cx="4" cy="10" r="1.6"/><circle cx="10" cy="10" r="1.6"/><circle cx="16" cy="10" r="1.6"/><circle cx="4" cy="16" r="1.6"/><circle cx="10" cy="16" r="1.6"/><circle cx="16" cy="16" r="1.6"/></svg>
+        <span class="pv-sr-only">Menu</span>
+      </button>
+    </div>
+  </div>
+  <noscript>
+    <nav class="pv-nojs-nav" aria-label="Main">
+      <a href="https://pointillviz.com/">Overview</a><a href="../" aria-current="true">Docs</a><a href="https://store.pointillviz.com/">Tool Store</a>
+    </nav>
+  </noscript>
+</header>
+<dialog class="pv-drawer" id="pv-drawer" aria-label="Menu">
+  <div class="pv-drawer__panel">
+    <div class="pv-drawer__head">
+      <img src="../assets/pv/logo.svg" width="152" height="18" alt="PointillViz">
+      <button class="pv-btn pv-btn--ghost pv-btn--icon" type="button" data-pv-drawer-close aria-label="Close menu" autofocus>
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg>
+      </button>
+    </div>
+    <nav aria-label="Main">
+      <ul class="pv-drawer__nav">
+        <li><a href="https://pointillviz.com/"><span class="pv-drawer__name">Overview</span><span class="pv-drawer__host">pointillviz.com</span></a></li>
+        <li><a href="../" aria-current="true"><span class="pv-drawer__name">Docs</span><span class="pv-drawer__host">docs.pointillviz.com</span></a></li>
+        <li><a href="https://store.pointillviz.com/"><span class="pv-drawer__name">Tool Store</span><span class="pv-drawer__host">store.pointillviz.com</span></a></li>
+        <li><a href="#" data-placeholder="paper"><span class="pv-drawer__name">Paper</span><span class="pv-drawer__host">bioRxiv</span></a></li>
+      </ul>
+    </nav>
+    <div class="pv-drawer__foot">
+      <div class="pv-drawer__row">
+        <span>Theme</span>
+        <button class="pv-theme-toggle" type="button" data-pv-theme-toggle aria-label="Switch to light theme" title="Switch to light theme">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3.4a6.6 6.6 0 0 1 0 13.2z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <p>© 2026 PointillViz</p>
+    </div>
+  </div>
+</dialog>
+<div class="dv-subbar">
+  <button class="dv-subbar__btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="dv-nav-drawer" data-pv-drawer-open="dv-nav-drawer"><svg class="dv-icon " viewBox="0 0 20 20" aria-hidden="true"><circle cx="4.5" cy="4.5" r="1.9" fill="currentColor"/><circle cx="4.5" cy="10" r="1.9" fill="currentColor"/><circle cx="4.5" cy="15.5" r="1.9" fill="currentColor"/><path d="M9 4.5h7.5M9 10h7.5M9 15.5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Contents</span></button>
+  <p class="dv-subbar__where"><span class="dv-subbar__group">Start</span><span class="dv-subbar__sep" aria-hidden="true">›</span><span class="dv-subbar__page">Importing</span><span class="dv-subbar__sec" hidden><span class="dv-subbar__sep" aria-hidden="true">›</span><span class="dv-subbar__secname"></span></span></p>
+</div>
+<dialog class="pv-drawer dv-drawer" id="dv-nav-drawer" aria-label="Contents">
+  <div class="pv-drawer__panel dv-drawer__panel">
+    <div class="pv-drawer__head">
+      <p class="dv-drawer__title">Contents</p>
+      <button class="pv-btn pv-btn--ghost pv-btn--icon" type="button" data-pv-drawer-close aria-label="Close" autofocus><svg class="dv-icon " viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg></button>
+    </div>
+    <nav class="dv-drawer__nav" aria-label="Docs">
+      <div class="dv-search dv-search--side" data-dv-search="side">
+  <div class="pv-search dv-search__field">
+    <svg class="dv-icon pv-search__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.3"/><path d="M12.7 12.7 16.6 16.6"/></svg>
+    <label class="pv-sr-only" for="dn-q">Search the docs</label>
+    <input class="pv-search__input" id="dn-q" type="search" placeholder="Search the docs…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="dn-list" aria-describedby="dn-status" aria-keyshortcuts="/">
+    <kbd class="pv-kbd pv-search__kbd dv-search__kbd" aria-hidden="true">/</kbd>
+  </div>
+  <p class="dv-search__status" id="dn-status" role="status"></p>
+  <ul class="dv-search__list" id="dn-list" role="listbox" aria-label="Search results" hidden></ul>
+</div>
+<div class="dv-nav" data-dv-nav>
+  <a class="dv-nav__home" href="../"><svg class="dv-icon dv-nav__home-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4.5M9 5 4 10l5 5"/></svg>Docs home</a>
+  <ol class="dv-nav__groups"><li class="dv-nav__group"><p class="dv-nav__label" id="dn-start">Start</p><ul class="dv-nav__list" aria-labelledby="dn-start"><li><a class="dv-nav__link" href="../importing/" aria-current="page"><span class="dv-nav__pt" aria-hidden="true"></span>Importing</a><ol class="dv-nav__secs" aria-label="On this page"><li><a href="#what-you-need">What you need</a></li><li><a href="#upload-a-file-or-point-to-one">Upload a file or point to one</a></li><li><a href="#map-fields-onto-the-viewer">Map fields onto the viewer</a></li><li><a href="#convert-and-open">Convert and open</a></li><li><a href="#from-the-command-line">From the command line</a></li></ol></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="dn-data">Data</p><ul class="dv-nav__list" aria-labelledby="dn-data"><li><a class="dv-nav__link" href="../2d-data/"><span class="dv-nav__pt" aria-hidden="true"></span>2D data</a></li><li><a class="dv-nav__link" href="../3d-data/"><span class="dv-nav__pt" aria-hidden="true"></span>3D data</a></li><li><a class="dv-nav__link" href="../atlases/"><span class="dv-nav__pt" aria-hidden="true"></span>Atlases</a></li><li><a class="dv-nav__link" href="../multimodal/"><span class="dv-nav__pt" aria-hidden="true"></span>Multimodal</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="dn-layers">Layers</p><ul class="dv-nav__list" aria-labelledby="dn-layers"><li><a class="dv-nav__link" href="../images/"><span class="dv-nav__pt" aria-hidden="true"></span>Images</a></li><li><a class="dv-nav__link" href="../polygons/"><span class="dv-nav__pt" aria-hidden="true"></span>Polygons</a></li><li><a class="dv-nav__link" href="../transcripts/"><span class="dv-nav__pt" aria-hidden="true"></span>Transcripts</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="dn-results">Results</p><ul class="dv-nav__list" aria-labelledby="dn-results"><li><a class="dv-nav__link" href="../exporting/"><span class="dv-nav__pt" aria-hidden="true"></span>Exporting</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="dn-extend">Extend</p><ul class="dv-nav__list" aria-labelledby="dn-extend"><li><a class="dv-nav__link" href="../tool-store/"><span class="dv-nav__pt" aria-hidden="true"></span>Tool Store</a></li><li><a class="dv-nav__link" href="../ai-assistant/"><span class="dv-nav__pt" aria-hidden="true"></span>AI assistant</a></li></ul></li></ol>
+</div>
+    </nav>
+  </div>
+</dialog>
+<div class="dv-shell">
+<nav class="dv-side" aria-label="Docs"><div class="dv-side__inner"><div class="dv-search dv-search--side" data-dv-search="side">
+  <div class="pv-search dv-search__field">
+    <svg class="dv-icon pv-search__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.3"/><path d="M12.7 12.7 16.6 16.6"/></svg>
+    <label class="pv-sr-only" for="ds-q">Search the docs</label>
+    <input class="pv-search__input" id="ds-q" type="search" placeholder="Search the docs…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ds-list" aria-describedby="ds-status" aria-keyshortcuts="/">
+    <kbd class="pv-kbd pv-search__kbd dv-search__kbd" aria-hidden="true">/</kbd>
+  </div>
+  <p class="dv-search__status" id="ds-status" role="status"></p>
+  <ul class="dv-search__list" id="ds-list" role="listbox" aria-label="Search results" hidden></ul>
+</div>
+<div class="dv-nav" data-dv-nav>
+  <a class="dv-nav__home" href="../"><svg class="dv-icon dv-nav__home-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4.5M9 5 4 10l5 5"/></svg>Docs home</a>
+  <ol class="dv-nav__groups"><li class="dv-nav__group"><p class="dv-nav__label" id="ds-start">Start</p><ul class="dv-nav__list" aria-labelledby="ds-start"><li><a class="dv-nav__link" href="../importing/" aria-current="page"><span class="dv-nav__pt" aria-hidden="true"></span>Importing</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="ds-data">Data</p><ul class="dv-nav__list" aria-labelledby="ds-data"><li><a class="dv-nav__link" href="../2d-data/"><span class="dv-nav__pt" aria-hidden="true"></span>2D data</a></li><li><a class="dv-nav__link" href="../3d-data/"><span class="dv-nav__pt" aria-hidden="true"></span>3D data</a></li><li><a class="dv-nav__link" href="../atlases/"><span class="dv-nav__pt" aria-hidden="true"></span>Atlases</a></li><li><a class="dv-nav__link" href="../multimodal/"><span class="dv-nav__pt" aria-hidden="true"></span>Multimodal</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="ds-layers">Layers</p><ul class="dv-nav__list" aria-labelledby="ds-layers"><li><a class="dv-nav__link" href="../images/"><span class="dv-nav__pt" aria-hidden="true"></span>Images</a></li><li><a class="dv-nav__link" href="../polygons/"><span class="dv-nav__pt" aria-hidden="true"></span>Polygons</a></li><li><a class="dv-nav__link" href="../transcripts/"><span class="dv-nav__pt" aria-hidden="true"></span>Transcripts</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="ds-results">Results</p><ul class="dv-nav__list" aria-labelledby="ds-results"><li><a class="dv-nav__link" href="../exporting/"><span class="dv-nav__pt" aria-hidden="true"></span>Exporting</a></li></ul></li><li class="dv-nav__group"><p class="dv-nav__label" id="ds-extend">Extend</p><ul class="dv-nav__list" aria-labelledby="ds-extend"><li><a class="dv-nav__link" href="../tool-store/"><span class="dv-nav__pt" aria-hidden="true"></span>Tool Store</a></li><li><a class="dv-nav__link" href="../ai-assistant/"><span class="dv-nav__pt" aria-hidden="true"></span>AI assistant</a></li></ul></li></ol>
+</div></div></nav>
+<nav class="dv-toc" aria-label="On this page"><div class="dv-toc__inner"><p class="dv-toc__label">On this page</p><ol><li><a href="#what-you-need">What you need</a></li><li><a href="#upload-a-file-or-point-to-one">Upload a file or point to one</a></li><li><a href="#map-fields-onto-the-viewer">Map fields onto the viewer</a></li><li><a href="#convert-and-open">Convert and open</a></li><li><a href="#from-the-command-line">From the command line</a></li></ol></div></nav>
+<main id="main" class="dv-main" tabindex="-1">
+<article class="dv-article">
+<header class="dv-head">
+<nav class="dv-crumbs" aria-label="Breadcrumb"><ol><li><a href="../">Docs</a></li><li><a href="../#start">Start</a></li><li><span aria-current="page">Importing</span></li></ol></nav>
+<h1 class="pv-title dv-title">Importing</h1>
+<p class="pv-lede dv-summary">Bring an <span translate="no">.h5ad</span> into <span translate="no">PointillViz</span>: the import wizard maps its fields onto the viewer and converts it.</p>
+<div class="dv-status"><p class="pv-status">Tutorial in preparation</p><p class="dv-status__line">This tutorial is being written. The outline below shows what it will cover.</p></div>
+</header>
+<figure class="pv-figure dv-lead"><div class="pv-figure__stage dv-lead__stage dv-lead__stage--mat dv-lead__stage--art" style="--dv-phone-ratio: 920 / 530" data-theme="dark"><picture><source media="(max-width: 599.98px)" srcset="../assets/media/importing-phone-720.webp 720w, ../assets/media/importing-phone-920.webp 920w" sizes="calc(100vw - 32px)" width="920" height="530"><img src="../assets/media/importing-1280.webp" srcset="../assets/media/importing-640.webp 640w, ../assets/media/importing-960.webp 960w, ../assets/media/importing-1280.webp 1280w, ../assets/media/importing-1600.webp 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="800" alt="The import wizard at its Map fields step: the Spatial panel set to 2D spatial, with the spatial obsm key and pixel units, and the Cells panel with a cell-type column of 73 types, an automatic palette and the hierarchy options." decoding="async" fetchpriority="high"></picture></div><figcaption class="pv-figure__caption"><span class="dv-lead__caption">Map fields, the wizard’s second step: where the cells sit, in which units, and which column holds their types.</span><span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;colon&nbsp;· 135,232&nbsp;cells</span></figcaption></figure>
+<details class="dv-toc-inline"><summary><span>On this page</span><span class="dv-toc-inline__n">5</span></summary><ol><li><a href="#what-you-need">What you need</a></li><li><a href="#upload-a-file-or-point-to-one">Upload a file or point to one</a></li><li><a href="#map-fields-onto-the-viewer">Map fields onto the viewer</a></li><li><a href="#convert-and-open">Convert and open</a></li><li><a href="#from-the-command-line">From the command line</a></li></ol></details>
+<div class="dv-body">
+<section class="dv-sec">
+  <div class="dv-sec__head"><h2 class="dv-sec__title" id="what-you-need">What you need</h2><a class="dv-anchor" href="#what-you-need" aria-label="Link to this section: What you need"></a></div>
+  <div class="dv-preview" aria-hidden="true" inert>
+    <div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:84%"></span><span class="pv-skeleton" style="--w:45%"></span></div><div class="pv-callout pv-callout--note"><p class="pv-callout__title">Note</p><div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:59%"></span></div></div>
+  </div>
+</section>
+<section class="dv-sec">
+  <div class="dv-sec__head"><h2 class="dv-sec__title" id="upload-a-file-or-point-to-one">Upload a file or point to one</h2><a class="dv-anchor" href="#upload-a-file-or-point-to-one" aria-label="Link to this section: Upload a file or point to one"></a></div>
+  <div class="dv-preview" aria-hidden="true" inert>
+    <div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:83%"></span><span class="pv-skeleton" style="--w:65%"></span></div><ol class="pv-steps dv-sk-steps"><li><span class="pv-skeleton pv-skeleton--title pv-steps__title" style="--w:46%"></span><span class="pv-skeleton dv-sk-stepline" style="--w:64%"></span></li><li><span class="pv-skeleton pv-skeleton--title pv-steps__title" style="--w:51%"></span><span class="pv-skeleton dv-sk-stepline" style="--w:69%"></span></li><li><span class="pv-skeleton pv-skeleton--title pv-steps__title" style="--w:56%"></span><span class="pv-skeleton dv-sk-stepline" style="--w:64%"></span></li></ol>
+  </div>
+</section>
+<section class="dv-sec">
+  <div class="dv-sec__head"><h2 class="dv-sec__title" id="map-fields-onto-the-viewer">Map fields onto the viewer</h2><a class="dv-anchor" href="#map-fields-onto-the-viewer" aria-label="Link to this section: Map fields onto the viewer"></a></div>
+  <div class="dv-preview" aria-hidden="true" inert>
+    <div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:97%"></span><span class="pv-skeleton" style="--w:52%"></span></div><figure class="pv-figure dv-sk-figure"><div class="pv-figure__stage" data-theme="dark"><div class="pv-skeleton pv-skeleton--block dv-sk-field"></div></div><figcaption class="pv-figure__caption"><span class="pv-skeleton" style="--w:45%"></span><span class="pv-figure__meta">Figure</span></figcaption></figure>
+  </div>
+</section>
+<section class="dv-sec">
+  <div class="dv-sec__head"><h2 class="dv-sec__title" id="convert-and-open">Convert and open</h2><a class="dv-anchor" href="#convert-and-open" aria-label="Link to this section: Convert and open"></a></div>
+  <div class="dv-preview" aria-hidden="true" inert>
+    <div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:96%"></span><span class="pv-skeleton" style="--w:60%"></span></div><div class="pv-callout pv-callout--tip"><p class="pv-callout__title">Tip</p><div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:62%"></span></div></div>
+  </div>
+</section>
+<section class="dv-sec">
+  <div class="dv-sec__head"><h2 class="dv-sec__title" id="from-the-command-line">From the command line</h2><a class="dv-anchor" href="#from-the-command-line" aria-label="Link to this section: From the command line"></a></div>
+  <div class="dv-preview" aria-hidden="true" inert>
+    <div class="pv-skeleton-lines"><span class="pv-skeleton" style="--w:92%"></span><span class="pv-skeleton" style="--w:65%"></span></div><figure class="pv-code dv-sk-code"><figcaption class="pv-code__head"><span class="pv-code__title">Code</span><span class="pv-code__copy"><svg class="dv-icon " viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="9.5" height="9.5" rx="2"/><path d="M13 4.6V4.5A1.5 1.5 0 0 0 11.5 3H5A2 2 0 0 0 3 5v6.5A1.5 1.5 0 0 0 4.5 13h.1"/></svg><span class="pv-code__copy-label">Copy</span></span></figcaption><pre><code><span class="dv-sk-row" style="--i:0"><span class="dv-sk-tok" style="--w:11ch;--c:var(--pv-code-a)"></span></span><span class="dv-sk-row" style="--i:1"><span class="dv-sk-tok" style="--w:12ch;--c:var(--pv-code-n)"></span></span><span class="dv-sk-row" style="--i:2"><span class="dv-sk-tok" style="--w:17ch;--c:var(--pv-code-a)"></span><span class="dv-sk-tok" style="--w:18ch;--c:var(--pv-code-t)"></span><span class="dv-sk-tok" style="--w:23ch;--c:var(--pv-code-a)"></span></span><span class="dv-sk-row" style="--i:0"><span class="dv-sk-tok" style="--w:15ch;--c:var(--pv-code-c)"></span><span class="dv-sk-tok" style="--w:8ch;--c:var(--pv-code-p)"></span><span class="dv-sk-tok" style="--w:6ch;--c:var(--pv-code-n)"></span></span></code></pre></figure>
+  </div>
+</section>
+</div>
+<nav class="dv-pager" aria-label="Previous and next"><span class="dv-pager__gap" aria-hidden="true"></span><a class="pv-card dv-pager__link dv-pager__link--next" href="../2d-data/" rel="next"><span class="pv-label">Next</span><span class="dv-pager__title"><span>2D data</span><svg class="dv-icon dv-pager__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11.5M11 5l5 5-5 5"/></svg></span><span class="dv-pager__group">Data</span></a></nav>
+</article>
+</main>
+</div>
+<footer class="pv-footer">
+  <div class="pv-footer__inner">
+    <a class="pv-footer__brand" href="https://pointillviz.com/"><img src="../assets/pv/logo-mark.svg" width="28" height="28" alt="">PointillViz</a>
+    <nav class="pv-footer__sites" aria-label="PointillViz sites">
+      <ul>
+        <li><a href="https://pointillviz.com/"><span class="pv-footer__site">Overview</span><span class="pv-footer__host">pointillviz.com</span></a></li>
+        <li><a href="../" aria-current="true"><span class="pv-footer__site">Docs</span><span class="pv-footer__host">docs.pointillviz.com</span></a></li>
+        <li><a href="https://store.pointillviz.com/"><span class="pv-footer__site">Tool Store</span><span class="pv-footer__host">store.pointillviz.com</span></a></li>
+      </ul>
+    </nav>
+    <p class="pv-footer__pub">Preprint: Authors <em>et&nbsp;al.</em>, bioRxiv · <a href="#" data-placeholder="paper">Coming soon</a></p>
+    <p class="pv-footer__copy">© 2026 PointillViz</p>
+  </div>
+</footer>
+<script type="application/json" id="dv-index">{"pages":[{"s":"importing","u":"importing/","t":"Importing","g":"Start","d":"Bring an .h5ad into PointillViz: the import wizard maps its fields onto the viewer and converts it.","k":["h5ad","AnnData","obsm","obs","wizard","upload","convert","coordinates","units","spatial","Xenium","scanpy","command line","new dataset"],"h":[["What you need","what-you-need"],["Upload a file or point to one","upload-a-file-or-point-to-one"],["Map fields onto the viewer","map-fields-onto-the-viewer"],["Convert and open","convert-and-open"],["From the command line","from-the-command-line"]]},{"s":"2d-data","u":"2d-data/","t":"2D data","g":"Data","d":"Explore one tissue section: colour it by type or gene, read the Lens, draw regions and gate cells.","k":["UMAP","embedding","cluster","clusters","Xenium","cell type","hierarchy","gene","expression","pathway","Lens","loupe","Lasso","region","differential expression","volcano","Gating","gate","section","tissue"],"h":[["Cell types and hierarchies","cell-types-and-hierarchies"],["Genes and pathways","genes-and-pathways"],["Under the lens","under-the-lens"],["Lasso and region comparison","lasso-and-region-comparison"],["Gating","gating"],["The Tools gallery","the-tools-gallery",["Cell-type distribution","composition","Alluvial plot","UMAP cluster explorer","Niche enrichment","Colocalization","Violin plot","Split distribution","Ridgeline plot","Marker dot plot","Radial profiles","Expression Landscape","Distance gradient","Spatial gene patterns","Moran’s I","Pathway gallery","Ligand–receptor","LIANA"]]]},{"s":"3d-data","u":"3d-data/","t":"3D data","g":"Data","d":"Orbit a volume, cut it into slabs and select the cells inside them.","k":["3D","volume","imaging mass cytometry","IMC","z","slab","orbit","rotate","protein","HER2","breast","tumour"],"h":[["Import 3D coordinates","import-3d-coordinates"],["Orbit, pan and zoom","orbit-pan-and-zoom"],["Cut a slab","cut-a-slab"],["Select through a slab","select-through-a-slab"],["The Lens in 3D","the-lens-in-3d"]]},{"s":"atlases","u":"atlases/","t":"Atlases","g":"Data","d":"Compose harmonized sections into one live montage, and compare conditions over every cell of the cohort.","k":["atlas","cohort","montage","sections","condition","differential abundance","harmonized","level of detail","QC","quality","Xenium","composition","section comparison"],"h":[["Import a directory of sections","import-a-directory-of-sections"],["The section strip","the-section-strip"],["Level of detail","level-of-detail"],["The Atlas tab","the-atlas-tab"],["Differential abundance","differential-abundance"],["Section quality","section-quality"]]},{"s":"multimodal","u":"multimodal/","t":"Multimodal","g":"Data","d":"Compare RNA, chromatin accessibility, histone marks and protein measured on the same spots.","k":["multi-omics","multiomics","modality","ATAC","chromatin","accessibility","histone","H3K27ac","H3K27me3","protein","Spatial-Mux-seq","coupling","agreement","lead–lag","blend","split","side by side"],"h":[["Declare modalities at import","declare-modalities-at-import"],["Find a feature across modalities","find-a-feature-across-modalities"],["Single, side by side, blend or split","single-side-by-side-blend-or-split"],["Coupling and agreement","coupling-and-agreement"],["States and lead–lag","states-and-lead-lag"],["Protein channels","protein-channels"]]},{"s":"images","u":"images/","t":"Images","g":"Layers","d":"Lay H&E and multiplexed stains under the cells, and set each channel’s colour and levels.","k":["TIFF","OME-TIFF","OME-Zarr","H&E","DAPI","channel","stain","immunofluorescence","multiplexed","pyramid","registration","levels","gamma","histology"],"h":[["Supported files","supported-files"],["Attach an image","attach-an-image"],["Registration","registration"],["Channels and colours","channels-and-colours"],["Levels and gamma","levels-and-gamma"],["Several images at once","several-images-at-once"]]},{"s":"polygons","u":"polygons/","t":"Polygons","g":"Layers","d":"Draw cells as their segmentation outlines, from the whole section down to a single cell.","k":["segmentation","boundaries","outline","outlines","nucleus","nuclei","cell shape","shapes","fill"],"h":[["Import cell and nucleus boundaries","import-cell-and-nucleus-boundaries"],["From points to outlines","from-points-to-outlines"],["Colour outlines by any layer","colour-outlines-by-any-layer"],["Outlines at every zoom","outlines-at-every-zoom"],["Outlines in exported figures","outlines-in-exported-figures"]]},{"s":"transcripts","u":"transcripts/","t":"Transcripts","g":"Layers","d":"Draw every detected molecule over the cells, and replay sequencing depth from 1% to 100%.","k":["molecules","transcript","spots","RNA","detected","Depth replay","sequencing depth","saturation","glow","crisp","Xenium"],"h":[["Attach a molecule table","attach-a-molecule-table"],["Pick up to 12 genes","pick-up-to-12-genes"],["Show all transcripts","show-all-transcripts"],["Glow or crisp","glow-or-crisp"],["Depth replay","depth-replay"]]},{"s":"exporting","u":"exporting/","t":"Exporting","g":"Results","d":"Save views as PNG, PDF or SVG figures at up to 8×, and computed results as CSV files.","k":["PNG","PDF","SVG","CSV","figure","Capture","screenshot","legend","scale bar","resolution","download","report","8×"],"h":[["Capture views","capture-views"],["Export one view","export-one-view"],["Compose a figure from several views","compose-a-figure-from-several-views"],["Legends, scale bars and resolution","legends-scale-bars-and-resolution"],["Results as CSV files","results-as-csv-files"],["Pathway maps as a PDF report","pathway-maps-as-a-pdf-report"]]},{"s":"tool-store","u":"tool-store/","t":"Tool Store","g":"Extend","d":"Install community tools, run them like built-in analyses, and publish your own.","k":["plugin","plugins","community tool","install","pvtool","manifest","plugin.json","tool.py","gates","validate","publish","scaffold","pack","verified","store","Categorical Chords","Cell-Type Co-occurrence","Cell-Type Percolation","Conditional Contact Odds","Expression Hotspots","Getis-Ord","Interface Coherence","Local Cell Density","neighbourhood mixing","Ripley’s Cross-L","Spatial Scale Spectrum","Tissue Permeability","Vector Field"],"h":[["What a tool is","what-a-tool-is"],["Install a tool","install-a-tool"],["Run a tool","run-a-tool"],["Sweep a parameter","sweep-a-parameter"],["Write and publish your own","write-and-publish-your-own"],["The nine gates","the-nine-gates"]]},{"s":"ai-assistant","u":"ai-assistant/","t":"AI assistant","g":"Extend","d":"Ask in plain language: a coding agent reads your data, runs tools and publishes results to a notebook.","k":["MCP","Claude","Claude Code","Codex","ChatGPT","Antigravity","agent","coding agent","AI","LLM","notebook","prompt","steer","chat"],"h":[["Turn the Assistant on","turn-the-assistant-on"],["Choose a runtime and a model","choose-a-runtime-and-a-model"],["What the agent sees","what-the-agent-sees"],["Viewer control: Off, Ask, Allow","viewer-control-off-ask-allow"],["The notebook","the-notebook"],["Permissions and limits","permissions-and-limits"]]}],"none":"No page matches “{query}”. Try another word, or browse the topics below.","nonePage":"No page matches “{query}”. Try another word.","count":"{n} pages match","one":"1 page matches","also":"Covers"}</script>
+</body>
+</html>
