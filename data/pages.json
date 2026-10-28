@@ -4,7 +4,6 @@
     "origin": "https://docs.pointillviz.com/",
     "eyebrow": "PointillViz docs",
     "headline": "From your first import to your first figure.",
-    "lede": "Eleven tutorials, in the order you will need them. They are in preparation, and each page already lists what it will cover.",
     "search": {
       "label": "Search the docs",
       "placeholder": "Search titles and summaries…",
@@ -17,19 +16,15 @@
     },
     "start_here": {
       "label": "Start here",
-      "line": "New to PointillViz? Bring in one section, explore it, export a figure.",
       "steps": [
         {
-          "page": "importing",
-          "line": "An .h5ad to the viewer, in three steps."
+          "page": "importing"
         },
         {
-          "page": "2d-data",
-          "line": "Colours, the Lens, regions and gates."
+          "page": "2d-data"
         },
         {
-          "page": "exporting",
-          "line": "Figures at up to 8×, results as CSV."
+          "page": "exporting"
         }
       ]
     },
@@ -38,7 +33,6 @@
       "crumb_root": "Docs",
       "status_badge": "Tutorial in preparation",
       "status_line": "This tutorial is being written. The outline below shows what it will cover.",
-      "outline": "Outline",
       "toc": "On this page",
       "prev": "Previous",
       "next": "Next",
@@ -53,8 +47,6 @@
         "Default",
         "What it does"
       ],
-      "topics": "{n} topics",
-      "topic": "1 topic",
       "theme": "Switch to light theme",
       "loop_pause": "Pause",
       "loop_play": "Play",
@@ -80,35 +72,29 @@
     "plate": {
       "case": "2d",
       "label": "2D · Section",
-      "meta": "Xenium 5K · mouse colon · 135,232 cells",
       "alt": "A Xenium 5K mouse colon section, rolled into a spiral: every cell drawn as a point in its cell-type colour."
     }
   },
   "groups": [
     {
       "name": "Start",
-      "id": "start",
-      "line": "Bring your data in."
+      "id": "start"
     },
     {
       "name": "Data",
-      "id": "data",
-      "line": "Sections, volumes, atlases and modalities."
+      "id": "data"
     },
     {
       "name": "Layers",
-      "id": "layers",
-      "line": "Images, outlines and molecules with the cells."
+      "id": "layers"
     },
     {
       "name": "Results",
-      "id": "results",
-      "line": "Figures and tables to take with you."
+      "id": "results"
     },
     {
       "name": "Extend",
-      "id": "extend",
-      "line": "Community tools and the AI assistant."
+      "id": "extend"
     }
   ],
   "pages": [

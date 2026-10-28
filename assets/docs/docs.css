@@ -18,7 +18,7 @@
 /* pv.css turns the browser's grey tap flash off; the docs' own rows answer a
    press themselves (cards and the pager are pv-cards, pressed by pv.css). */
 .dv-nav__link:active, .dv-nav__home:active, .dv-search__link:active, .dv-toc-inline summary:active { background-color: var(--pv-tint); }
-.dv-toc a:active, .dv-toc-inline a:active, .dv-card__outline a:active, .dv-crumbs a:active { color: var(--pv-text); }
+.dv-toc a:active, .dv-toc-inline a:active, .dv-crumbs a:active { color: var(--pv-text); }
 
 
 /* 1 · Tokens ============================================================== */
@@ -875,14 +875,13 @@
 .dv-hero__title {
   margin-top: 24px;
   max-width: 12.5em;
-  font-family: var(--pv-font-serif);
+  font-family: var(--pv-font-sans);
   font-weight: 600;
   font-size: clamp(2.5rem, 1.55rem + 3.2vw, 4.25rem);
   line-height: 1.03;
-  letter-spacing: var(--pv-track-display);
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
-.dv-hero__lede { margin-top: 20px; max-width: 36em; }
 .dv-search--home { margin-top: 30px; max-width: 600px; }
 
 /* The specimen: the figure is its own ink stage (always dark), with the
@@ -917,7 +916,6 @@
 .dv-specimen { container-type: inline-size; }
 @container (max-width: 420px) {
   .dv-specimen__label { top: 22px; left: 26px; right: 18px; gap: 5px; }
-  .dv-specimen__label .pv-caselabel__meta { font-size: var(--pv-text-2xs); letter-spacing: 0.02em; }
 }
 
 /* Start here: three points on one dotted path. */
@@ -948,7 +946,6 @@
   background: var(--pv-accent);
   box-shadow: 0 0 10px var(--pv-accent-glow);
 }
-.dv-start__line { margin-top: 8px; font-size: 0.9375rem; line-height: 1.5; color: var(--pv-text); text-wrap: pretty; }
 .dv-start__path { margin-top: 18px; gap: 14px; }
 .dv-start__link {
   display: inline-block;
@@ -961,7 +958,7 @@
   text-underline-offset: 4px;
   transition: text-decoration-color var(--pv-dur-hover) ease, color var(--pv-dur-hover) ease;
 }
-/* The whole step (its point, name and line) is the link. */
+/* The whole step (its point and name) is the link. */
 .dv-start__link::after {
   content: "";
   position: absolute;
@@ -977,7 +974,6 @@
 @media (pointer: coarse) {
   .dv-start__step { min-height: 44px; align-content: center; }
 }
-.dv-start__path > li > .dv-start__sum { margin-top: 2px; font-size: 0.84375rem; line-height: 1.45; color: var(--pv-text-2); }
 .dv-start .pv-steps > li::before { width: 24px; height: 24px; }
 .dv-start .pv-steps > li { grid-template-columns: 24px minmax(0, 1fr); column-gap: 12px; }
 .dv-start .pv-steps > li:not(:last-child)::after { left: 11px; top: 30px; bottom: -10px; }
@@ -998,7 +994,6 @@
     background-size: 6px 2px;
     background-repeat: repeat-x;
   }
-  .dv-start__path > li > .dv-start__sum { margin-top: 0; }
 }
 
 
@@ -1031,41 +1026,16 @@
 }
 .dv-group__head { position: sticky; top: calc(var(--pv-topbar-block) + 30px); }
 .dv-group__name { font-size: clamp(1.5rem, 1.3rem + 0.7vw, 2rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
-.dv-group__line { margin-top: 8px; max-width: 24ch; font-size: 0.9375rem; line-height: 1.5; color: var(--pv-text-2); }
 
 .dv-group__cards { display: grid; gap: var(--pv-gap); }
-.dv-group--n4 .dv-group__cards, .dv-group--n2 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* A one-page group's card is the size of a two-page group's. */
+.dv-group--n4 .dv-group__cards, .dv-group--n2 .dv-group__cards, .dv-group--n1 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .dv-group--n3 .dv-group__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 /* Wide screens: the four kinds of data side by side, as on the homepage. */
 @media (min-width: 1200px) {
   .dv-group--n4 .dv-group__cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .dv-group--n4 .dv-card { --pv-card-pad: 16px; }
-  .dv-group--n4 .dv-card__summary { font-size: 0.875rem; line-height: 1.5; }
 }
-/* A row of cards reads as one table: picture, case, name, summary and the
-   foot's rule each start on one line across the row (a subgrid of five rows;
-   the foot takes the last). Only where a group's cards form a single row. */
-@supports (grid-template-rows: subgrid) {
-  @media (min-width: 600px) {
-    .dv-group--n2 .dv-group__cards { row-gap: 8px; }
-    .dv-group--n2 .dv-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; row-gap: 8px; }
-    .dv-group--n2 .dv-card__body { display: contents; }
-    .dv-group--n2 .dv-card__foot { grid-row: -2 / -1; margin-top: 0; align-self: stretch; align-content: start; }
-  }
-  @media (min-width: 700px) {
-    .dv-group--n3 .dv-group__cards { row-gap: 8px; }
-    .dv-group--n3 .dv-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; row-gap: 8px; }
-    .dv-group--n3 .dv-card__body { display: contents; }
-    .dv-group--n3 .dv-card__foot { grid-row: -2 / -1; margin-top: 0; align-self: stretch; align-content: start; }
-  }
-  @media (min-width: 1200px) {
-    .dv-group--n4 .dv-group__cards { row-gap: 8px; }
-    .dv-group--n4 .dv-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; row-gap: 8px; }
-    .dv-group--n4 .dv-card__body { display: contents; }
-    .dv-group--n4 .dv-card__foot { grid-row: -2 / -1; margin-top: 0; align-self: stretch; align-content: start; }
-  }
-}
-
 .dv-card { --pv-card-pad: 18px; gap: 10px; }
 /* The case is named in the card (no stripe along its top edge). */
 .dv-card[data-case]::before { content: none; }
@@ -1074,30 +1044,9 @@
 .dv-card__body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1 1 auto; }
 .dv-caseline { margin: 0; font-size: var(--pv-text-2xs); }
 .dv-card__title { font-size: var(--pv-text-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; text-wrap: balance; }
-.dv-card__summary { font-size: 0.90625rem; line-height: 1.55; color: var(--pv-text-2); text-wrap: pretty; }
-.dv-card__note {
-  font: 400 var(--pv-text-xs) / 1.45 var(--pv-font-mono);
-  letter-spacing: 0.01em;
-  color: var(--pv-text-3);
-}
 .dv-card__links { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.875rem; font-weight: 500; }
 .dv-card__links a { display: inline-flex; align-items: center; gap: 5px; padding-block: 2px; }
 .dv-card__links svg { width: 13px; height: 13px; }
-/* The picture's line wraps on its own side; the topic count keeps the
-   right-hand end of the foot, on the last line. */
-.dv-card__foot {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 4px 14px;
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid var(--pv-line-soft);
-  font: 400 var(--pv-text-xs) / 1.4 var(--pv-font-mono);
-  letter-spacing: 0.02em;
-  color: var(--pv-text-3);
-}
-.dv-card__count { justify-self: end; white-space: nowrap; color: var(--pv-text-2); }
 /* A hyphenated name in a technology line stays whole (Spatial-Mux-seq). */
 .dv-nw { white-space: nowrap; }
 /* The capture answers the pointer: its registration marks light up. */
@@ -1107,43 +1056,6 @@
   .dv-card:hover .dv-card__media > img { filter: brightness(1.08) saturate(1.06); }
 }
 .dv-card:focus-within .pv-figure__stage::after { --_b: var(--pv-accent); }
-
-/* One-page groups: the card lies on its side, with the page's outline. */
-.dv-card--wide {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
-  column-gap: clamp(20px, 2.6vw, 32px);
-  align-items: stretch;
-}
-.dv-card--wide .dv-card__media { margin: 0; align-self: start; }
-.dv-card--wide .dv-card__body { padding-top: 4px; }
-.dv-card--wide .dv-card__title { font-size: var(--pv-text-h3); }
-.dv-card__outline { margin-top: 6px; }
-.dv-card__outline ol { margin: 10px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 20px; }
-.dv-card__outline li { break-inside: avoid; }
-.dv-card__outline a {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 4px 0;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  color: var(--pv-text-2);
-  transition: color var(--pv-dur-hover) ease;
-}
-.dv-card__outline a::before {
-  content: "";
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: 1.5px solid var(--dv-pt-ring);
-  transform: translateY(-1px);
-}
-@media (hover: hover) and (pointer: fine) {
-  .dv-card__outline a:hover { color: var(--pv-text); }
-  .dv-card__outline a:hover::before { border-color: var(--pv-accent); background: var(--pv-accent); }
-}
 
 
 /* 14 · Responsive and print ====================================================== */
@@ -1223,30 +1135,21 @@
   .dv-start { max-width: none; }
   .dv-group { grid-template-columns: minmax(0, 1fr); }
   .dv-group__head { position: static; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
-  .dv-group__line { margin-top: 0; max-width: none; }
-}
-
-@media (max-width: 1023.98px) and (min-width: 700px) {
-  .dv-group--n3 .dv-card__summary { font-size: 0.875rem; }
-  /* The outline keeps two columns, so the words end near the picture's foot. */
-  .dv-card--wide .dv-card__outline ol { column-gap: 16px; }
-  .dv-card--wide .dv-card__outline a { font-size: 0.84375rem; }
 }
 
 @media (max-width: 699.98px) {
   .dv-group--n3 .dv-group__cards { grid-template-columns: minmax(0, 1fr); }
-  .dv-card--wide { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
 }
 
 /* Phones: every topic is a compact row, a thumbnail beside its words. */
 @media (max-width: 599.98px) {
   .dv-group__cards,
   .dv-group--n4 .dv-group__cards,
-  .dv-group--n2 .dv-group__cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .dv-group--n2 .dv-group__cards,
+  .dv-group--n1 .dv-group__cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .dv-groups { gap: 40px; }
   .dv-group { gap: 16px; padding-top: 24px; }
-  .dv-card,
-  .dv-card--wide {
+  .dv-card {
     --pv-card-pad: 14px;
     display: grid;
     grid-template-columns: 112px minmax(0, 1fr);
@@ -1254,14 +1157,9 @@
     align-items: start;
   }
   .dv-card__body { display: contents; }
-  .dv-card .dv-card__media,
-  .dv-card--wide .dv-card__media { grid-column: 1; grid-row: 1 / span 3; margin: 0; border-radius: 8px; }
+  .dv-card .dv-card__media { grid-column: 1; grid-row: 1 / span 3; margin: 0; border-radius: 8px; }
   .dv-card__body > * { grid-column: 2; }
-  .dv-card__title, .dv-card--wide .dv-card__title { font-size: 1.0625rem; }
-  .dv-card__summary { font-size: 0.875rem; line-height: 1.5; }
-  .dv-card__outline { display: none; }
-  .dv-card__body > .dv-card__foot { display: block; grid-column: 1 / -1; margin-top: 6px; padding-top: 10px; }
-  .dv-card__count::before { content: "·"; content: "·" / ""; margin-inline: 0.55em; color: var(--pv-text-3); }
+  .dv-card__title { font-size: 1.0625rem; }
 
   /* Previous and next stay side by side, compact. */
   .dv-pager { gap: 10px; margin-top: 48px; padding-top: 24px; }
@@ -1325,7 +1223,6 @@
   .dv-specimen::before { height: 84px; }
   .dv-start { padding: 16px 16px 18px; }
   .dv-start__path { margin-top: 14px; gap: 12px; }
-  .dv-start__path > li > .dv-start__sum { margin-top: 1px; }
   .dv-start__link::after { inset: -4px -8px; }
 }
 
