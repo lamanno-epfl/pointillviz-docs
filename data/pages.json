@@ -736,23 +736,35 @@
       "slug": "tool-store",
       "group": "Extend",
       "title": "Tool Store",
-      "summary": "Install community tools, run them like built-in analyses, and publish your own.",
+      "summary": "Install community tools in their own environments, run them like built-in analyses, and publish your own.",
       "keywords": [
         "plugin",
         "plugins",
         "community tool",
         "install",
         "pvtool",
+        "download",
         "manifest",
         "plugin.json",
         "tool.py",
+        "tool.R",
+        "R",
+        "Rscript",
+        "pixi",
+        "environment",
+        "lock file",
+        "GPU",
+        "CUDA",
         "gates",
         "validate",
         "publish",
+        "pull request",
+        "registry",
+        "CONTRIBUTING",
         "scaffold",
         "pack",
-        "verified",
         "store",
+        "BANKSY niches",
         "Categorical Chords",
         "Cell-Type Co-occurrence",
         "Cell-Type Percolation",
@@ -761,9 +773,9 @@
         "Getis-Ord",
         "Interface Coherence",
         "Local Cell Density",
+        "Mclust niches",
         "neighbourhood mixing",
         "Ripley’s Cross-L",
-        "Spatial Scale Spectrum",
         "Tissue Permeability",
         "Vector Field"
       ],
@@ -793,9 +805,21 @@
           ]
         },
         {
+          "title": "Where a tool runs",
+          "preview": [
+            "note"
+          ]
+        },
+        {
           "title": "Run a tool",
           "preview": [
             "figure"
+          ]
+        },
+        {
+          "title": "CPU or GPU",
+          "preview": [
+            "tip"
           ]
         },
         {
@@ -806,20 +830,28 @@
           ]
         },
         {
-          "title": "Write and publish your own",
-          "preview": []
+          "title": "Write a tool in Python or R",
+          "preview": [
+            "code"
+          ]
         },
         {
-          "title": "The nine gates",
+          "title": "The gates",
           "preview": [
-            "gates"
+            "note"
+          ]
+        },
+        {
+          "title": "Publish to the registry",
+          "preview": [
+            "steps"
           ]
         }
       ],
       "figure": {
-        "alt": "The Tool Store: published community tools with their artwork, tags and verified badges.",
-        "caption": "The Tool Store, as it runs beside the viewer.",
-        "meta": "12 tools · 9 gates"
+        "alt": "The Tool Store’s gallery: community tools with their artwork, outputs and tags.",
+        "caption": "The Tool Store’s gallery of community tools.",
+        "meta": "The Tool Store · community tools"
       }
     },
     {
