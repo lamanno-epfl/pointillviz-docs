@@ -2,8 +2,7 @@
   "about": "The content of docs.pointillviz.com. Edit this file, then run tools/build_docs.py from the workspace (see README.md). Copy follows the house style of brief/CONTENT.md. keywords are hidden search terms (other spellings, file formats, tool names); links are buttons beside a page’s status.",
   "site": {
     "origin": "https://docs.pointillviz.com/",
-    "eyebrow": "PointillViz docs",
-    "headline": "From your first import to your first figure.",
+    "headline": "Documentation and Tutorials",
     "search": {
       "label": "Search the docs",
       "placeholder": "Search titles and summaries…",
@@ -68,11 +67,6 @@
         "line": "Search the docs, or start with Importing.",
         "link": "Docs home"
       }
-    },
-    "plate": {
-      "case": "2d",
-      "label": "2D · Section",
-      "alt": "A Xenium 5K mouse colon section, rolled into a spiral: every cell drawn as a point in its cell-type colour."
     }
   },
   "groups": [

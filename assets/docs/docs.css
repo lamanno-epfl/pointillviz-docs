@@ -849,139 +849,73 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.82fr);
-  grid-template-areas: "intro plate" "start plate";
-  grid-template-rows: auto 1fr;
-  gap: 32px clamp(32px, 5vw, 80px);
-  align-items: start;
+  gap: 28px;
   max-width: calc(var(--pv-page) + 2 * var(--pv-gutter));
   margin-inline: auto;
-  padding: clamp(32px, 4.4vw, 64px) var(--pv-gutter) clamp(48px, 4.6vw, 68px);
+  padding: clamp(44px, 5.6vw, 84px) var(--pv-gutter) clamp(44px, 5vw, 72px);
 }
-/* The instrument's faint dot grid, fading out from the top left. */
-.dv-hero::before {
-  content: "";
+/* The field: dots on a loose lattice in the homepage's case colours, one
+   colour domain per drifting seed, as on a cell-type map; faint behind the
+   words, and swelling under the pointer as under the viewer's Lens (docs.js
+   setupField). It runs across the whole window. */
+.dv-field {
   position: absolute;
-  inset: 0 -40vw 0 -40vw;
+  top: 0;
+  left: 50%;
   z-index: -1;
-  background-image: radial-gradient(circle at center, var(--dv-hero-dot) 1px, transparent 1.5px);
-  background-size: 24px 24px;
-  background-position: center top;
-  -webkit-mask-image: radial-gradient(70% 90% at 38% 0%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(70% 90% at 38% 0%, #000 0%, transparent 72%);
+  width: 100vw;
+  max-width: none;
+  height: 100%;
+  margin-left: -50vw;
   pointer-events: none;
 }
-.dv-hero__intro { grid-area: intro; padding-top: clamp(0px, 1.6vw, 24px); }
+.dv--home {
+  --dv-gold: var(--pv-gold);
+  --dv-violet: var(--pv-violet);
+  --dv-cyan: var(--pv-cyan);
+  --dv-pink: var(--pv-pink);
+  --dv-mint: var(--pv-mint);
+  --dv-orange: var(--pv-orange);
+}
+[data-theme="light"] .dv--home {
+  --dv-gold: var(--pv-gold-deep);
+  --dv-violet: #6B3FC4;
+  --dv-cyan: #076A8E;
+  --dv-pink: #B8326F;
+  --dv-mint: var(--pv-mint-deep);
+  --dv-orange: #A8480B;
+}
+.dv-hero__intro { display: grid; gap: clamp(22px, 2.4vw, 30px); }
+/* The homepage's wordmark, then the docs' name in the face of its columns. */
 .dv-hero__title {
-  margin-top: 24px;
-  max-width: 12.5em;
+  display: grid;
+  justify-items: start;
+  gap: clamp(10px, 1.3vw, 18px);
+  margin: 0;
   font-family: var(--pv-font-sans);
   font-weight: 600;
-  font-size: clamp(2.5rem, 1.55rem + 3.2vw, 4.25rem);
-  line-height: 1.03;
-  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--pv-text);
   text-wrap: balance;
 }
-.dv-search--home { margin-top: 30px; max-width: 600px; }
-
-/* The specimen: the figure is its own ink stage (always dark), with the
-   corner label over a scrim. */
-.dv-hero__plate { grid-area: plate; justify-self: end; width: 100%; max-width: 480px; }
-.dv-specimen {
-  margin: 0;
-  background: var(--pv-ink-0);
-  border-radius: var(--pv-radius-xl);
-}
-.dv-specimen > img { width: 100%; height: auto; object-fit: cover; }
-.dv-specimen::after { inset: 14px; }
-.dv-specimen::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 1;
-  height: 92px;
-  background: linear-gradient(rgba(6, 7, 13, 0.9), rgba(6, 7, 13, 0.55) 60%, transparent);
-  pointer-events: none;
-}
-.dv-specimen__label {
-  position: absolute;
-  z-index: 2;
-  top: 30px;
-  left: 36px;
-  right: 30px;
-  pointer-events: none;
-}
-.dv-specimen__label .pv-caselabel__title { font-size: var(--pv-text-2xs); }
-/* A narrow plate (tablets, phones) keeps its label on two short lines. */
-.dv-specimen { container-type: inline-size; }
-@container (max-width: 420px) {
-  .dv-specimen__label { top: 22px; left: 26px; right: 18px; gap: 5px; }
+.dv-hero__logo { display: block; width: clamp(15rem, 7rem + 27vw, 33rem); height: auto; }
+.dv-hero__logo--light { display: none; }
+[data-theme="light"] .dv-hero__logo--dark { display: none; }
+[data-theme="light"] .dv-hero__logo--light { display: block; }
+.dv-search--home { max-width: 600px; }
+/* While the big wordmark is in view, the bar's small one steps back (docs.js),
+   as on the homepage. */
+.dv--home .pv-topbar__brand { transition: opacity 240ms ease, visibility 0s linear 0s; }
+.dv--home .pv-topbar.is-hero-brand .pv-topbar__brand { opacity: 0; visibility: hidden; transition: opacity 240ms ease, visibility 0s linear 240ms; }
+@media (prefers-reduced-motion: reduce) {
+  .dv--home .pv-topbar__brand, .dv--home .pv-topbar.is-hero-brand .pv-topbar__brand { transition: none; }
 }
 
-/* On the home, the specimen lies on the 2D case's colour field, as on the
-   homepage's open column: the dark picture lets the field through (screen),
-   and its label is set in ink on it. */
-.dv--home .dv-specimen {
-  border-color: transparent;
-  background-origin: border-box;
-  background-image: linear-gradient(172deg, var(--pv-gold) 0%,
-    color-mix(in srgb, var(--pv-gold) 58%, var(--pv-ink-0)) 24%,
-    color-mix(in srgb, var(--pv-gold) 18%, var(--pv-ink-0)) 58%, var(--pv-ink-0) 94%);
-}
-.dv--home .dv-specimen > img { mix-blend-mode: screen; }
-.dv--home .dv-specimen::before,
-.dv--home .dv-specimen::after { content: none; }
-.dv--home .dv-specimen__label .pv-caselabel__title { color: var(--pv-ink-0); }
-.dv--home .dv-specimen__label .pv-caselabel__title::before { background: var(--pv-ink-0); box-shadow: none; }
-/* The Lens: pointed at, the specimen shows its larger picture under a loupe
-   that follows the pointer (docs.js), as the viewer's Lens does over cells. */
-.dv-loupe {
-  position: absolute;
-  z-index: 3;
-  left: 0;
-  top: 0;
-  width: 172px;
-  height: 172px;
-  margin: -86px 0 0 -86px;
-  border: 2px solid var(--pv-gold);
-  border-radius: 50%;
-  background-color: var(--pv-ink-0);
-  background-repeat: no-repeat;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--pv-ink-0) 45%, transparent), 0 20px 40px -14px rgba(0, 0, 0, 0.75);
-  opacity: 0;
-  transform: scale(0.82);
-  transition: opacity 180ms ease, transform 220ms var(--pv-ease-out);
-  pointer-events: none;
-}
-.dv-specimen.is-lens { cursor: none; }
-.dv-specimen.is-lens .dv-loupe { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .dv-loupe { transition: opacity 120ms ease; transform: none; } }
-/* A faint wash of the cases' colours behind the hero, as the open column lights
-   the homepage. */
-.dv--home .dv-hero::after {
-  content: "";
-  position: absolute;
-  inset: -6% -14% 0;
-  z-index: -2;
-  background:
-    radial-gradient(38% 46% at 78% 34%, color-mix(in srgb, var(--pv-gold) 15%, transparent), transparent 72%),
-    radial-gradient(26% 32% at 96% 4%, color-mix(in srgb, var(--pv-violet) 12%, transparent), transparent 72%),
-    radial-gradient(30% 40% at 4% 92%, color-mix(in srgb, var(--pv-cyan) 7%, transparent), transparent 72%);
-  -webkit-mask-image: linear-gradient(#000 62%, transparent);
-  mask-image: linear-gradient(#000 62%, transparent);
-  pointer-events: none;
-}
-
-/* Start here: three points on one dotted path. */
-.dv-start {
-  grid-area: start;
-  position: relative;
-  max-width: 700px;
-  padding: 20px 22px 22px;
-  border: 1px solid var(--dv-start-line);
-  border-radius: var(--pv-radius-lg);
-  background: var(--dv-start-bg);
-}
+/* Start here: one line, three points on a dotted path, each point in the
+   colour of the card it leads to. */
+.dv-start { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; }
 .dv-start__label {
   display: flex;
   align-items: center;
@@ -1000,9 +934,29 @@
   background: var(--pv-accent);
   box-shadow: 0 0 10px var(--pv-accent-glow);
 }
-.dv-start__path { margin-top: 18px; gap: 14px; }
+.dv-start__path { gap: 10px 46px; }
+.dv-start .pv-steps > li { column-gap: 10px; }
+.dv-start .pv-steps > li::before {
+  width: 24px;
+  height: 24px;
+  background: var(--dv-tone);
+  color: var(--dv-tone-ink);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--dv-tone) 40%, transparent);
+  transition: transform var(--pv-dur-hover) var(--pv-ease-out);
+}
+.dv-start .pv-steps > li:not(:last-child)::after {
+  content: "";
+  left: calc(100% + 10px);
+  top: 50%;
+  bottom: auto;
+  width: 26px;
+  height: 2px;
+  margin-top: -1px;
+  background-size: 6px 2px;
+  background-repeat: repeat-x;
+}
 .dv-start__link {
-  display: inline-block;
+  position: relative;
   font-size: 1rem;
   font-weight: 600;
   color: var(--pv-text);
@@ -1013,52 +967,16 @@
   transition: text-decoration-color var(--pv-dur-hover) ease, color var(--pv-dur-hover) ease;
 }
 /* The whole step (its point and name) is the link. */
-.dv-start__link::after {
-  content: "";
-  position: absolute;
-  inset: -6px -8px;
-  border-radius: 12px;
-}
+.dv-start__link::after { content: ""; position: absolute; inset: -8px -10px -8px -44px; border-radius: 12px; }
 .dv-start__link:focus-visible { outline: none; }
 .dv-start__link:focus-visible::after { outline: 2px solid var(--pv-focus); outline-offset: 0; }
 .dv-start__link:active::after { background: var(--pv-tint); }
 @media (hover: hover) and (pointer: fine) {
-  .dv-start__step:hover .dv-start__link { color: var(--pv-accent); text-decoration-color: currentColor; }
+  .dv-start__step:hover::before { transform: scale(1.18); }
+  .dv-start__step:hover .dv-start__link { color: var(--dv-tone); text-decoration-color: currentColor; }
 }
 @media (pointer: coarse) {
-  .dv-start__step { min-height: 44px; align-content: center; }
-}
-.dv-start .pv-steps > li::before { width: 24px; height: 24px; }
-/* Each point in the colour of the card it leads to; in hand, it grows a little. */
-.dv-start .pv-steps > li[data-tone]::before {
-  background: var(--dv-tone);
-  color: var(--dv-tone-ink);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--dv-tone) 40%, transparent);
-  transition: transform var(--pv-dur-hover) var(--pv-ease-out);
-}
-@media (hover: hover) and (pointer: fine) {
-  .dv-start .pv-steps > li[data-tone]:hover::before { transform: scale(1.18); }
-  .dv-start__step[data-tone]:hover .dv-start__link { color: var(--dv-tone); }
-}
-.dv-start .pv-steps > li { grid-template-columns: 24px minmax(0, 1fr); column-gap: 12px; }
-.dv-start .pv-steps > li:not(:last-child)::after { left: 11px; top: 30px; bottom: -10px; }
-
-/* Wide: the path runs across, point to point, each name under its point. */
-@media (min-width: 1024px) {
-  .dv-start__path { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-  .dv-start .pv-steps > li { grid-template-columns: minmax(0, 1fr); row-gap: 10px; align-content: start; }
-  .dv-start .pv-steps > li::before { grid-row: 1; }
-  .dv-start .pv-steps > li:not(:last-child)::after {
-    left: 34px;
-    right: -14px;
-    top: 11px;
-    bottom: auto;
-    width: auto;
-    height: 2px;
-    background-image: radial-gradient(circle at center, var(--pv-dot) 1px, transparent 1.4px);
-    background-size: 6px 2px;
-    background-repeat: repeat-x;
-  }
+  .dv-start__step { min-height: 44px; }
 }
 
 
@@ -1091,6 +1009,15 @@
 }
 .dv-group__head { position: sticky; top: calc(var(--pv-topbar-block) + 30px); }
 .dv-group__name { font-size: clamp(1.5rem, 1.3rem + 0.7vw, 2rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+/* On the home, a group's name is written in its cards' colours (build_docs.py). */
+.dv--home .dv-group__name {
+  font-size: clamp(1.75rem, 1.4rem + 1.1vw, 2.5rem);
+  letter-spacing: -0.03em;
+  background-image: var(--dv-name);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .dv-group__cards { display: grid; gap: var(--pv-gap); }
 .dv-group--n4 .dv-group__cards, .dv-group--n2 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1104,19 +1031,13 @@
 /* The colours: the homepage's cases, and for the other pages the colour of
    their picture (build_docs.py TONES); deeper on paper, with white names. */
 .dv--home [data-tone] { --dv-tone-ink: var(--pv-ink-0); }
-.dv--home [data-tone="gold"]   { --dv-tone: var(--pv-gold); }
-.dv--home [data-tone="violet"] { --dv-tone: var(--pv-violet); }
-.dv--home [data-tone="cyan"]   { --dv-tone: var(--pv-cyan); }
-.dv--home [data-tone="pink"]   { --dv-tone: var(--pv-pink); }
-.dv--home [data-tone="mint"]   { --dv-tone: var(--pv-mint); }
-.dv--home [data-tone="orange"] { --dv-tone: var(--pv-orange); }
+.dv--home [data-tone="gold"]   { --dv-tone: var(--dv-gold); }
+.dv--home [data-tone="violet"] { --dv-tone: var(--dv-violet); }
+.dv--home [data-tone="cyan"]   { --dv-tone: var(--dv-cyan); }
+.dv--home [data-tone="pink"]   { --dv-tone: var(--dv-pink); }
+.dv--home [data-tone="mint"]   { --dv-tone: var(--dv-mint); }
+.dv--home [data-tone="orange"] { --dv-tone: var(--dv-orange); }
 [data-theme="light"] .dv--home [data-tone] { --dv-tone-ink: #FFFFFF; }
-[data-theme="light"] .dv--home [data-tone="gold"]   { --dv-tone: var(--pv-gold-deep); }
-[data-theme="light"] .dv--home [data-tone="violet"] { --dv-tone: #6B3FC4; }
-[data-theme="light"] .dv--home [data-tone="cyan"]   { --dv-tone: #076A8E; }
-[data-theme="light"] .dv--home [data-tone="pink"]   { --dv-tone: #B8326F; }
-[data-theme="light"] .dv--home [data-tone="mint"]   { --dv-tone: var(--pv-mint-deep); }
-[data-theme="light"] .dv--home [data-tone="orange"] { --dv-tone: #A8480B; }
 
 /* One point per card, in its colour, under the group's name; the card in hand
    lights its point. */
@@ -1206,6 +1127,37 @@
 /* The focus ring on the card itself: a ring drawn outside would be clipped. */
 .dv-card .pv-card__link:focus-visible::after { outline: none; }
 .dv-card:has(.pv-card__link:focus-visible) { box-shadow: 0 0 0 2px var(--pv-focus); }
+
+/* The light of the room on the picture in hand: a soft spot under the
+   pointer (docs.js sets --mx, --my), over the picture and under the band. */
+.dv-card::before,
+.dv-card[data-case]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, 0.16), transparent 62%);
+  opacity: 0;
+  transition: opacity var(--pv-dur-panel) ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .dv-card:hover::before { opacity: 1; }
+}
+
+/* As a group comes into view, its cards rise into place one after another
+   (docs.js marks the group; not under reduced motion). The rise moves
+   `translate`, so it never meets the `transform` of a card in hand. */
+@keyframes dv-rise {
+  from { opacity: 0; translate: 0 22px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+.dv-reveal .dv-group:not(.is-in) .dv-card { opacity: 0; }
+.dv-reveal .dv-group.is-in .dv-card { animation: dv-rise 720ms var(--pv-ease-out) both; }
+.dv-reveal .dv-group.is-still .dv-card { animation: none; }
+.dv-reveal .dv-group.is-in .dv-card:nth-child(2) { animation-delay: 80ms; }
+.dv-reveal .dv-group.is-in .dv-card:nth-child(3) { animation-delay: 160ms; }
+.dv-reveal .dv-group.is-in .dv-card:nth-child(4) { animation-delay: 240ms; }
 
 /* A one-page group's card is a banner across the group, built like the
    homepage's open column: a field of its colour fading to ink, its name large
@@ -1300,7 +1252,6 @@
   }
   .dv-toc-inline ol { margin: 0; padding: 2px 16px 14px; }
   .dv-toc-inline ol::before { left: 20px; }
-  .dv-hero { grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr); }
 }
 
 /* Under 1024: one column; the sidebar becomes the contents drawer. */
@@ -1323,9 +1274,6 @@
     backdrop-filter: var(--pv-glass-filter);
     border-bottom: 1px solid var(--pv-line-soft);
   }
-  .dv-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "intro intro" "plate start"; grid-template-rows: auto auto; align-items: center; }
-  .dv-hero__plate { justify-self: stretch; max-width: none; }
-  .dv-start { max-width: none; }
   .dv-group { grid-template-columns: minmax(0, 1fr); }
   .dv-group__head { position: static; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
   .dv-group__dots { margin-top: 2px; }
@@ -1410,13 +1358,10 @@
   .dv-plates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .dv-plate { aspect-ratio: 1; }
 
-  .dv-hero { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "plate" "start"; gap: 24px; padding-top: 28px; }
-  .dv-specimen { aspect-ratio: 16 / 10; border-radius: var(--pv-radius-lg); }
-  .dv-specimen > img { height: 100%; object-position: 50% 0%; }
-  .dv-specimen::before { height: 84px; }
-  .dv-start { padding: 16px 16px 18px; }
-  .dv-start__path { margin-top: 14px; gap: 12px; }
-  .dv-start__link::after { inset: -4px -8px; }
+  .dv-hero { gap: 22px; padding-top: 32px; padding-bottom: 36px; }
+  .dv-start__path { gap: 10px 22px; }
+  /* the path wraps on a phone: no dotted link left hanging at a line's end */
+  .dv-start .pv-steps > li:not(:last-child)::after { content: none; }
 }
 
 @media print {

@@ -16,11 +16,19 @@
  *   Loops      a lead figure's loop plays only in view and in a visible tab,
  *              with a Pause button (the figure's own, over the corner the
  *              capture leaves free); under reduced motion it waits for Play.
- *   Posters    on the home, a card whose page has a loop plays it while the
- *              pointer is on the card (a fine pointer, not under reduced
- *              motion), fetching it on the first visit.
- *   Lens       the home's specimen shows its larger picture under a loupe
- *              that follows a fine pointer, as the viewer's Lens does.
+ *   Field      the home's hero lies on a pointillist field: dots in the
+ *              homepage's case colours, one colour domain per drifting seed,
+ *              swelling under the pointer as under the viewer's Lens. It
+ *              draws only in view and in a visible tab, and holds still
+ *              under reduced motion.
+ *   Posters    on the home, a card in hand catches a soft light under the
+ *              pointer, and a card whose page has a loop plays it (a fine
+ *              pointer, not under reduced motion), fetching it the first time.
+ *   Rise       the home's cards rise into place as their group comes into
+ *              view (not under reduced motion); groups already in view at
+ *              load stay where they are.
+ *   Brand      while the hero's wordmark is in view, the bar's small one
+ *              steps back, as on the homepage.
  *   The theme toggle's name, the browser chrome's colour and focus going back
  *   to a drawer's opener without a page jump are pv.js's (shared/pv).
  */
@@ -599,6 +607,12 @@
   function setupPosters() {
     if (!body.classList.contains('dv--home')) return;
     $$('.dv-card').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        if (!fine.matches) return;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${Math.round(e.clientX - r.left)}px`);
+        card.style.setProperty('--my', `${Math.round(e.clientY - r.top)}px`);
+      });
       const v = card.querySelector('.dv-card__loop');
       if (!v) return;
       // Shown only once it has a frame: until then the still stays.
@@ -613,38 +627,148 @@
     });
   }
 
-  function setupLens() {
-    const fig = doc.querySelector('.dv--home [data-loupe]');
-    const img = fig && fig.querySelector('img');
-    if (!img) return;
-    const src = fig.getAttribute('data-loupe');
-    const bw = +fig.getAttribute('data-loupe-w');
-    const bh = +fig.getAttribute('data-loupe-h');
-    const lens = doc.createElement('span');
-    lens.className = 'dv-loupe';
-    lens.setAttribute('aria-hidden', 'true');
-    fig.appendChild(lens);
-    const off = () => fig.classList.remove('is-lens');
-    fig.addEventListener('pointermove', (e) => {
-      if (!fine.matches || e.pointerType !== 'mouse') return;
-      const r = img.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      if (x < 0 || y < 0 || x > r.width || y > r.height) { off(); return; }
-      if (!lens.style.backgroundImage) {
-        lens.style.backgroundImage = `url("${src}")`;
-        lens.style.backgroundSize = `${bw}px ${bh}px`;
-      }
-      // The larger picture's pixel under the pointer sits at the loupe's centre.
-      const k = bw / r.width;
-      const half = lens.offsetWidth / 2;
-      const f = fig.getBoundingClientRect();
-      lens.style.left = `${e.clientX - f.left}px`;
-      lens.style.top = `${e.clientY - f.top}px`;
-      lens.style.backgroundPosition = `${half - x * k}px ${half - y * k}px`;
-      fig.classList.add('is-lens');
+  function setupReveal() {
+    if (!body.classList.contains('dv--home') || reduceMQ.matches || !('IntersectionObserver' in window)) return;
+    const groups = $$('.dv-group');
+    groups.forEach((g) => {
+      if (g.getBoundingClientRect().top < window.innerHeight) g.classList.add('is-in', 'is-still');
     });
-    fig.addEventListener('pointerleave', off);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    groups.forEach((g) => { if (!g.classList.contains('is-in')) io.observe(g); });
+    body.classList.add('dv-reveal');
+  }
+
+  function setupBrand() {
+    const title = doc.querySelector('.dv--home .dv-hero__title');
+    const bar = doc.querySelector('.pv-topbar');
+    if (!title || !bar || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(([e]) => bar.classList.toggle('is-hero-brand', e.isIntersecting),
+      { rootMargin: '-72px 0px 0px 0px' }).observe(title);
+  }
+
+  function setupField() {
+    const canvas = doc.querySelector('.dv--home .dv-field');
+    const ctx = canvas && canvas.getContext && canvas.getContext('2d');
+    if (!ctx) return;
+    const hero = canvas.parentElement;
+    const NAMES = ['gold', 'violet', 'cyan', 'pink', 'mint', 'orange'];
+    const STEP = 17;              // the lattice's pitch, px
+    const LENS = 150;             // the Lens's radius, px
+    const LEVELS = 6;             // alpha steps: one path per colour and step
+    // Each seed drifts on its own slow Lissajous curve.
+    const SEEDS = NAMES.map((_, i) => ({ fx: 0.061 + 0.017 * i, fy: 0.047 + 0.013 * ((i * 4) % 6), px: i * 1.71, py: i * 2.93 + 0.4 }));
+    let W = 0, H = 0, dpr = 1, dots = [], colours = [], strength = 0.85;
+    let raf = 0, inView = true;
+    const ptr = { x: -1e4, y: -1e4, on: false, k: 0 };
+    let seed = 7;                 // a seeded random: the same lattice at every visit
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    const smooth = (e0, e1, x) => { const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+
+    const readColours = () => {
+      const cs = getComputedStyle(body);
+      colours = NAMES.map((n) => cs.getPropertyValue(`--dv-${n}`).trim() || '#888888');
+      strength = doc.documentElement.getAttribute('data-theme') === 'light' ? 0.62 : 0.92;
+    };
+    const build = () => {
+      const r = canvas.getBoundingClientRect();
+      W = r.width;
+      H = r.height;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.max(1, Math.round(W * dpr));
+      canvas.height = Math.max(1, Math.round(H * dpr));
+      seed = 7;
+      dots = [];
+      const rowH = STEP * 0.866;
+      const wide = Math.min(1, W / 1100);
+      for (let row = 0, y = rowH / 2; y < H + rowH; row++, y += rowH) {
+        for (let x = (row % 2) * STEP / 2; x < W + STEP; x += STEP) {
+          const dx = x + (rnd() - 0.5) * STEP * 0.38;
+          const dy = y + (rnd() - 0.5) * STEP * 0.38;
+          // Faint behind the words, at the left on a wide window; gone at the foot.
+          const side = wide * (0.14 + 0.86 * smooth(0.2, 0.8, dx / W)) + (1 - wide) * 0.32;
+          const foot = 1 - smooth(0.6, 1, dy / H);
+          dots.push({ x: dx, y: dy, r: 1.3 + rnd() * 1.15, p: rnd() * 6.283, b: 0.9 + rnd() * 0.2, a: side * foot });
+        }
+      }
+    };
+    const draw = (now) => {
+      const t = now / 1000;
+      ptr.k += ((ptr.on ? 1 : 0) - ptr.k) * 0.12;          // the Lens eases in and out
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      const sx = SEEDS.map((s) => W * (0.5 + 0.5 * Math.sin(t * s.fx + s.px)));
+      const sy = SEEDS.map((s) => H * (0.5 + 0.48 * Math.sin(t * s.fy + s.py)));
+      const paths = colours.map(() => Array.from({ length: LEVELS }, () => new Path2D()));
+      for (const d of dots) {
+        // The nearest seed names the colour; a bias per dot frays the borders.
+        let best = 0;
+        let bd = Infinity;
+        for (let i = 0; i < SEEDS.length; i++) {
+          const ex = d.x - sx[i];
+          const ey = d.y - sy[i];
+          const dd = (ex * ex + ey * ey) * (i % 2 ? d.b : 2 - d.b);
+          if (dd < bd) { bd = dd; best = i; }
+        }
+        let r = d.r * (1 + 0.14 * Math.sin(t * 1.3 + d.p));
+        let a = d.a;
+        if (ptr.k > 0.01) {
+          const ex = d.x - ptr.x;
+          const ey = d.y - ptr.y;
+          const dist = Math.sqrt(ex * ex + ey * ey);
+          if (dist < LENS) {
+            const g = (1 - dist / LENS) ** 2 * ptr.k;
+            r *= 1 + 2.3 * g;
+            a = Math.min(1, a + 0.9 * g);
+          }
+        }
+        if (a < 0.04) continue;
+        const path = paths[best][Math.min(LEVELS - 1, Math.floor(a * LEVELS))];
+        path.moveTo(d.x + r, d.y);
+        path.arc(d.x, d.y, r, 0, 6.2832);
+      }
+      for (let c = 0; c < colours.length; c++) {
+        ctx.fillStyle = colours[c];
+        for (let l = 0; l < LEVELS; l++) {
+          ctx.globalAlpha = ((l + 0.5) / LEVELS) * strength;
+          ctx.fill(paths[c][l]);
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+    const tick = (now) => { draw(now); raf = requestAnimationFrame(tick); };
+    const sync = () => {
+      const run = inView && doc.visibilityState === 'visible' && !reduceMQ.matches;
+      if (run && !raf) raf = requestAnimationFrame(tick);
+      if (!run && raf) { cancelAnimationFrame(raf); raf = 0; }
+      if (!run) draw(reduceMQ.matches ? 0 : performance.now());
+    };
+    readColours();
+    build();
+    draw(reduceMQ.matches ? 0 : performance.now());
+    // The pointer, wherever it is over the field (it runs wider than the hero).
+    window.addEventListener('pointermove', (e) => {
+      if (!fine.matches || e.pointerType !== 'mouse') return;
+      const r = canvas.getBoundingClientRect();
+      ptr.x = e.clientX - r.left;
+      ptr.y = e.clientY - r.top;
+      ptr.on = ptr.y >= 0 && ptr.y <= r.height;
+    }, { passive: true });
+    doc.addEventListener('pointerleave', () => { ptr.on = false; });
+    if ('ResizeObserver' in window) new ResizeObserver(() => { build(); sync(); }).observe(hero);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { inView = e.isIntersecting; sync(); }).observe(hero);
+    }
+    doc.addEventListener('visibilitychange', sync);
+    reduceMQ.addEventListener('change', sync);
+    new MutationObserver(() => { readColours(); if (!raf) draw(performance.now()); })
+      .observe(doc.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    sync();
   }
 
   /* -------------------------------------------------------------- boot */
@@ -655,8 +779,10 @@
     setupDrawer();
     setupScan();
     setupLoops();
+    setupField();
+    setupBrand();
     setupPosters();
-    setupLens();
+    setupReveal();
     prefill();
     // The sidebar keeps the current page in view.
     const here = doc.querySelector('.dv-side [aria-current="page"]');
