@@ -918,6 +918,60 @@
   .dv-specimen__label { top: 22px; left: 26px; right: 18px; gap: 5px; }
 }
 
+/* On the home, the specimen lies on the 2D case's colour field, as on the
+   homepage's open column: the dark picture lets the field through (screen),
+   and its label is set in ink on it. */
+.dv--home .dv-specimen {
+  border-color: transparent;
+  background-origin: border-box;
+  background-image: linear-gradient(172deg, var(--pv-gold) 0%,
+    color-mix(in srgb, var(--pv-gold) 58%, var(--pv-ink-0)) 24%,
+    color-mix(in srgb, var(--pv-gold) 18%, var(--pv-ink-0)) 58%, var(--pv-ink-0) 94%);
+}
+.dv--home .dv-specimen > img { mix-blend-mode: screen; }
+.dv--home .dv-specimen::before,
+.dv--home .dv-specimen::after { content: none; }
+.dv--home .dv-specimen__label .pv-caselabel__title { color: var(--pv-ink-0); }
+.dv--home .dv-specimen__label .pv-caselabel__title::before { background: var(--pv-ink-0); box-shadow: none; }
+/* The Lens: pointed at, the specimen shows its larger picture under a loupe
+   that follows the pointer (docs.js), as the viewer's Lens does over cells. */
+.dv-loupe {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: 172px;
+  height: 172px;
+  margin: -86px 0 0 -86px;
+  border: 2px solid var(--pv-gold);
+  border-radius: 50%;
+  background-color: var(--pv-ink-0);
+  background-repeat: no-repeat;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--pv-ink-0) 45%, transparent), 0 20px 40px -14px rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 180ms ease, transform 220ms var(--pv-ease-out);
+  pointer-events: none;
+}
+.dv-specimen.is-lens { cursor: none; }
+.dv-specimen.is-lens .dv-loupe { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .dv-loupe { transition: opacity 120ms ease; transform: none; } }
+/* A faint wash of the cases' colours behind the hero, as the open column lights
+   the homepage. */
+.dv--home .dv-hero::after {
+  content: "";
+  position: absolute;
+  inset: -6% -14% 0;
+  z-index: -2;
+  background:
+    radial-gradient(38% 46% at 78% 34%, color-mix(in srgb, var(--pv-gold) 15%, transparent), transparent 72%),
+    radial-gradient(26% 32% at 96% 4%, color-mix(in srgb, var(--pv-violet) 12%, transparent), transparent 72%),
+    radial-gradient(30% 40% at 4% 92%, color-mix(in srgb, var(--pv-cyan) 7%, transparent), transparent 72%);
+  -webkit-mask-image: linear-gradient(#000 62%, transparent);
+  mask-image: linear-gradient(#000 62%, transparent);
+  pointer-events: none;
+}
+
 /* Start here: three points on one dotted path. */
 .dv-start {
   grid-area: start;
@@ -975,6 +1029,17 @@
   .dv-start__step { min-height: 44px; align-content: center; }
 }
 .dv-start .pv-steps > li::before { width: 24px; height: 24px; }
+/* Each point in the colour of the card it leads to; in hand, it grows a little. */
+.dv-start .pv-steps > li[data-tone]::before {
+  background: var(--dv-tone);
+  color: var(--dv-tone-ink);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--dv-tone) 40%, transparent);
+  transition: transform var(--pv-dur-hover) var(--pv-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dv-start .pv-steps > li[data-tone]:hover::before { transform: scale(1.18); }
+  .dv-start__step[data-tone]:hover .dv-start__link { color: var(--dv-tone); }
+}
 .dv-start .pv-steps > li { grid-template-columns: 24px minmax(0, 1fr); column-gap: 12px; }
 .dv-start .pv-steps > li:not(:last-child)::after { left: 11px; top: 30px; bottom: -10px; }
 
@@ -1028,34 +1093,162 @@
 .dv-group__name { font-size: clamp(1.5rem, 1.3rem + 0.7vw, 2rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
 
 .dv-group__cards { display: grid; gap: var(--pv-gap); }
-/* A one-page group's card is the size of a two-page group's. */
-.dv-group--n4 .dv-group__cards, .dv-group--n2 .dv-group__cards, .dv-group--n1 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dv-group--n4 .dv-group__cards, .dv-group--n2 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .dv-group--n3 .dv-group__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 /* Wide screens: the four kinds of data side by side, as on the homepage. */
 @media (min-width: 1200px) {
   .dv-group--n4 .dv-group__cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .dv-group--n4 .dv-card { --pv-card-pad: 16px; }
+  .dv-group--n4 .dv-card { aspect-ratio: 1; }
 }
-.dv-card { --pv-card-pad: 18px; gap: 10px; }
-/* The case is named in the card (no stripe along its top edge). */
+
+/* The colours: the homepage's cases, and for the other pages the colour of
+   their picture (build_docs.py TONES); deeper on paper, with white names. */
+.dv--home [data-tone] { --dv-tone-ink: var(--pv-ink-0); }
+.dv--home [data-tone="gold"]   { --dv-tone: var(--pv-gold); }
+.dv--home [data-tone="violet"] { --dv-tone: var(--pv-violet); }
+.dv--home [data-tone="cyan"]   { --dv-tone: var(--pv-cyan); }
+.dv--home [data-tone="pink"]   { --dv-tone: var(--pv-pink); }
+.dv--home [data-tone="mint"]   { --dv-tone: var(--pv-mint); }
+.dv--home [data-tone="orange"] { --dv-tone: var(--pv-orange); }
+[data-theme="light"] .dv--home [data-tone] { --dv-tone-ink: #FFFFFF; }
+[data-theme="light"] .dv--home [data-tone="gold"]   { --dv-tone: var(--pv-gold-deep); }
+[data-theme="light"] .dv--home [data-tone="violet"] { --dv-tone: #6B3FC4; }
+[data-theme="light"] .dv--home [data-tone="cyan"]   { --dv-tone: #076A8E; }
+[data-theme="light"] .dv--home [data-tone="pink"]   { --dv-tone: #B8326F; }
+[data-theme="light"] .dv--home [data-tone="mint"]   { --dv-tone: var(--pv-mint-deep); }
+[data-theme="light"] .dv--home [data-tone="orange"] { --dv-tone: #A8480B; }
+
+/* One point per card, in its colour, under the group's name; the card in hand
+   lights its point. */
+.dv-group__dots { display: flex; gap: 8px; margin-top: 14px; }
+.dv-group__dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--dv-tone);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--dv-tone) 50%, transparent);
+  transition: transform var(--pv-dur-hover) var(--pv-ease-out);
+}
+.dv-group:has(.dv-card:nth-child(1):is(:hover, :focus-within)) .dv-group__dots i:nth-child(1),
+.dv-group:has(.dv-card:nth-child(2):is(:hover, :focus-within)) .dv-group__dots i:nth-child(2),
+.dv-group:has(.dv-card:nth-child(3):is(:hover, :focus-within)) .dv-group__dots i:nth-child(3),
+.dv-group:has(.dv-card:nth-child(4):is(:hover, :focus-within)) .dv-group__dots i:nth-child(4) { transform: scale(1.55); }
+
+/* Posters: the picture fills the card, and a band of the card's colour rises
+   from its foot with the name on it in ink, as on the homepage's columns. The
+   name stays in the flow (at the foot), so the title link still covers the
+   whole card. */
+.dv-card {
+  --pv-card-pad: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  isolation: isolate;
+  border: 0;
+  background: var(--pv-ink-0);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--dv-tone) 24%, transparent);
+  transition: transform var(--pv-dur-panel) var(--pv-ease-out), box-shadow var(--pv-dur-panel) var(--pv-ease-out);
+}
+.dv-group--n2 .dv-card { aspect-ratio: 16 / 10; }
+@media (max-width: 1199.98px) { .dv-group--n4 .dv-card { aspect-ratio: 16 / 10; } }
 .dv-card[data-case]::before { content: none; }
-.dv-card__media { margin-bottom: 8px; }
-.dv-card__media > img { transition: transform var(--pv-dur-panel) var(--pv-ease-out), filter var(--pv-dur-panel) var(--pv-ease-out); }
-.dv-card__body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1 1 auto; }
-.dv-caseline { margin: 0; font-size: var(--pv-text-2xs); }
-.dv-card__title { font-size: var(--pv-text-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; text-wrap: balance; }
-.dv-card__links { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.875rem; font-weight: 500; }
-.dv-card__links a { display: inline-flex; align-items: center; gap: 5px; padding-block: 2px; }
-.dv-card__links svg { width: 13px; height: 13px; }
+.dv-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  margin: 0;
+  border-radius: 0;
+  aspect-ratio: auto;
+  background: var(--pv-ink-0);
+}
+.dv-card__media > img,
+.dv-card__loop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms var(--pv-ease-out), opacity 320ms ease;
+}
+.dv-card__loop { opacity: 0; }
+.dv-card.is-playing .dv-card__loop { opacity: 1; }
+.dv-card__body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 10px 16px 14px;
+  color: var(--dv-tone-ink);
+  background: var(--dv-tone);
+  /* the band's soft upper edge, over the picture */
+  box-shadow: 0 -18px 26px 4px var(--dv-tone);
+  transition: box-shadow var(--pv-dur-panel) var(--pv-ease-out);
+}
+.dv-card .dv-caseline { margin: 0; font-size: var(--pv-text-2xs); color: inherit; opacity: 0.74; }
+.dv-card .dv-caseline::before { background: currentColor; box-shadow: none; }
+.dv-card__title { font-size: var(--pv-text-h4); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; color: inherit; text-wrap: balance; }
+.dv-card__links { display: flex; flex-wrap: wrap; gap: 2px 16px; margin-top: 3px; font-size: 0.8125rem; font-weight: 600; }
+.dv-card__links a {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-block: 2px;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.dv-card__links svg { width: 12px; height: 12px; }
+.dv-group--n2 .dv-card__body { padding: 12px 20px 18px; }
+/* The focus ring on the card itself: a ring drawn outside would be clipped. */
+.dv-card .pv-card__link:focus-visible::after { outline: none; }
+.dv-card:has(.pv-card__link:focus-visible) { box-shadow: 0 0 0 2px var(--pv-focus); }
+
+/* A one-page group's card is a banner across the group, built like the
+   homepage's open column: a field of its colour fading to ink, its name large
+   on the field, and its picture framed beside it at the picture's own scale. */
+.dv-card--banner {
+  aspect-ratio: auto;
+  min-height: 248px;
+  justify-content: flex-start;
+  background: linear-gradient(105deg, var(--dv-tone) 0%, color-mix(in srgb, var(--dv-tone) 48%, var(--pv-ink-0)) 34%,
+    color-mix(in srgb, var(--dv-tone) 12%, var(--pv-ink-0)) 62%, var(--pv-ink-0) 100%);
+}
+.dv-card--banner .dv-card__media {
+  inset: 18px 18px 18px auto;
+  width: min(54%, 460px);
+  overflow: hidden;
+  border-radius: calc(var(--pv-radius-lg) - 6px);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+.dv-card--banner .dv-card__body { padding: 22px 26px; background: none; box-shadow: none; }
+.dv-card--banner .dv-card__title { font-size: clamp(1.75rem, 1.4rem + 1vw, 2.5rem); line-height: 1.05; letter-spacing: -0.02em; }
+
+/* In hand: the card rises and grows a little, its picture comes closer, the
+   band climbs, and a picture that moves starts moving (docs.js). */
+@media (hover: hover) and (pointer: fine) {
+  .dv-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--dv-tone) 62%, transparent),
+                0 22px 46px -22px color-mix(in srgb, var(--dv-tone) 80%, transparent);
+  }
+  .dv-card--banner:hover { transform: translateY(-3px) scale(1.01); }
+  .dv-card:hover .dv-card__media > img,
+  .dv-card:hover .dv-card__loop { transform: scale(1.06); }
+  .dv-card:hover .dv-card__body { box-shadow: 0 -30px 34px 8px var(--dv-tone); }
+  .dv-card--banner:hover .dv-card__body { box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dv-card, .dv-card__body, .dv-card__media > img, .dv-card__loop { transition: none; }
+  .dv-card:hover, .dv-card--banner:hover { transform: none; }
+  .dv-card:hover .dv-card__media > img, .dv-card:hover .dv-card__loop { transform: none; }
+}
 /* A hyphenated name in a technology line stays whole (Spatial-Mux-seq). */
 .dv-nw { white-space: nowrap; }
-/* The capture answers the pointer: its registration marks light up. */
-.dv-card .pv-figure__stage::after { transition: opacity var(--pv-dur-hover) ease; }
-@media (hover: hover) and (pointer: fine) {
-  .dv-card:hover .pv-figure__stage::after { --_b: var(--pv-accent); }
-  .dv-card:hover .dv-card__media > img { filter: brightness(1.08) saturate(1.06); }
-}
-.dv-card:focus-within .pv-figure__stage::after { --_b: var(--pv-accent); }
 
 
 /* 14 · Responsive and print ====================================================== */
@@ -1134,32 +1327,32 @@
   .dv-hero__plate { justify-self: stretch; max-width: none; }
   .dv-start { max-width: none; }
   .dv-group { grid-template-columns: minmax(0, 1fr); }
-  .dv-group__head { position: static; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+  .dv-group__head { position: static; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
+  .dv-group__dots { margin-top: 2px; }
 }
 
 @media (max-width: 699.98px) {
-  .dv-group--n3 .dv-group__cards { grid-template-columns: minmax(0, 1fr); }
+  .dv-group--n3 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dv-group--n3 .dv-card:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
 }
 
 /* Phones: every topic is a compact row, a thumbnail beside its words. */
 @media (max-width: 599.98px) {
   .dv-group__cards,
   .dv-group--n4 .dv-group__cards,
-  .dv-group--n2 .dv-group__cards,
-  .dv-group--n1 .dv-group__cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .dv-group--n3 .dv-group__cards,
+  .dv-group--n2 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .dv-groups { gap: 40px; }
   .dv-group { gap: 16px; padding-top: 24px; }
-  .dv-card {
-    --pv-card-pad: 14px;
-    display: grid;
-    grid-template-columns: 112px minmax(0, 1fr);
-    gap: 6px 14px;
-    align-items: start;
-  }
-  .dv-card__body { display: contents; }
-  .dv-card .dv-card__media { grid-column: 1; grid-row: 1 / span 3; margin: 0; border-radius: 8px; }
-  .dv-card__body > * { grid-column: 2; }
-  .dv-card__title { font-size: 1.0625rem; }
+  .dv-card, .dv-group--n2 .dv-card, .dv-group--n4 .dv-card { aspect-ratio: 1; }
+  .dv-group--n3 .dv-card:last-child { aspect-ratio: 16 / 9; }
+  .dv-card__body, .dv-group--n2 .dv-card__body { padding: 8px 12px 11px; }
+  .dv-card__title { font-size: 1rem; }
+  .dv-card--banner { grid-column: 1 / -1; aspect-ratio: auto; min-height: 168px; }
+  .dv-card--banner .dv-card__media { inset: 12px 12px 12px auto; width: 52%; }
+  .dv-card--banner .dv-card__body { padding: 14px 16px; }
+  .dv-card--banner .dv-card__title { font-size: 1.375rem; }
+  .dv-card__links { gap: 0 12px; font-size: 0.75rem; }
 
   /* Previous and next stay side by side, compact. */
   .dv-pager { gap: 10px; margin-top: 48px; padding-top: 24px; }

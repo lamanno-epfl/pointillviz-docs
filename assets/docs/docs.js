@@ -16,6 +16,11 @@
  *   Loops      a lead figure's loop plays only in view and in a visible tab,
  *              with a Pause button (the figure's own, over the corner the
  *              capture leaves free); under reduced motion it waits for Play.
+ *   Posters    on the home, a card whose page has a loop plays it while the
+ *              pointer is on the card (a fine pointer, not under reduced
+ *              motion), fetching it on the first visit.
+ *   Lens       the home's specimen shows its larger picture under a loupe
+ *              that follows a fine pointer, as the viewer's Lens does.
  *   The theme toggle's name, the browser chrome's colour and focus going back
  *   to a drawer's opener without a page jump are pv.js's (shared/pv).
  */
@@ -587,6 +592,61 @@
     });
   }
 
+  /* -------------------------------------------------------------- home */
+
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  function setupPosters() {
+    if (!body.classList.contains('dv--home')) return;
+    $$('.dv-card').forEach((card) => {
+      const v = card.querySelector('.dv-card__loop');
+      if (!v) return;
+      // Shown only once it has a frame: until then the still stays.
+      v.addEventListener('playing', () => { if (card.matches(':hover')) card.classList.add('is-playing'); });
+      card.addEventListener('pointerenter', () => {
+        if (!fine.matches || reduceMQ.matches) return;
+        if (!v.getAttribute('src')) v.src = v.getAttribute('data-src');
+        const run = v.play();
+        if (run && run.catch) run.catch(() => {});
+      });
+      card.addEventListener('pointerleave', () => { card.classList.remove('is-playing'); v.pause(); });
+    });
+  }
+
+  function setupLens() {
+    const fig = doc.querySelector('.dv--home [data-loupe]');
+    const img = fig && fig.querySelector('img');
+    if (!img) return;
+    const src = fig.getAttribute('data-loupe');
+    const bw = +fig.getAttribute('data-loupe-w');
+    const bh = +fig.getAttribute('data-loupe-h');
+    const lens = doc.createElement('span');
+    lens.className = 'dv-loupe';
+    lens.setAttribute('aria-hidden', 'true');
+    fig.appendChild(lens);
+    const off = () => fig.classList.remove('is-lens');
+    fig.addEventListener('pointermove', (e) => {
+      if (!fine.matches || e.pointerType !== 'mouse') return;
+      const r = img.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      if (x < 0 || y < 0 || x > r.width || y > r.height) { off(); return; }
+      if (!lens.style.backgroundImage) {
+        lens.style.backgroundImage = `url("${src}")`;
+        lens.style.backgroundSize = `${bw}px ${bh}px`;
+      }
+      // The larger picture's pixel under the pointer sits at the loupe's centre.
+      const k = bw / r.width;
+      const half = lens.offsetWidth / 2;
+      const f = fig.getBoundingClientRect();
+      lens.style.left = `${e.clientX - f.left}px`;
+      lens.style.top = `${e.clientY - f.top}px`;
+      lens.style.backgroundPosition = `${half - x * k}px ${half - y * k}px`;
+      fig.classList.add('is-lens');
+    });
+    fig.addEventListener('pointerleave', off);
+  }
+
   /* -------------------------------------------------------------- boot */
 
   function boot() {
@@ -595,6 +655,8 @@
     setupDrawer();
     setupScan();
     setupLoops();
+    setupPosters();
+    setupLens();
     prefill();
     // The sidebar keeps the current page in view.
     const here = doc.querySelector('.dv-side [aria-current="page"]');
