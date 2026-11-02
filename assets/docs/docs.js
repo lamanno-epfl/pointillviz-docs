@@ -13,6 +13,12 @@
  *   Contents   the section in view is the lit point of "On this page", and
  *              the phone's sub-bar names it.
  *   Skeletons  each section is swept once as it comes into view.
+ *   Systems    a written page shows its commands for one system, macOS and
+ *              Linux or Windows: the head script picked the reader's before
+ *              first paint (data-os on <html>), every switch of the page
+ *              follows one choice, and the choice is remembered (pv-docs-os).
+ *   Choices    a choice of tabs (the Assistant's runtimes) shows its first
+ *              panel until this runs, then pv.js switches the panels.
  *   Loops      a lead figure's loop plays only in view and in a visible tab,
  *              with a Pause button (the figure's own, over the corner the
  *              capture leaves free); under reduced motion it waits for Play.
@@ -539,6 +545,65 @@
     secs.forEach((s) => io.observe(s));
   }
 
+  /* ------------------------------------------- the reader's system */
+
+  // Each code block whose commands differ by system has a switch in its head
+  // (role=tablist, built by build_docs.py). docs.css shows the commands of
+  // <html data-os>; here the switches take the same state, a press or the
+  // arrow keys set it for the whole page, and it is kept for the next visit.
+  const OS_KEY = 'pv-docs-os';
+
+  function setupSystems() {
+    const blocks = $$('[data-dv-os]');
+    if (!blocks.length) return;
+    const html = doc.documentElement;
+    const apply = (os) => {
+      html.setAttribute('data-os', os);
+      blocks.forEach((b) => {
+        $$('[role="tab"]', b).forEach((t) => {
+          const on = t.getAttribute('data-os') === os;
+          t.setAttribute('aria-selected', String(on));
+          t.tabIndex = on ? 0 : -1;
+        });
+        $$('[role="tabpanel"]', b).forEach((p) => { p.hidden = p.getAttribute('data-os') !== os; });
+      });
+    };
+    const choose = (os) => {
+      apply(os);
+      try { window.localStorage.setItem(OS_KEY, os); } catch (e) { /* not remembered */ }
+    };
+    blocks.forEach((b) => {
+      const tabs = $$('[role="tab"]', b);
+      tabs.forEach((t, i) => {
+        t.addEventListener('click', () => choose(t.getAttribute('data-os')));
+        t.addEventListener('keydown', (e) => {
+          const last = tabs.length - 1;
+          const k = { ArrowRight: i === last ? 0 : i + 1, ArrowLeft: i === 0 ? last : i - 1, Home: 0, End: last }[e.key];
+          if (k === undefined) return;
+          e.preventDefault();
+          choose(tabs[k].getAttribute('data-os'));
+          tabs[k].focus();
+        });
+      });
+    });
+    apply(html.getAttribute('data-os') === 'win' ? 'win' : 'unix');
+  }
+
+  // Until this runs, docs.css shows a choice's first panel (and, without
+  // scripts, every panel under its own heading); from here the panels not
+  // chosen are hidden, and pv.js switches them.
+  function setupChoices() {
+    $$('.dv-choice[data-pv-tabs]').forEach((box) => {
+      const list = box.querySelector(':scope > [role="tablist"]');
+      if (!list) return;
+      $$('[role="tab"]', list).forEach((t) => {
+        const panel = doc.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = t.getAttribute('aria-selected') !== 'true';
+      });
+      box.classList.add('is-ready');
+    });
+  }
+
   /* ------------------------------------------------------ figure loops */
 
   function setupLoops() {
@@ -778,6 +843,8 @@
     setupSpy();
     setupDrawer();
     setupScan();
+    setupSystems();
+    setupChoices();
     setupLoops();
     setupField();
     setupBrand();

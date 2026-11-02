@@ -1,6 +1,6 @@
 # docs.pointillviz.com
 
-The PointillViz documentation: eleven tutorials in five groups, a docs home with search, and a 404 page. GitHub Pages serves this folder as it is (`CNAME`, `.nojekyll`), so there is no build step at serve time.
+The PointillViz documentation: twelve tutorials in five groups, a docs home with search, and a 404 page. GitHub Pages serves this folder as it is (`CNAME`, `.nojekyll`), so there is no build step at serve time.
 
 Every page except the shared design system is **generated** from one data file. Edit the data, then regenerate. Do not edit the generated HTML by hand: the next build overwrites it.
 
@@ -24,7 +24,7 @@ The generators live in the web workspace, one folder up from this one (`tools/`)
 python3 -B tools/build_docs.py
 ```
 
-That rewrites the home, the eleven pages, the 404 page, the sitemap and the search index (inlined in every page). It uses only the Python standard library.
+That rewrites the home, the twelve pages, the 404 page, the sitemap and the search index (inlined in every page). It uses only the Python standard library.
 
 GitHub Pages serves `404.html` at any unknown address, also a deep one (`/a/b/`). On the live site the page then sets its base to the site root, writes its stylesheets and scripts after that base (and lazy-loads its logos), so the browser never fetches them from the missing folder; without scripts, `<noscript>` links still style it.
 
@@ -37,6 +37,8 @@ python3 -B tools/build_docs.py
 ```
 
 Crops are set in `tools/build_docs_media.py`, in source pixels, at 16:10. A crop never shows a dataset ID: cut the viewer's header away. Sources are app captures, figure panels and frames of the app footage in `trailer/footage/` (read only). A page can also have a tighter crop for its card on the home (`card_crop`) and its own crop on phones (`phone_crop`, served by a `<picture>` source).
+
+The Installation figure is the viewer's home page, shot by the same script (`node tools/capture_docs_media.cjs installation --base <viewer>`) from a server that lists public datasets only (the script stops if a private one is listed; its header says how to serve such a folder). `python -I tools/build_docs_media.py --og-home` then redraws only the home's social card, whose tutorial count follows `pages.json`.
 
 The Atlases figure is shot from a running viewer by `tools/capture_docs_media.cjs` (start one from the app repository first: `python -m backend.serve 8798`): the Atlas tab's montage of a Xenium 5K mouse tissue microarray, every section at full detail, coloured by one gene's level through the Genes tab, with the cell size set in the Style widget. It writes `data/captures/atlases.png` in the workspace and a sidecar with every setting and the 16:10 frame the cells were fitted into, which the media script crops (`"crop": "frame"`). Rerun it, then the two build scripts, to change the gene or the layout.
 
@@ -53,7 +55,7 @@ Preview locally with any static server, for example `python3 -m http.server 8000
 Each page is in preparation until its tutorial exists. To publish one:
 
 1. Write the body as an HTML fragment in `data/tutorials/<slug>.html` (for example `data/tutorials/importing.html`). No `<html>`, `<head>` or `<body>`, and no `<h1>`: the page's title, summary and breadcrumbs come from `pages.json`.
-2. Start each section with an `<h2>`. The build gives it an `id` if it has none, lists it under "On this page", and adds it to the search index. Keep the section titles of the outline in `pages.json` unless the tutorial needs others.
+2. Start each section with an `<h2>`, at the top level of the file. The build gives it an `id` if it has none, sets it as a placeholder's sections are set (the heading with its own link, the section running to the next `<h2>`), lists it under "On this page", and adds it to the search index. Keep the section titles of the outline in `pages.json` unless the tutorial needs others (`data/tutorials/installation.html` is a written example).
 3. Build the body from the house style, so it looks like the preview the placeholder shows. The body is set as `.pv-prose`, so plain `<p>`, lists, links, `<code>` and `<kbd>` are styled already.
 
    | Block | Markup |
@@ -61,6 +63,9 @@ Each page is in preparation until its tutorial exists. To publish one:
    | Numbered steps | `<ol class="pv-steps"><li><p class="pv-steps__title">…</p><p>…</p></li></ol>` |
    | Figure | `<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/…" alt="…" width="…" height="…"></div><figcaption class="pv-figure__caption">…<span class="pv-figure__meta">Xenium 5K · mouse colon</span></figcaption></figure>` |
    | Code, with its copy button | `<figure class="pv-code"><figcaption class="pv-code__head"><span class="pv-code__title">file.py</span><button class="pv-code__copy" type="button" data-pv-copy><span class="pv-code__copy-label">Copy</span></button></figcaption><pre tabindex="0"><code>…</code></pre></figure>` |
+   | Commands, the same on every system | `<figure class="pv-code"><pre><code>…</code></pre></figure>`: without a `<figcaption>`, the build adds the head ("All systems") and the copy button |
+   | Commands per system | `<figure class="pv-code" id="…"><pre data-os="unix"><code>…</code></pre><pre data-os="win"><code>…</code></pre></figure>`: the head becomes a macOS / Linux · Windows switch. Every switch on the page follows one choice: the reader's system at first, then their own, remembered (`pv-docs-os`). Without scripts both systems show, named |
+   | A choice of tabs | `<div class="dv-choice" data-pv-tabs>`: a `role="tablist"` of `button.dv-choice__tab` (`.dv-choice__name`, `.dv-choice__by`), then one `.dv-choice__panel` each, its `h3.dv-choice__heading` shown only without scripts (the Assistant's runtimes on Installation) |
    | Note, tip, caution | `<aside class="pv-callout pv-callout--note"><p class="pv-callout__title">Note</p><p>…</p></aside>` (also `--tip`, `--caution`) |
    | Parameter table | `<div class="pv-table-wrap" role="region" tabindex="0" aria-label="Parameters"><table class="pv-table">…</table></div>` with the head Parameter · Type · Default · What it does |
 

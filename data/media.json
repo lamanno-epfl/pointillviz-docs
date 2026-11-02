@@ -1,4 +1,31 @@
 {
+ "installation": {
+  "card": {
+   "file": "installation-640.webp",
+   "w": 640,
+   "h": 400
+  },
+  "mid": {
+   "file": "installation-960.webp",
+   "w": 960,
+   "h": 600
+  },
+  "large": {
+   "file": "installation-1280.webp",
+   "w": 1280,
+   "h": 800
+  },
+  "xl": {
+   "file": "installation-1600.webp",
+   "w": 1600,
+   "h": 1000
+  },
+  "og": {
+   "file": "og/installation.jpg",
+   "w": 1200,
+   "h": 630
+  }
+ },
  "importing": {
   "card": {
    "file": "importing-640.webp",

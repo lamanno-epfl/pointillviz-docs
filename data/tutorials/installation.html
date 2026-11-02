@@ -1,0 +1,99 @@
+<h2>What you need</h2>
+<ul>
+<li>git, to clone PointillViz.</li>
+<li>curl, on macOS and Linux. Ubuntu 22.04 can come without it: <code class="dv-nw">sudo apt install curl</code>.</li>
+<li>For ChatGPT Codex only: Node.js 18 or newer, with npm. The Node.js of Ubuntu 22.04’s apt (12) is too old.</li>
+</ul>
+
+<h2>Install pixi</h2>
+<p>PointillViz installs with <a href="https://pixi.sh">pixi</a>, which brings Python and every package PointillViz uses, at the versions <code>pixi.lock</code> pins. Install it once, then open a new terminal. On Windows, use PowerShell.</p>
+<figure class="pv-code" id="get-pixi">
+<pre data-os="unix"><code>curl -fsSL https://pixi.sh/install.sh | sh</code></pre>
+<pre data-os="win"><code>powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 | iex"</code></pre>
+</figure>
+
+<h2>Install PointillViz</h2>
+<figure class="pv-code">
+<pre><code>git clone https://github.com/lamanno-epfl/PointillViz.git
+cd PointillViz
+pixi install</code></pre>
+</figure>
+<p><code>pixi install</code> builds PointillViz’s environment, exactly as <code>pixi.lock</code> pins it.</p>
+
+<h2>Run PointillViz</h2>
+<h3>Without the Assistant</h3>
+<figure class="pv-code">
+<pre><code>pixi run serve</code></pre>
+</figure>
+<p>The viewer opens on <code>http://localhost:8090</code>; <code class="dv-nw">pixi run serve 8095</code> serves it on another port. It listens on every network interface, so other machines on your network can reach it.</p>
+<h3>With the Assistant</h3>
+<figure class="pv-code" id="serve-assistant">
+<pre data-os="unix"><code>POINTILLVIZ_ASSISTANT=1 pixi run serve</code></pre>
+<pre data-os="win"><code>$env:POINTILLVIZ_ASSISTANT=1; pixi run serve</code></pre>
+</figure>
+<p>Then press <strong>Assistant</strong>, or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>J</kbd>. With the Assistant on, the server listens on <code>127.0.0.1</code> only. It needs a runtime: <a href="#choose-a-runtime-for-the-assistant">choose one below</a>.</p>
+<aside class="pv-callout pv-callout--note">
+<p class="pv-callout__title">Without pixi</p>
+<p><code>./serve.sh</code> runs the server on whichever <code>python3</code> is on your <code>PATH</code>: Python 3.10 or newer, with numpy. <code>PYTHON=/path/to/python ./serve.sh 8090</code> pins one.</p>
+</aside>
+
+<h2>Choose a runtime for the Assistant</h2>
+<p>The Assistant needs one AI runtime, installed on your computer apart from PointillViz and signed in once with your own account. Install one of the three before you start the Assistant.</p>
+<div class="dv-choice" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="Runtime">
+<button class="dv-choice__tab" type="button" role="tab" id="runtime-claude" aria-controls="runtime-claude-p" aria-selected="true"><span class="dv-choice__name">Claude Code</span><span class="dv-choice__by">Anthropic</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="runtime-codex" aria-controls="runtime-codex-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">ChatGPT Codex</span><span class="dv-choice__by">OpenAI</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="runtime-agy" aria-controls="runtime-agy-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Antigravity CLI</span><span class="dv-choice__by">Google · Preview</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="runtime-claude-p" aria-labelledby="runtime-claude">
+<h3 class="dv-choice__heading">Claude Code</h3>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Install Claude Code</p>
+<figure class="pv-code" id="get-claude">
+<pre data-os="unix"><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+<pre data-os="win"><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+</figure></li>
+<li><p class="pv-steps__title">Add claude-agent-sdk</p>
+<p>The library PointillViz drives Claude Code through. Run this inside <code>PointillViz/</code>: it records the library in the clone’s <code>pixi.toml</code> and <code>pixi.lock</code>, so git shows both as changed.</p>
+<figure class="pv-code">
+<pre><code>pixi add --pypi claude-agent-sdk</code></pre>
+</figure></li>
+<li><p class="pv-steps__title">Sign in once</p>
+<figure class="pv-code">
+<pre><code>claude auth login</code></pre>
+</figure></li>
+</ol>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="runtime-codex-p" aria-labelledby="runtime-codex">
+<h3 class="dv-choice__heading">ChatGPT Codex</h3>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Install ChatGPT Codex</p>
+<p>It needs <a href="https://nodejs.org/">Node.js</a> 18 or newer, with npm.</p>
+<figure class="pv-code">
+<pre><code>npm install -g @openai/codex</code></pre>
+</figure></li>
+<li><p class="pv-steps__title">Sign in once</p>
+<figure class="pv-code">
+<pre><code>codex login</code></pre>
+</figure></li>
+</ol>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="runtime-agy-p" aria-labelledby="runtime-agy">
+<h3 class="dv-choice__heading">Google Antigravity CLI (preview)</h3>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Install the Antigravity CLI</p>
+<figure class="pv-code" id="get-agy">
+<pre data-os="unix"><code>curl -fsSL https://antigravity.google/cli/install.sh | bash</code></pre>
+<pre data-os="win"><code>irm https://antigravity.google/cli/install.ps1 | iex</code></pre>
+</figure></li>
+<li><p class="pv-steps__title">Sign in once</p>
+<p>Start <code>agy</code> and follow its prompts.</p>
+<figure class="pv-code">
+<pre><code>agy</code></pre>
+</figure></li>
+</ol>
+</div>
+</div>
+
+<h2>Add your data</h2>
+<p>Open the viewer, press <strong>Upload an .h5ad</strong> or <strong>+ Add</strong>, and drop in the file: the import wizard maps its fields onto the viewer and converts it in the background. See <a href="../importing/">Importing</a>.</p>

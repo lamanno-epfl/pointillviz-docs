@@ -7,7 +7,8 @@
    0 Press states  4 Nav path        8  Page: status         12 Home: hero, start
    1 Tokens        5 Search          9  Page: lead figure    13 Home: groups, cards
    2 Shell         6 Sub-bar, drawer 10 Page: outline        14 Responsive, print
-   3 Sidebar       7 Page: header    11 Contents, pager
+   3 Sidebar       7 Page: header    10b Page: written tutorial
+                                     11 Contents, pager
    The 404 page, the status chip, the search field's focus, the Paper chip,
    taps, card rings and the large-screen chrome are pv.css's (shared/pv).
    ========================================================================== */
@@ -733,6 +734,139 @@
 .dv-sk-gates .dv-sk-gate--advisory::before { border-style: dashed; border-color: var(--pv-text-3); }
 
 
+/* 10b · A written tutorial ===================================================
+   data/tutorials/<slug>.html, set as .pv-prose in the sections and headings
+   of the outline it replaces (build_docs.py). Code blocks span the column, as
+   the figure does; words keep the reading measure. */
+
+.dv-body--written { max-width: none; }
+.dv-body--written .dv-sec + .dv-sec { margin-top: 56px; }
+.dv-body--written .dv-sec__title { margin: 0; font-size: clamp(1.3125rem, 1.15rem + 0.55vw, 1.625rem); line-height: 1.2; }
+.dv-body--written .dv-sec > * + * { margin-top: 16px; }
+.dv-body--written .dv-sec > .dv-sec__head + * { margin-top: 12px; }
+.dv-body--written :is(p, ul, ol:not(.pv-steps)) { max-width: var(--pv-measure); }
+.dv-body--written .dv-sec > h3 { margin-top: 32px; font-size: 1.0625rem; line-height: 1.35; letter-spacing: -0.005em; }
+.dv-body--written .dv-sec > h3 + * { margin-top: 12px; }
+.dv-body--written .dv-sec > .pv-code + p { margin-top: 12px; }
+.dv-body--written .dv-sec > .pv-callout { margin-top: 32px; }
+.dv-body--written .pv-steps { padding: 0; }
+.dv-body--written .pv-steps > li + li { margin-top: 0; }
+
+/* Commands that differ by system: a switch in the code block's head, one
+   choice for the whole page (docs.js). The head script's data-os shows the
+   reader's system before first paint; without scripts both show, named. */
+.dv-os .pv-code__head { padding-left: 4px; }
+.dv-os .pv-code__copy { margin-left: auto; }
+.dv-os__tabs {
+  display: flex;
+  align-self: stretch;
+  min-width: 0;
+  margin-block: -4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.dv-os__tabs::-webkit-scrollbar { display: none; }
+.dv-os__tab {
+  position: relative;
+  flex: none;
+  padding: 0 11px;
+  border: 0;
+  background: none;
+  color: var(--pv-text-3);
+  font: 500 var(--pv-text-xs) / 1 var(--pv-font-mono);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color var(--pv-dur-hover) ease;
+}
+.dv-os__tab::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--pv-accent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity var(--pv-dur-ui) var(--pv-ease-out), transform var(--pv-dur-ui) var(--pv-ease-out);
+}
+:root[data-os="unix"] .dv-os__tab[data-os="unix"],
+:root[data-os="win"] .dv-os__tab[data-os="win"] { color: var(--pv-text); }
+:root[data-os="unix"] .dv-os__tab[data-os="unix"]::after,
+:root[data-os="win"] .dv-os__tab[data-os="win"]::after { opacity: 1; transform: none; }
+@media (hover: hover) and (pointer: fine) {
+  .dv-os__tab:hover { color: var(--pv-text-2); }
+}
+.dv-os__tab:active { color: var(--pv-text); }
+.dv-os__tab:focus-visible { outline-offset: -6px; border-radius: 8px; }
+:root[data-os="unix"] .dv-os__panel[data-os="win"],
+:root[data-os="win"] .dv-os__panel[data-os="unix"] { display: none; }
+.dv-os__label { display: none; }
+:root:not([data-os]) .dv-os__tabs { display: none; }
+:root:not([data-os]) .dv-os__label {
+  display: block;
+  padding: 12px 18px 0;
+  font: 500 var(--pv-text-xs) / 1.3 var(--pv-font-mono);
+  letter-spacing: 0.04em;
+  color: var(--pv-text-3);
+}
+
+/* A choice of tabs (the Assistant's runtimes), pv.js tabs drawn as cards: the
+   chosen one is lit, as the sidebar lights the page you are on. Until docs.js
+   runs only the first panel shows; without scripts every panel shows under
+   its own heading. */
+.dv-choice__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.dv-choice .pv-tabs__ind { display: none; }
+.dv-choice__tab {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 13px 14px 14px;
+  border: 1px solid var(--pv-line);
+  border-radius: 12px;
+  background: var(--pv-surface);
+  text-align: start;
+  transition: border-color var(--pv-dur-hover) ease, background-color var(--pv-dur-hover) ease;
+}
+.dv-choice__name { display: flex; align-items: center; gap: 9px; font-size: 1rem; font-weight: 600; line-height: 1.25; color: var(--pv-text); }
+.dv-choice__name::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dv-pt-ring);
+  transition: background-color var(--pv-dur-ui) ease, border-color var(--pv-dur-ui) ease, box-shadow var(--pv-dur-ui) ease;
+}
+.dv-choice__by {
+  padding-left: 18px;
+  font: 500 var(--pv-text-2xs) / 1.35 var(--pv-font-mono);
+  letter-spacing: var(--pv-track-label);
+  text-transform: uppercase;
+  color: var(--pv-text-3);
+}
+.dv-choice__tab[aria-selected="true"] { border-color: var(--pv-accent-line); background: color-mix(in srgb, var(--pv-accent) 7%, var(--pv-surface)); }
+.dv-choice__tab[aria-selected="true"] .dv-choice__name::before { border-color: var(--pv-accent); background: var(--pv-accent); box-shadow: 0 0 9px var(--pv-accent-glow); }
+@media (hover: hover) and (pointer: fine) {
+  .dv-choice__tab[aria-selected="false"]:hover { border-color: var(--pv-line-2); background: var(--pv-surface-2); }
+}
+.dv-choice__tab:active { background: var(--pv-surface-3); }
+.dv-choice__tab:focus-visible { outline-offset: 2px; }
+.dv-choice__panel { padding-top: 24px; }
+.dv-choice__heading { display: none; }
+:root[data-os] .dv-choice:not(.is-ready) > [role="tabpanel"] ~ [role="tabpanel"] { display: none; }
+:root:not([data-os]) .dv-choice__list { display: none; }
+:root:not([data-os]) .dv-choice__heading { display: block; margin: 0 0 16px; font-size: 1.0625rem; }
+:root:not([data-os]) .dv-choice__panel + .dv-choice__panel { margin-top: 12px; }
+/* The house's numbered steps inside a choice, a size down. */
+.dv-choice .pv-steps__title { font-size: 1rem; line-height: 1.4; padding-top: 3px; }
+.dv-choice .pv-steps > li > :not(.pv-steps__title) { margin-top: 8px; }
+.dv-choice .pv-steps .pv-code { margin-top: 10px; }
+
+
 /* 11 · On this page, previous and next ======================================= */
 
 .dv-toc {
@@ -1309,6 +1443,11 @@
   .dv-pager__icon { width: 15px; height: 15px; }
   .dv-sk-table th { white-space: normal; }
   .dv-sk-table .pv-table th, .dv-sk-table .pv-table td { padding-inline: 10px; }
+
+  /* A choice is a list of rows, the maker at the end of each. */
+  .dv-choice__list { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .dv-choice__tab { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 50px; padding: 10px 14px; }
+  .dv-choice__by { padding-left: 0; text-align: end; }
 
   /* The sub-bar names only where you are: the page, then its section. */
   .dv-subbar__group, .dv-subbar__group + .dv-subbar__sep { display: none; }

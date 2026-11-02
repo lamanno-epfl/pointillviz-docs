@@ -17,6 +17,9 @@
       "label": "Start here",
       "steps": [
         {
+          "page": "installation"
+        },
+        {
           "page": "importing"
         },
         {
@@ -50,14 +53,20 @@
       "loop_pause": "Pause",
       "loop_play": "Play",
       "loop_label": "motion",
-      "on_page": "On this page"
+      "on_page": "On this page",
+      "os": {
+        "label": "Operating system",
+        "unix": "macOS / Linux",
+        "win": "Windows",
+        "all": "All systems"
+      }
     },
     "meta": {
       "home": {
         "title": "PointillViz docs",
-        "description": "Tutorials for PointillViz: importing data, 2D and 3D data, atlases, multimodal sections, images, polygons, transcripts, exporting, tools and the assistant.",
+        "description": "PointillViz tutorials: installing, importing, 2D and 3D data, atlases, multimodal sections, images, polygons, transcripts, exporting, tools and the assistant.",
         "og_title": "PointillViz docs",
-        "og_description": "From your first import to your first figure: eleven tutorials for PointillViz, in preparation.",
+        "og_description": "From your first import to your first figure: twelve tutorials for PointillViz, most in preparation.",
         "og_image_alt": "PointillViz docs: from your first import to your first figure, beside nine captures of the viewer."
       },
       "not_found": {
@@ -92,6 +101,125 @@
     }
   ],
   "pages": [
+    {
+      "slug": "installation",
+      "group": "Start",
+      "title": "Installation",
+      "summary": "Install pixi and PointillViz, start the viewer, and sign in to an AI runtime for the Assistant.",
+      "keywords": [
+        "install",
+        "installing",
+        "setup",
+        "set up",
+        "get started",
+        "requirements",
+        "macOS",
+        "Linux",
+        "Windows",
+        "PowerShell",
+        "terminal",
+        "command line"
+      ],
+      "sections": [
+        {
+          "title": "What you need",
+          "preview": [
+            "note"
+          ],
+          "keywords": [
+            "prerequisites",
+            "git",
+            "curl",
+            "apt",
+            "Ubuntu",
+            "Node.js",
+            "npm"
+          ]
+        },
+        {
+          "title": "Install pixi",
+          "preview": [
+            "code"
+          ],
+          "keywords": [
+            "environment"
+          ]
+        },
+        {
+          "title": "Install PointillViz",
+          "preview": [
+            "code"
+          ],
+          "keywords": [
+            "git clone",
+            "clone",
+            "GitHub",
+            "repository",
+            "pixi install",
+            "pixi.lock"
+          ]
+        },
+        {
+          "title": "Run PointillViz",
+          "preview": [
+            "code",
+            "note"
+          ],
+          "keywords": [
+            "start",
+            "serve",
+            "pixi run serve",
+            "server",
+            "localhost",
+            "8090",
+            "port",
+            "POINTILLVIZ_ASSISTANT",
+            "Cmd+J",
+            "Ctrl+J",
+            "serve.sh",
+            "Python",
+            "without pixi"
+          ]
+        },
+        {
+          "title": "Choose a runtime for the Assistant",
+          "preview": [
+            "steps"
+          ],
+          "keywords": [
+            "Claude Code",
+            "claude-agent-sdk",
+            "ChatGPT Codex",
+            "Codex",
+            "OpenAI",
+            "Google Antigravity",
+            "Antigravity",
+            "agy",
+            "sign in",
+            "log in",
+            "login",
+            "claude auth login",
+            "codex login"
+          ]
+        },
+        {
+          "title": "Add your data",
+          "preview": [
+            "note"
+          ],
+          "keywords": [
+            "h5ad",
+            "Add dataset",
+            "upload"
+          ]
+        }
+      ],
+      "figure": {
+        "alt": "The PointillViz home page in a browser: the dotted PointillViz wordmark, Upload an .h5ad and Random specimen, and the Showcase of seven specimens with its first, a 3D mouse embryo, on the turntable.",
+        "caption": "The home page at http://localhost:8090 once PointillViz runs: each dataset you add is a specimen in the Showcase.",
+        "meta": "pixi run serve · localhost:8090"
+      }
+    },
     {
       "slug": "importing",
       "group": "Start",
