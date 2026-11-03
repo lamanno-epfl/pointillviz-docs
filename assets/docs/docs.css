@@ -866,6 +866,33 @@
 .dv-choice .pv-steps > li > :not(.pv-steps__title) { margin-top: 8px; }
 .dv-choice .pv-steps .pv-code { margin-top: 10px; }
 
+/* A picture beside its explanation inside a choice panel: .dv-split holds a
+   figure and a text block; --img-right puts the figure on the right. The
+   image fills its column and keeps its own ratio; under 700px they stack. */
+.dv-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 28px; align-items: start; }
+.dv-split--img-right { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+.dv-split--img-right > .dv-split__fig { order: 2; }
+.dv-split--stack { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+/* --match: both pictures end on one line. The tall picture on the left takes
+   the wider column and its frame stretches to the row; the text column keeps
+   its picture at the bottom. */
+.dv-split--match { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: stretch; }
+.dv-split--match > .dv-split__fig { display: flex; flex-direction: column; }
+.dv-split--match > .dv-split__fig .pv-figure__stage { flex: 1; display: flex; align-items: center; justify-content: center; }
+.dv-split--match > .dv-split__fig .pv-figure__stage > img { width: 100%; height: auto; }
+.dv-split--match > .dv-split__text { display: flex; flex-direction: column; }
+.dv-split--match > .dv-split__text > .dv-split__fig { margin-top: auto; padding-top: 16px; }
+.dv-split__fig { margin: 0; }
+.dv-split__fig .pv-figure__stage { padding: 14px; }
+.dv-split__fig .pv-figure__stage > img { height: auto; object-fit: contain; border-radius: 8px; display: block; }
+.dv-split__text > * + * { margin-top: 14px; }
+.dv-split__text dt { margin-top: 16px; font-weight: 600; color: var(--pv-text); }
+.dv-split__text dd { margin: 3px 0 0; color: var(--pv-text-2); }
+@media (max-width: 699.98px) {
+  .dv-split, .dv-split--img-right, .dv-split--match { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .dv-split--img-right > .dv-split__fig { order: 0; }
+}
+
 
 /* 11 · On this page, previous and next ======================================= */
 

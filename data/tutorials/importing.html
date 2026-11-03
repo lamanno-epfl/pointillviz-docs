@@ -1,0 +1,195 @@
+<h2>What you need</h2>
+<ul>
+<li>An AnnData file (<code translate="no">.h5ad</code>) with the cells in <code translate="no">.obs</code>, their coordinates in <code translate="no">.obsm</code> and an expression matrix in <code translate="no">.X</code>, <code translate="no">.raw.X</code> or a layer. Files written by scanpy or squidpy from Xenium, MERSCOPE or CosMx output have this shape.</li>
+<li>A running PointillViz; see <a href="../installation/">Installation</a>.</li>
+</ul>
+<aside class="pv-callout pv-callout--note">
+<p class="pv-callout__title">Your file stays as it is</p>
+<p>PointillViz never modifies the <code translate="no">.h5ad</code>. Everything runs on the machine that serves PointillViz, your own computer or a server you control, and the converted dataset is written there, under <code translate="no">datasets/</code>. Keep the original: it remains the scientific source of record, and it is what you re-import if the mapping should change.</p>
+</aside>
+
+<h2>Import a file</h2>
+<p>There are two ways to import a file, and both end in the same dataset. The <strong>import wizard</strong> runs in the viewer: it proposes a mapping and lets you check it. The <strong>command line</strong> converts from a schema you write yourself, with no browser involved. Choose one; the rest of this page follows it.</p>
+<div class="dv-choice" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="How to import" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+<button class="dv-choice__tab" type="button" role="tab" id="way-wizard" aria-controls="way-wizard-p" aria-selected="true"><span class="dv-choice__name">Import wizard</span><span class="dv-choice__by">In the viewer, with checks</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="way-cli" aria-controls="way-cli-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Command line</span><span class="dv-choice__by">Scripts and servers, no browser</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="way-wizard-p" aria-labelledby="way-wizard">
+<h3 class="dv-choice__heading">Import wizard</h3>
+<p>Three steps: provide the file, check the mapping, convert. A Xenium section of 50,000 cells is through them in well under a minute.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark" style="padding: 28px 24px;">
+<svg viewBox="0 0 1200 250" width="1200" height="250" style="display:block; width:100%; height:auto;" role="img" aria-label="Three steps: 1 Upload, drop an .h5ad or name its path on the server; 2 Map fields, confirm which entries of the file become which fields of the viewer; 3 Convert, PointillViz writes the dataset and opens it.">
+<defs><marker id="imp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--pv-text-2, #9aa3b5)"/></marker></defs>
+<g font-family="DM Sans, system-ui, sans-serif" fill="var(--pv-text, #e8ecf3)">
+<g transform="translate(20 40)">
+<rect width="340" height="170" rx="14" fill="var(--pv-surface, #141722)" stroke="var(--pv-line, #2a2f3d)"/>
+<rect x="18" y="18" width="34" height="34" rx="17" fill="var(--pv-accent, #7ee0b4)"/><text x="35" y="41" text-anchor="middle" font-size="18" font-weight="700" fill="var(--pv-bg, #0c0d13)">1</text>
+<text x="66" y="42" font-size="22" font-weight="600">Upload</text>
+<text x="18" y="88" font-size="17" fill="var(--pv-text-2, #9aa3b5)">Drop an .h5ad, or name its</text>
+<text x="18" y="114" font-size="17" fill="var(--pv-text-2, #9aa3b5)">path on the server.</text>
+<text x="18" y="150" font-size="15" font-family="JetBrains Mono, ui-monospace, monospace" fill="var(--pv-accent, #7ee0b4)">section.h5ad</text>
+</g>
+<path d="M372 125h44" stroke="var(--pv-text-2, #9aa3b5)" stroke-width="2.5" marker-end="url(#imp-arrow)"/>
+<g transform="translate(430 40)">
+<rect width="340" height="170" rx="14" fill="var(--pv-surface, #141722)" stroke="var(--pv-line, #2a2f3d)"/>
+<rect x="18" y="18" width="34" height="34" rx="17" fill="var(--pv-accent, #7ee0b4)"/><text x="35" y="41" text-anchor="middle" font-size="18" font-weight="700" fill="var(--pv-bg, #0c0d13)">2</text>
+<text x="66" y="42" font-size="22" font-weight="600">Map fields</text>
+<text x="18" y="88" font-size="17" fill="var(--pv-text-2, #9aa3b5)">Confirm which entries of the file</text>
+<text x="18" y="114" font-size="17" fill="var(--pv-text-2, #9aa3b5)">become which fields of the viewer.</text>
+<text x="18" y="150" font-size="15" font-family="JetBrains Mono, ui-monospace, monospace" fill="var(--pv-accent, #7ee0b4)">obs["cell_type"] → Cell-type column</text>
+</g>
+<path d="M782 125h44" stroke="var(--pv-text-2, #9aa3b5)" stroke-width="2.5" marker-end="url(#imp-arrow)"/>
+<g transform="translate(840 40)">
+<rect width="340" height="170" rx="14" fill="var(--pv-surface, #141722)" stroke="var(--pv-line, #2a2f3d)"/>
+<rect x="18" y="18" width="34" height="34" rx="17" fill="var(--pv-accent, #7ee0b4)"/><text x="35" y="41" text-anchor="middle" font-size="18" font-weight="700" fill="var(--pv-bg, #0c0d13)">3</text>
+<text x="66" y="42" font-size="22" font-weight="600">Convert</text>
+<text x="18" y="88" font-size="17" fill="var(--pv-text-2, #9aa3b5)">PointillViz writes the dataset,</text>
+<text x="18" y="114" font-size="17" fill="var(--pv-text-2, #9aa3b5)">then opens it.</text>
+<text x="18" y="150" font-size="15" font-family="JetBrains Mono, ui-monospace, monospace" fill="var(--pv-accent, #7ee0b4)">datasets/&lt;name&gt;/</text>
+</g>
+</g>
+</svg>
+</div><figcaption class="pv-figure__caption">The three steps of the wizard. The .h5ad itself is never changed.</figcaption></figure>
+
+<h3>Upload a file or point to one</h3>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Open the wizard</p><p>Press <strong>+ Add</strong> in the viewer, or <strong>Upload an .h5ad</strong> on the home page.</p></li>
+<li><p class="pv-steps__title">Provide the file</p>
+<div class="dv-choice" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="How to provide the file">
+<button class="dv-choice__tab" type="button" role="tab" id="provide-upload" aria-controls="provide-upload-p" aria-selected="true"><span class="dv-choice__name">Upload</span><span class="dv-choice__by">From this computer</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="provide-path" aria-controls="provide-path-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Server path</span><span class="dv-choice__by">A file already on the server</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="provide-dir" aria-controls="provide-dir-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Directory</span><span class="dv-choice__by">Many sections, one atlas</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="provide-upload-p" aria-labelledby="provide-upload">
+<h3 class="dv-choice__heading">Upload</h3>
+<p>Drop the file on the upload zone, or press <strong>Choose file(s)</strong>. The browser sends it to the server; a file can be up to 2&nbsp;GiB this way. For anything larger, use a server path.</p>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="provide-path-p" aria-labelledby="provide-path">
+<h3 class="dv-choice__heading">Server path</h3>
+<p>Expand <em>…or use absolute server path(s)</em>, paste the path and press <strong>Use these path(s)</strong>. Nothing is copied, and there is no size limit. The path is on the machine PointillViz runs on, which need not be the computer the browser is open on. Several paths, one per line, become the sections of one dataset.</p>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="provide-dir-p" aria-labelledby="provide-dir">
+<h3 class="dv-choice__heading">Directory</h3>
+<p>A whole directory of harmonized sections is imported as one atlas, without the mapping step below. See <a href="../atlases/">Atlases</a>.</p>
+</div>
+</div>
+</li>
+<li><p class="pv-steps__title">Let PointillViz read it</p><p>PointillViz looks through the file, <code translate="no">.obs</code>, <code translate="no">.obsm</code>, <code translate="no">.X</code>, the layers and <code translate="no">.uns</code>, and notes what each entry is: its shape, its type, its categories, a few of its values. That takes a few seconds and is what the next step works from.</p></li>
+</ol>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-upload-1280.webp" srcset="../assets/media/importing-upload-640.webp 640w, ../assets/media/importing-upload-960.webp 960w, ../assets/media/importing-upload-1280.webp 1280w, ../assets/media/importing-upload-1600.webp 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="710" alt="The wizard's first step, Upload: a drop zone for .h5ad files with a Choose file(s) button, and below it the expanded alternative, a text box holding one absolute server path, /data/xenium/MFI-GD16-5_rep1_R7.h5ad, with the button Use these path(s). A third, collapsed alternative imports a whole directory of harmonized sections as one atlas." loading="lazy" decoding="async"></div><figcaption class="pv-figure__caption">Step 1, Upload, with a server path pasted in.<span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;maternal–fetal&nbsp;interface&nbsp;· 235,803&nbsp;cells</span></figcaption></figure>
+<h3>Map fields onto the viewer</h3>
+<p>The second step is where you tell PointillViz what is what: which matrix holds the coordinates, which column the cell types, which matrix the expression. The page has three columns, and each part of the file (<code translate="no">.obsm</code>, the expression matrices, <code translate="no">.obs</code>, <code translate="no">.uns</code>) gets its own band across them.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-map-1280.webp" srcset="../assets/media/importing-map-640.webp 640w, ../assets/media/importing-map-960.webp 960w, ../assets/media/importing-map-1280.webp 1280w, ../assets/media/importing-map-1600.webp 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="800" alt="The wizard's second step, Map fields to tabs, with three columns. Your file, on the left, lists obsm IFQUANT, X_spatial and X_umap, each marked Assigned. The Workspace in the middle shows the band Coordinates and views, read from .obsm: the coordinate system with X_spatial, 235803 by 2, interpreted as 2D spatial; X_umap included as an embedding tab named UMAP; and the dense matrix IFQUANT with 20 channels, labelled Protein Channels. PointillViz fields, on the right, lists Coordinate system, Embeddings and Dense obsm matrices, all Assigned." loading="lazy" decoding="async"></div><figcaption class="pv-figure__caption">Step 2, Map fields, as it opens: the .obsm band, with the file's three matrices already placed.<span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;maternal–fetal&nbsp;interface&nbsp;· 235,803&nbsp;cells</span></figcaption></figure>
+<div class="dv-choice" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="The three columns">
+<button class="dv-choice__tab" type="button" role="tab" id="col-file" aria-controls="col-file-p" aria-selected="true"><span class="dv-choice__name">Your file</span><span class="dv-choice__by">Left column</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="col-ws" aria-controls="col-ws-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Workspace</span><span class="dv-choice__by">Middle column</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="col-fields" aria-controls="col-fields-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">PointillViz fields</span><span class="dv-choice__by">Right column</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="col-file-p" aria-labelledby="col-file">
+<h3 class="dv-choice__heading">Your file</h3>
+<div class="dv-split dv-split--match">
+<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-col-file-702.webp" srcset="../assets/media/importing-col-file-702.webp 702w, ../assets/media/importing-col-file-1404.webp 1404w" sizes="(min-width: 700px) 380px, calc(100vw - 64px)" width="1404" height="3405" alt="The Your file column of the .obs band: every column of the file with its state. obs_names, transcript_counts, total_counts, cell_area, nucleus_area, prot_area, prot_x, prot_y, n_counts, predicted_cell_type, niche_medium and niche_mean_neighbor_distance are Assigned; x_centroid, y_centroid, the control and codeword counts, nucleus_count, segmentation_method, xr_canonical_labels_archived, prot_ecode, count_outlier, predicted_label, niche_coarse, niche_fine, section_id and tissue_code are Not assigned; cell_id is Not assigned with the note that no PointillViz function uses it." loading="lazy" decoding="async"></div></figure>
+<div class="dv-split__text">
+<p>Everything the file contains, one row per entry, whether PointillViz uses it or not.</p>
+<dl>
+<dt>Assigned</dt><dd>The entry feeds at least one field of the viewer.<br>Press the badge to jump to that field in the workspace.</dd>
+<dt>Not assigned</dt><dd>It does not. That is fine for identifiers, QC counters and duplicates: the aim is to pick what matters, not to use everything.</dd>
+<dt>Press an entry</dt><dd>A preview opens with its shape, its type and a few of its values.</dd>
+</dl>
+<figure class="pv-figure dv-split__fig" style="max-width: 320px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-preview-504.webp" srcset="../assets/media/importing-preview-504.webp 504w, ../assets/media/importing-preview-1008.webp 1008w" sizes="320px" width="1008" height="1338" alt="The AnnData preview card of obs predicted_cell_type: 235,803 rows, dtype category, 19 distinct values, and the first ten rows with their cell number and value, nine of them Yolk sac and one Myometrium." loading="lazy" decoding="async"></div></figure>
+</div>
+</div>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="col-ws-p" aria-labelledby="col-ws">
+<h3 class="dv-choice__heading">Workspace</h3>
+<div class="dv-split dv-split--stack">
+<div class="dv-split__text">
+<p>The controls. Each field names what it needs and starts with PointillViz's proposal: the column or matrix whose name and shape fit best. Change it from the list, or tick and untick entries.</p>
+</div>
+<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-col-workspace-1000.webp" srcset="../assets/media/importing-col-workspace-1000.webp 1000w, ../assets/media/importing-col-workspace-2000.webp 2000w" sizes="(min-width: 1200px) 700px, (min-width: 1024px) calc(100vw - 400px), calc(100vw - 64px)" width="2457" height="2406" alt="The Workspace of the Cell annotations band. The Cell-type column is set to predicted_cell_type with 19 categories. Niches holds niche_medium with an automatic palette. Continuous overlays has nine columns ticked, each with its value range (transcript_counts, total_counts, cell_area, nucleus_area, prot_area, prot_x, prot_y, n_counts, niche_mean_neighbor_distance) and four more available (x_centroid, y_centroid, xr_canonical_labels_archived, prot_ecode). An (i) button sits beside each field." loading="lazy" decoding="async"></div></figure>
+<div class="dv-split__text">
+<p>The <strong>(i)</strong> beside a field opens its explanation, in four parts (here for the cell-type column):</p>
+<ol>
+<li><strong>What should I choose?</strong> What belongs in this field, and what to avoid.</li>
+<li><strong>Why did PointillViz suggest this?</strong> Why this entry was proposed, and by what criterion.</li>
+<li><strong>How will this be used?</strong> What the viewer does with it: here the colours, the legend, the filters and every cell-type comparison.</li>
+<li><strong>Look it up in your file.</strong> Takes you to the entry in the left column, where you can open its preview.</li>
+</ol>
+<aside class="pv-callout pv-callout--note">
+<p class="pv-callout__title">Judge a proposal yourself</p>
+<p>This lets you judge the quality of a proposal yourself, and see which properties the source data should have.</p>
+</aside>
+</div>
+</div>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="col-fields-p" aria-labelledby="col-fields">
+<h3 class="dv-choice__heading">PointillViz fields</h3>
+<div class="dv-split dv-split--img-right">
+<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-col-fields-567.webp" srcset="../assets/media/importing-col-fields-567.webp 567w, ../assets/media/importing-col-fields-1134.webp 1134w" sizes="(min-width: 700px) 300px, calc(100vw - 64px)" width="1134" height="1887" alt="Two parts of the PointillViz fields column. Above, from the dataset band: Tissue images, Cell boundaries and Tiled segmentation polygons, each marked Not in your data. Below, from the cell annotations band: Cell-type column, Niches and Continuous overlays are Assigned, each with a Remove button; Section column, Cell-type color column, Cell-type hierarchy, Niche hierarchy and Custom categorical columns are Not added, each with an Add button." loading="lazy" decoding="async"></div></figure>
+<div class="dv-split__text">
+<p>Everything the viewer could show for this part of the file, and the state of each field.</p>
+<dl>
+<dt>Assigned</dt><dd>It has a source in your file. <strong>Remove</strong> takes it out again; it then shows as <em>Not added</em>.</dd>
+<dt>Not added</dt><dd>An optional field that PointillViz found nothing to propose for, so it starts outside the workspace. If one of your columns fits, press <strong>+ Add</strong> and choose it.</dd>
+<dt>Not in your data</dt><dd>The file has nothing for it at all, so there is nothing to add. Tissue images, cell boundaries or polygons are extras: a file without them is still a complete dataset.</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<h4>What to check</h4>
+<p>Three choices decide everything that follows, and a wrong one shows no error. Give them a look:</p>
+<div class="dv-choice" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="What to check" style="max-width: 620px;">
+<button class="dv-choice__tab" type="button" role="tab" id="chk-coord" aria-controls="chk-coord-p" aria-selected="true"><span class="dv-choice__name">Coordinates</span><span class="dv-choice__by">Tissue positions</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="chk-genes" aria-controls="chk-genes-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Expression</span><span class="dv-choice__by">Counts or normalized</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="chk-cells" aria-controls="chk-cells-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Cell types</span><span class="dv-choice__by">The main annotation</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="chk-coord-p" aria-labelledby="chk-coord">
+<h3 class="dv-choice__heading">Coordinates</h3>
+<p>The matrix with the cells' positions in the tissue. Without it there is no map. The common trap: an embedding such as a UMAP chosen as coordinates. It is a two-column matrix too, but not tissue positions. A file without positions takes <em>Non-spatial</em> instead.</p>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="chk-genes-p" aria-labelledby="chk-genes">
+<h3 class="dv-choice__heading">Expression</h3>
+<p>Which matrix holds the gene expression, and at what stage. Normalized values taken for counts, or the reverse, give wrong gene maps and wrong statistics everywhere, and nothing flags it. When the file holds both, PointillViz prefers the counts; the list shows what it detected (<code translate="no">✓ counts</code>) next to each choice.</p>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="chk-cells-p" aria-labelledby="chk-cells">
+<h3 class="dv-choice__heading">Cell types</h3>
+<p>The column that colours the cells and that every cell-type comparison is built on. A cluster column works too, but then clusters are what the viewer calls cell types. If one file holds several sections, also set the section column, or they all land in one panel.</p>
+</div>
+</div>
+<p>Last, make sure the extras you want are on: tissue images, cell boundaries, transcripts, embeddings, niches, continuous overlays. A field that says <em>Not added</em> is off; <strong>+ Add</strong> turns it on.</p>
+<h3>Convert and open</h3>
+<p>Press <strong>Convert →</strong>. The conversion runs on the server and its log streams into the page: the mapping you confirmed first, then what is being written, then a report. A Xenium section of 50,000 cells takes ten to thirty seconds, 200,000 cells about a minute and a half. When it is done, <strong>Choose view →</strong> opens the dataset; it is also on the home page from now on.</p>
+<div class="dv-split" style="grid-template-columns: minmax(0, 5fr) minmax(0, 3fr);">
+<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-convert-1280.webp" srcset="../assets/media/importing-convert-640.webp 640w, ../assets/media/importing-convert-1280.webp 1280w" sizes="(min-width: 700px) 440px, calc(100vw - 64px)" width="930" height="754" alt="The wizard's third step, Convert, with the end of its log: the written files as JSON, among them a gene summary of 5106 genes with value dtype u16, one obsm matrix IFQUANT labelled Protein Channels with 20 channels, one embedding UMAP for 235803 cells, and an empty list of warnings. Below the log, the button Choose view." loading="lazy" decoding="async"></div></figure>
+<div class="dv-split__text">
+<aside class="pv-callout pv-callout--tip">
+<p class="pv-callout__title">Read the end of the log</p>
+<p>An extra that could not be used, tissue images for a file with more than one section, say, is skipped with a <code translate="no">WARN</code> line; the rest of the dataset is still written. If something is missing in the viewer, that line says why. To change a mapping, import the <code translate="no">.h5ad</code> again.</p>
+</aside>
+</div>
+</div>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="way-cli-p" aria-labelledby="way-cli">
+<h3 class="dv-choice__heading">Command line</h3>
+<p>The same conversion, without the browser: for scripts, and for files on a server you reach over SSH. It takes the file and a schema, the mapping written as JSON. The wizard prints one at the top of its log, so the easiest start is a schema copied from there.</p>
+<figure class="pv-code"><figcaption class="pv-code__head"><span class="pv-code__title">schema.json</span><button class="pv-code__copy" type="button" data-pv-copy><span class="pv-code__copy-label">Copy</span></button></figcaption><pre tabindex="0" translate="no"><code translate="no">{
+  "name": "mfi_gd16_5",
+  "title": "Maternal–fetal interface GD16.5",
+  "spatial": {"mode": "2d", "obsm_key": "X_spatial", "units": "µm"},
+  "celltype_obs": "predicted_cell_type",
+  "genes": {"enabled": true, "source": "X"},
+  "embeddings": [{"name": "UMAP", "obsm_key": "X_umap"}]
+}</code></pre></figure>
+<figure class="pv-code" id="convert-cli"><pre data-os="unix"><code>pixi run python -m backend.convert --h5ad /data/xenium/MFI-GD16-5_rep1_R7.h5ad --schema schema.json</code></pre><pre data-os="win"><code>pixi run python -m backend.convert --h5ad C:\data\xenium\MFI-GD16-5_rep1_R7.h5ad --schema schema.json</code></pre></figure>
+<p>Run it inside <code translate="no">PointillViz/</code>; the dataset appears in the viewer as soon as it finishes. Every field of the wizard has a key in the schema; the list is at the top of <code translate="no">backend/convert.py</code>.</p>
+<aside class="pv-callout pv-callout--caution">
+<p class="pv-callout__title">No wizard, no second look</p>
+<p>On the command line nothing checks the mapping for you: a schema that names a normalized matrix as the expression source, or a cluster column as the cell type, converts without a word.</p>
+</aside>
+</div>
+</div>

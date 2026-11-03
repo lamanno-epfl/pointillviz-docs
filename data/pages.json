@@ -257,37 +257,14 @@
           ]
         },
         {
-          "title": "Upload a file or point to one",
+          "title": "Import a file",
           "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Map fields onto the viewer",
-          "preview": [
+            "steps",
             "figure",
-            "table"
-          ]
-        },
-        {
-          "title": "Convert and open",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "From the command line",
-          "preview": [
-            "code",
-            "caution"
+            "code"
           ]
         }
-      ],
-      "figure": {
-        "alt": "The import wizard at its Map fields step: the Spatial panel set to 2D spatial, with the spatial obsm key and pixel units, and the Cells panel with a cell-type column of 73 types, an automatic palette and the hierarchy options.",
-        "caption": "Map fields, the wizard’s second step: where the cells sit, in which units, and which column holds their types.",
-        "meta": "Xenium 5K · mouse colon · 135,232 cells"
-      }
+      ]
     },
     {
       "slug": "2d-data",
