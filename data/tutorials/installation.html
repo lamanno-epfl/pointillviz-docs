@@ -21,24 +21,18 @@ pixi install</code></pre>
 <p><code>pixi install</code> builds PointillViz’s environment, exactly as <code>pixi.lock</code> pins it.</p>
 
 <h2>Run PointillViz</h2>
-<h3>Without the Assistant</h3>
 <figure class="pv-code">
 <pre><code>pixi run serve</code></pre>
 </figure>
-<p>The viewer opens on <code>http://localhost:8090</code>; <code class="dv-nw">pixi run serve 8095</code> serves it on another port. It listens on every network interface, so other machines on your network can reach it.</p>
-<h3>With the Assistant</h3>
-<figure class="pv-code" id="serve-assistant">
-<pre data-os="unix"><code>POINTILLVIZ_ASSISTANT=1 pixi run serve</code></pre>
-<pre data-os="win"><code>$env:POINTILLVIZ_ASSISTANT=1; pixi run serve</code></pre>
-</figure>
-<p>Then press <strong>Assistant</strong>, or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>J</kbd>. With the Assistant on, the server listens on <code>127.0.0.1</code> only. It needs a runtime: <a href="#choose-a-runtime-for-the-assistant">choose one below</a>.</p>
+<p>The viewer opens on <code>http://localhost:8090</code>; <code class="dv-nw">pixi run serve 8095</code> serves it on another port. It listens on this computer only: on a remote machine, forward the port (VS Code, <code class="dv-nw">ssh -L</code>) and open it in your own browser.</p>
+<p>To stop it, press the power button in the top-left corner of any page, or <kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>C</kbd> in its terminal.</p>
 <aside class="pv-callout pv-callout--note">
 <p class="pv-callout__title">Without pixi</p>
 <p><code>./serve.sh</code> runs the server on whichever <code>python3</code> is on your <code>PATH</code>: Python 3.10 or newer, with numpy. <code>PYTHON=/path/to/python ./serve.sh 8090</code> pins one.</p>
 </aside>
 
 <h2>Choose a runtime for the Assistant</h2>
-<p>The Assistant needs one AI runtime, installed on your computer apart from PointillViz and signed in once with your own account. Install one of the three before you start the Assistant.</p>
+<p>The <strong>Assistant</strong> is the button at the bottom right of every page, or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>J</kbd>. It needs one AI runtime, installed on your computer apart from PointillViz and signed in once with your own account; PointillViz never sees your password or token. Install one of the three, and restart PointillViz afterwards if it is running.</p>
 <div class="dv-choice" data-pv-tabs>
 <div class="dv-choice__list" role="tablist" aria-label="Runtime">
 <button class="dv-choice__tab" type="button" role="tab" id="runtime-claude" aria-controls="runtime-claude-p" aria-selected="true"><span class="dv-choice__name">Claude Code</span><span class="dv-choice__by">Anthropic</span></button>
@@ -59,6 +53,7 @@ pixi install</code></pre>
 <pre><code>pixi add --pypi claude-agent-sdk</code></pre>
 </figure></li>
 <li><p class="pv-steps__title">Sign in once</p>
+<p>Open the Assistant and press <strong>Sign in to Claude Code</strong>: your browser opens the sign-in page. If that page asks you to paste a code, run this in any terminal instead.</p>
 <figure class="pv-code">
 <pre><code>claude auth login</code></pre>
 </figure></li>
@@ -73,6 +68,7 @@ pixi install</code></pre>
 <pre><code>npm install -g @openai/codex</code></pre>
 </figure></li>
 <li><p class="pv-steps__title">Sign in once</p>
+<p>Open the Assistant and press <strong>Sign in to ChatGPT Codex</strong>: your browser opens the sign-in page. Or run this in any terminal, with <code class="dv-nw">--device-auth</code> on a remote machine.</p>
 <figure class="pv-code">
 <pre><code>codex login</code></pre>
 </figure></li>
@@ -87,7 +83,7 @@ pixi install</code></pre>
 <pre data-os="win"><code>irm https://antigravity.google/cli/install.ps1 | iex</code></pre>
 </figure></li>
 <li><p class="pv-steps__title">Sign in once</p>
-<p>Start <code>agy</code> and follow its prompts.</p>
+<p>Start <code>agy</code> in a terminal and follow its prompts, or open the Assistant and press <strong>Sign in to Google Antigravity</strong>. PointillViz cannot ask this runtime whether you are signed in, so the panel works either way; press <strong>I’m signed in</strong> to dismiss the card.</p>
 <figure class="pv-code">
 <pre><code>agy</code></pre>
 </figure></li>

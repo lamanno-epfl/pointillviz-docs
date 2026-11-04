@@ -173,9 +173,13 @@
             "localhost",
             "8090",
             "port",
-            "POINTILLVIZ_ASSISTANT",
-            "Cmd+J",
-            "Ctrl+J",
+            "stop",
+            "close",
+            "quit",
+            "Ctrl+C",
+            "remote",
+            "forward",
+            "ssh",
             "serve.sh",
             "Python",
             "without pixi"
@@ -187,6 +191,9 @@
             "steps"
           ],
           "keywords": [
+            "Assistant",
+            "Cmd+J",
+            "Ctrl+J",
             "Claude Code",
             "claude-agent-sdk",
             "ChatGPT Codex",
@@ -199,7 +206,8 @@
             "log in",
             "login",
             "claude auth login",
-            "codex login"
+            "codex login",
+            "device-auth"
           ]
         },
         {
@@ -985,7 +993,7 @@
       ],
       "sections": [
         {
-          "title": "Turn the Assistant on",
+          "title": "Open the Assistant and sign in",
           "preview": [
             "steps",
             "note"
