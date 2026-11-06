@@ -729,7 +729,7 @@
     // Each seed drifts on its own slow Lissajous curve.
     const SEEDS = NAMES.map((_, i) => ({ fx: 0.061 + 0.017 * i, fy: 0.047 + 0.013 * ((i * 4) % 6), px: i * 1.71, py: i * 2.93 + 0.4 }));
     let W = 0, H = 0, dpr = 1, dots = [], colours = [], strength = 0.85;
-    let raf = 0, inView = true;
+    let raf = 0, inView = true, ready = false;   // ready: the colours have come from the stylesheet
     const ptr = { x: -1e4, y: -1e4, on: false, k: 0 };
     let seed = 7;                 // a seeded random: the same lattice at every visit
     const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
@@ -737,7 +737,8 @@
 
     const readColours = () => {
       const cs = getComputedStyle(body);
-      colours = NAMES.map((n) => cs.getPropertyValue(`--dv-${n}`).trim() || '#888888');
+      colours = NAMES.map((n) => cs.getPropertyValue(`--dv-${n}`).trim());
+      ready = colours.every(Boolean);
       strength = doc.documentElement.getAttribute('data-theme') === 'light' ? 0.62 : 0.92;
     };
     const build = () => {
@@ -763,6 +764,14 @@
       }
     };
     const draw = (now) => {
+      // WebKit can run this script before the stylesheet has arrived (WebKit bug
+      // 209261). Until its colours are there the field draws nothing; then it
+      // measures itself again, as the stylesheet sizes it.
+      if (!ready) {
+        readColours();
+        if (!ready) return;
+        build();
+      }
       const t = now / 1000;
       ptr.k += ((ptr.on ? 1 : 0) - ptr.k) * 0.12;          // the Lens eases in and out
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -831,6 +840,9 @@
     }
     doc.addEventListener('visibilitychange', sync);
     reduceMQ.addEventListener('change', sync);
+    // A field that does not animate (reduced motion, a hidden tab, out of view)
+    // draws again at the page's load, by which the stylesheet is in.
+    window.addEventListener('load', () => { if (!ready && !raf) draw(reduceMQ.matches ? 0 : performance.now()); }, { once: true });
     new MutationObserver(() => { readColours(); if (!raf) draw(performance.now()); })
       .observe(doc.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     sync();
