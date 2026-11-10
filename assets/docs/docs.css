@@ -740,6 +740,9 @@
    the figure does; words keep the reading measure. */
 
 .dv-body--written { max-width: none; }
+/* The page's opening: content before the first section, under the lede. */
+.dv-body--written .dv-intro + .dv-sec { margin-top: 56px; }
+.dv-body--written .dv-intro > * + * { margin-top: 16px; }
 .dv-body--written .dv-sec + .dv-sec { margin-top: 56px; }
 .dv-body--written .dv-sec__title { margin: 0; font-size: clamp(1.3125rem, 1.15rem + 0.55vw, 1.625rem); line-height: 1.2; }
 .dv-body--written .dv-sec > * + * { margin-top: 16px; }
@@ -873,6 +876,115 @@
 .dv-split--img-right { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
 .dv-split--img-right > .dv-split__fig { order: 2; }
 .dv-split--stack { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+/* A choice with its tabs stacked on the left and the chosen panel's text beside them; the
+   panel's figure runs the full width underneath. The visible panel and its split are laid out
+   through the choice's own grid (display: contents); hidden panels stay hidden. Under 700px it
+   falls back to the usual choice: tabs on top, then text, then figure. */
+@media (min-width: 700px) {
+  .dv-choice--side { display: grid; grid-template-columns: minmax(0, 12.5rem) minmax(0, 1fr); column-gap: 22px; row-gap: 20px; align-items: start; }
+  .dv-choice--side > .dv-choice__list { grid-column: 1; grid-row: 1; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .dv-choice--side > [role="tabpanel"]:not([hidden]),
+  .dv-choice--side > [role="tabpanel"]:not([hidden]) > .dv-split { display: contents; }
+  .dv-choice--side > [role="tabpanel"] .dv-split__text { grid-column: 2; grid-row: 1; padding-top: 2px; }
+  .dv-choice--side > [role="tabpanel"] .dv-split > .pv-figure { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* A list of controls: a small picture of the control (a key, a button, a mouse) beside its explanation. */
+.dv-navlist { display: grid; gap: 16px; }
+.dv-navitem { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start; }
+.dv-navitem__vis { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; color: var(--pv-text-2); padding-top: 2px; max-width: 64px; }
+.dv-navitem__keys { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.dv-navitem__keys kbd { min-width: 1.6em; text-align: center; }
+.dv-navitem__img { width: 56px; height: auto; border-radius: 8px; display: block; }
+.dv-navitem__keys kbd { font-size: 0.6875rem; padding: 1px 4px; }
+.dv-navitem__img--wide { width: 64px; }
+.dv-navitem__body > * { margin: 0; }
+.dv-navitem__body > * + * { margin-top: 4px; }
+.dv-navitem__title { font-weight: 600; color: var(--pv-text); }
+.dv-navitem__body p:not(.dv-navitem__title) { color: var(--pv-text-2); }
+.dv-navitem__pair { margin: 0 0 0 76px; max-width: 420px; }
+.dv-navitem__pair--inline { margin: 8px 0 0; max-width: 100%; }
+.dv-navitem__icon { color: var(--pv-accent); }
+.dv-navitem__shot { margin: 8px 0 0; max-width: 100%; }
+.dv-navitem__shot .pv-figure__stage { padding: 8px; }
+.dv-navitem__shotimg { display: block; width: 100%; height: auto; border-radius: 6px; }
+.dv-navitem__shot + .dv-navitem__shot { margin-top: 8px; }
+.dv-navitem__shot--narrow { display: inline-block; }
+.dv-navitem__shot--narrow .dv-navitem__shotimg { width: auto; max-width: 100%; max-height: 110px; }
+.dv-navitem__pair .pv-figure__stage > img { height: auto; }
+@media (max-width: 479.98px) {
+  .dv-navitem { grid-template-columns: 76px minmax(0, 1fr); gap: 12px; }
+  .dv-navitem__img--wide { width: 76px; }
+  .dv-navitem__pair { margin-left: 0; }
+}
+
+/* The tab map: all of the viewer's tabs as one compact grid of buttons, each opening a short card. */
+.dv-choice--tabsmap .dv-choice__list { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.dv-choice--tabsmap .dv-choice__tab { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 8px 8px 9px; min-width: 0; }
+.dv-choice--tabsmap .dv-choice__name { font-size: 0.875rem; gap: 6px; }
+.dv-choice--tabsmap .dv-choice__name::before { display: none; }
+.dv-choice--tabsmap .dv-choice__by { font-size: 0.625rem; letter-spacing: 0.03em; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; margin: 0; }
+.dv-tabstrip .pv-figure__stage { padding: 10px 12px; }
+.dv-tabstrip .pv-figure__stage > img { height: auto; object-fit: contain; }
+.dv-choice--tabsmap .dv-choice__panel { padding-top: 16px; }
+.dv-tabcard { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 18px; margin: 0; padding: 4px 0 0; }
+.dv-tabcard dt { font: 600 0.75rem/1.5 var(--pv-font-mono, 'JetBrains Mono', monospace); letter-spacing: 0.06em; text-transform: uppercase; color: var(--pv-text-2); }
+.dv-tabcard dd { margin: 0; color: var(--pv-text); }
+@media (max-width: 899.98px) { .dv-choice--tabsmap .dv-choice__list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 479.98px) { .dv-choice--tabsmap .dv-choice__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } .dv-tabcard { grid-template-columns: minmax(0, 1fr); } }
+
+/* A tab's documentation card: kind chips, then Appears with / On the map / Inside the tab /
+   Plots and analyses / Connections. The two middle parts sit side by side on a wide page. */
+.dv-tabdoc { display: grid; gap: 20px; padding: 4px 0 0; }
+.dv-tabdoc__kind { display: flex; gap: 6px; margin: 0; }
+.dv-tabdoc__kind span { font: 600 0.6875rem/1.2 var(--pv-font-mono, 'JetBrains Mono', monospace); letter-spacing: 0.08em; text-transform: uppercase; color: var(--pv-accent); padding: 4px 9px; border: 1px solid var(--pv-accent-line); border-radius: 999px; }
+.dv-tabdoc__lead { margin: -8px 0 0; color: var(--pv-text-2); }
+.dv-tabdoc__sec > h4 { margin: 0 0 8px; font: 600 0.75rem/1.5 var(--pv-font-mono, 'JetBrains Mono', monospace); letter-spacing: 0.06em; text-transform: uppercase; color: var(--pv-text-2); }
+.dv-tabdoc__sec > p { margin: 0; }
+.dv-tabdoc__sec > * + * { margin-top: 10px; }
+.dv-tabdoc .dv-navitem__shot { display: inline-block; margin: 12px 0 4px; max-width: 100%; }
+.dv-tabdoc .dv-navitem__shot .pv-figure__stage { padding: 6px; }
+.dv-tabdoc .dv-navitem__shotimg { width: auto; max-width: 100%; }
+.dv-tabdoc .dv-navitem__body > p + p { margin-top: 12px; }
+.dv-tabdoc .dv-navitem__row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; margin: 12px 0 4px; }
+.dv-tabdoc .dv-navitem__row > .dv-navitem__shot { flex: 1 1 240px; min-width: 0; margin: 0; }
+.dv-tabdoc .dv-navitem__row .dv-navitem__shotimg { width: 100%; }
+.dv-tabdoc .dv-navitem__shot--narrow .dv-navitem__shotimg { max-height: 120px; }
+
+/* The ways board: one question, several ways to see it. A single-row strip
+   of compact tabs (picture above a short name) runs above a full-width
+   stage; pv.js switches the stage's panels like any tabs. The strip never
+   wraps: it shrinks on a normal page and, on a page too narrow for seven
+   tabs even shrunk, scrolls sideways instead of breaking the line. A thin
+   rule (not a text label) marks the join between the two question groups. */
+.dv-ways { display: flex; flex-direction: column; gap: 18px; }
+.dv-ways .pv-tabs__ind { display: none; }
+.dv-ways__rail { display: flex; align-items: stretch; gap: 6px; overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; scrollbar-width: thin; }
+.dv-ways__divider { flex: 0 0 auto; width: 1px; margin: 4px 6px; background: var(--pv-line); align-self: stretch; }
+.dv-ways__tab { flex: 1 1 0; min-width: 76px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 6px 9px; text-align: center; border: 1px solid var(--pv-line); border-radius: 12px; background: var(--pv-surface); color: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
+.dv-ways__tab:hover { border-color: var(--pv-line-strong, var(--pv-line)); background: var(--pv-surface-2); }
+.dv-ways__tab[aria-selected="true"] { border-color: var(--pv-accent-line); background: color-mix(in srgb, var(--pv-accent) 8%, var(--pv-surface)); }
+.dv-ways__tab:focus-visible { outline-offset: 2px; }
+.dv-ways__thumb { width: 100%; max-width: 72px; aspect-ratio: 4 / 3; border-radius: 7px; object-fit: cover; display: block; background: var(--pv-bg-2); }
+.dv-ways__tab[aria-selected="true"] .dv-ways__thumb { box-shadow: 0 0 0 2px var(--pv-accent); }
+.dv-ways__name { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 0.75rem; font-weight: 600; line-height: 1.25; color: var(--pv-text); }
+.dv-ways__stage > [role="tabpanel"]:not([hidden]) { animation: dvWaysIn .32s ease; }
+@keyframes dvWaysIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.dv-ways__read { display: grid; gap: 10px; margin-top: 14px; }
+.dv-ways__path + .dv-ways__path { margin-top: -2px; }
+.dv-ways__path + .dv-ways__path::before { content: "then"; font: 500 0.75rem/1.2 var(--pv-font-mono, 'JetBrains Mono', monospace); color: var(--pv-text-2); }
+.dv-ways__path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.dv-ways__path li { display: inline-flex; align-items: center; gap: 6px; font: 500 0.75rem/1.2 var(--pv-font-mono, 'JetBrains Mono', monospace); }
+.dv-ways__path li > span { padding: 4px 8px; border: 1px solid var(--pv-line); border-radius: 999px; background: var(--pv-surface); color: var(--pv-text); white-space: nowrap; }
+.dv-ways__path li + li::before { content: "›"; color: var(--pv-text-2); }
+.dv-ways__finding { margin: 0; font-size: 1rem; line-height: 1.45; }
+.dv-ways__finding strong { color: var(--pv-accent); font-weight: 600; }
+.dv-ways .pv-figure { margin: 0; }
+@media (max-width: 479.98px) {
+  .dv-ways__tab { min-width: 68px; }
+  .dv-ways__name { font-size: 0.6875rem; }
+}
+
 /* --match: both pictures end on one line. The tall picture on the left takes
    the wider column and its frame stretches to the row; the text column keeps
    its picture at the bottom. */

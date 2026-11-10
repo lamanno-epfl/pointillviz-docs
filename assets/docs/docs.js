@@ -555,8 +555,18 @@
 
   function setupSystems() {
     const blocks = $$('[data-dv-os]');
-    if (!blocks.length) return;
     const html = doc.documentElement;
+    if (!blocks.length) {
+      // No per-system block on this page. Still name the reader's system:
+      // docs.css shows a choice's tabs (.dv-choice__list) only under
+      // <html data-os>, and a page can have choices without a command.
+      if (!html.hasAttribute('data-os')) {
+        let os = 'unix';
+        try { os = window.localStorage.getItem(OS_KEY) === 'win' ? 'win' : os; } catch (e) { /* not remembered */ }
+        html.setAttribute('data-os', os);
+      }
+      return;
+    }
     const apply = (os) => {
       html.setAttribute('data-os', os);
       blocks.forEach((b) => {

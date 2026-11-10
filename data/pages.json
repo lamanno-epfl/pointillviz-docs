@@ -297,67 +297,33 @@
       ],
       "sections": [
         {
-          "title": "Cell types and hierarchies",
+          "title": "Explore and interact with the tissue",
           "preview": [
             "figure",
-            "note"
-          ]
-        },
-        {
-          "title": "Genes and pathways",
-          "preview": [
             "steps"
           ]
         },
         {
-          "title": "Under the lens",
+          "title": "Explore the data through tabs",
           "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "Lasso and region comparison",
-          "preview": [
+            "figure",
             "table"
           ]
         },
         {
-          "title": "Gating",
+          "title": "Explore the data through the toolbar",
           "preview": [
-            "code",
-            "caution"
+            "figure",
+            "table"
           ]
         },
         {
-          "title": "The Tools gallery",
-          "preview": [],
-          "keywords": [
-            "Cell-type distribution",
-            "composition",
-            "Alluvial plot",
-            "UMAP cluster explorer",
-            "Niche enrichment",
-            "Colocalization",
-            "Violin plot",
-            "Split distribution",
-            "Ridgeline plot",
-            "Marker dot plot",
-            "Radial profiles",
-            "Expression Landscape",
-            "Distance gradient",
-            "Spatial gene patterns",
-            "Moran’s I",
-            "Pathway gallery",
-            "Ligand–receptor",
-            "LIANA"
+          "title": "Explore one hypothesis from multiple angles",
+          "preview": [
+            "figure"
           ]
         }
-      ],
-      "figure": {
-        "alt": "The Lens over a mouse colon section coloured by cell type: its loupe on the mucosa, and the Under the lens panel listing the cell types in view and in the loupe.",
-        "caption": "Under the lens: the cell types in view, recounted as the view moves.",
-        "meta": "Xenium 5K · mouse colon · 135,232 cells"
-      }
+      ]
     },
     {
       "slug": "3d-data",
