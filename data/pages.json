@@ -367,6 +367,49 @@
       ]
     },
     {
+      "slug": "cell-communication",
+      "group": "Data",
+      "case": "2d",
+      "case_label": "2D section",
+      "title": "Cell communication",
+      "summary": "Rank the ligand–receptor pairs your gene panel can measure and map them in space.",
+      "keywords": [
+        "LIANA",
+        "Moran",
+        "Moran’s R",
+        "NATMI",
+        "OmniPath",
+        "bivariate Moran",
+        "cell-cell communication",
+        "co-variation",
+        "complex",
+        "consensus",
+        "heatmap",
+        "interaction",
+        "ligand",
+        "ligand-receptor",
+        "proximity",
+        "receiver",
+        "receptor",
+        "sender",
+        "specificity"
+      ],
+      "sections": [
+        {
+          "title": "Find a pair",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Score a pair",
+          "preview": [
+            "figure"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "3d-data",
       "group": "Data",
       "case": "3d",
