@@ -864,40 +864,77 @@
       ],
       "sections": [
         {
-          "title": "Open the Assistant and sign in",
+          "title": "Use the Assistant",
           "preview": [
             "steps",
-            "note"
-          ]
-        },
-        {
-          "title": "Choose a runtime and a model",
-          "preview": [
-            "table"
-          ]
-        },
-        {
-          "title": "What the agent sees",
-          "preview": [
             "figure"
-          ]
-        },
-        {
-          "title": "Viewer control: Off, Ask, Allow",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "The notebook",
-          "preview": [
-            "code"
-          ]
-        },
-        {
-          "title": "Permissions and limits",
-          "preview": [
-            "caution"
+          ],
+          "keywords": [
+            "open",
+            "Cmd+J",
+            "Ctrl+J",
+            "sign in",
+            "log in",
+            "login",
+            "account",
+            "plan",
+            "usage",
+            "cost",
+            "tokens",
+            "quota",
+            "privacy",
+            "what is sent",
+            "view context",
+            "selection",
+            "lasso",
+            "statistics",
+            "Wilcoxon",
+            "Moran",
+            "tools",
+            "script",
+            "Python",
+            "linked figures",
+            "viewer control",
+            "composer",
+            "Enter",
+            "Stop",
+            "screenshot",
+            "@",
+            "Auto",
+            "Ask",
+            "approval",
+            "Allow",
+            "Deny",
+            "entry",
+            "Method",
+            "Trace",
+            "Readouts",
+            "R01",
+            "FIGURE",
+            "INTERACTIVE",
+            "TABLE",
+            "METRICS",
+            "NOTE",
+            "Derivation",
+            "Linked to Cell View",
+            "Paint in Cell View",
+            "Viewer control",
+            "Off",
+            "Agent settings",
+            "Runtime",
+            "Model",
+            "Thinking effort",
+            "Export",
+            "PDF",
+            "Reopen",
+            "New",
+            "examples",
+            "prompts",
+            "neighbours",
+            "sections",
+            "differential expression",
+            "tool",
+            "plot"
           ]
         }
       ],
