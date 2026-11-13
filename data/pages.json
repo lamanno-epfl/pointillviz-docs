@@ -223,7 +223,7 @@
         }
       ],
       "figure": {
-        "alt": "The PointillViz home page in a browser: the dotted PointillViz wordmark, Upload an .h5ad and Random specimen, and the Showcase of seven specimens with its first, a 3D mouse embryo, on the turntable.",
+        "alt": "The PointillViz home page in a browser: the dotted PointillViz wordmark, the search, Upload and Random, and the Showcase of seven specimens with its first, a 3D mouse embryo, on the turntable.",
         "caption": "The home page at http://localhost:8090 once PointillViz runs: each dataset you add is a specimen in the Showcase.",
         "meta": "pixi run serve · localhost:8090"
       }
@@ -898,7 +898,6 @@
         "Getis-Ord",
         "Interface Coherence",
         "Local Cell Density",
-        "Mclust niches",
         "neighbourhood mixing",
         "Ripley’s Cross-L",
         "Tissue Permeability",
