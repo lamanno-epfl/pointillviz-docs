@@ -143,6 +143,8 @@
 </header>
 <details class="dv-toc-inline"><summary><span>On this page</span><span class="dv-toc-inline__n">2</span></summary><ol><li><a href="#what-you-need">What you need</a></li><li><a href="#import-a-file">Import a file</a></li></ol></details>
 <div class="dv-body dv-body--written pv-prose">
+<div class="dv-intro">
+</div>
 <section class="dv-sec">
   <div class="dv-sec__head"><h2 class="dv-sec__title" id="what-you-need">What you need</h2><a class="dv-anchor" href="#what-you-need" aria-label="Link to this section: What you need"></a></div>
 <ul>
@@ -166,15 +168,15 @@
 <h3 class="dv-choice__heading">Import wizard</h3>
 <p>Three steps: provide the file, check the mapping, convert. A Xenium section of 50,000 cells is through them in well under a minute.</p>
 <figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark" style="padding: 28px 24px;">
-<svg viewBox="0 0 1200 250" width="1200" height="250" style="display:block; width:100%; height:auto;" role="img" aria-label="Three steps: 1 Upload, drop an .h5ad or name its path on the server; 2 Map fields, confirm which entries of the file become which fields of the viewer; 3 Convert, PointillViz writes the dataset and opens it.">
+<svg viewBox="0 0 1200 250" width="1200" height="250" style="display:block; width:100%; height:auto;" role="img" aria-label="Three steps: 1 Upload, choose an .h5ad in the file dialog or name its path; 2 Map fields, confirm which entries of the file become which fields of the viewer; 3 Convert, PointillViz writes the dataset and opens it.">
 <defs><marker id="imp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--pv-text-2, #9aa3b5)"/></marker></defs>
 <g font-family="DM Sans, system-ui, sans-serif" fill="var(--pv-text, #e8ecf3)">
 <g transform="translate(20 40)">
 <rect width="340" height="170" rx="14" fill="var(--pv-surface, #141722)" stroke="var(--pv-line, #2a2f3d)"/>
 <rect x="18" y="18" width="34" height="34" rx="17" fill="var(--pv-accent, #7ee0b4)"/><text x="35" y="41" text-anchor="middle" font-size="18" font-weight="700" fill="var(--pv-bg, #0c0d13)">1</text>
 <text x="66" y="42" font-size="22" font-weight="600">Upload</text>
-<text x="18" y="88" font-size="17" fill="var(--pv-text-2, #9aa3b5)">Drop an .h5ad, or name its</text>
-<text x="18" y="114" font-size="17" fill="var(--pv-text-2, #9aa3b5)">path on the server.</text>
+<text x="18" y="88" font-size="17" fill="var(--pv-text-2, #9aa3b5)">Choose an .h5ad, or name its</text>
+<text x="18" y="114" font-size="17" fill="var(--pv-text-2, #9aa3b5)">path on the machine.</text>
 <text x="18" y="150" font-size="15" font-family="JetBrains Mono, ui-monospace, monospace" fill="var(--pv-accent, #7ee0b4)">section.h5ad</text>
 </g>
 <path d="M372 125h44" stroke="var(--pv-text-2, #9aa3b5)" stroke-width="2.5" marker-end="url(#imp-arrow)"/>
@@ -201,122 +203,142 @@
 
 <h3>Upload a file or point to one</h3>
 <ol class="pv-steps">
-<li><p class="pv-steps__title">Open the wizard</p><p>Press <strong>+ Add</strong> in the viewer, or <strong>Upload an .h5ad</strong> on the home page.</p></li>
+<li><p class="pv-steps__title">Open the wizard</p><p>Press <strong>Upload</strong> on the home page.</p></li>
 <li><p class="pv-steps__title">Provide the file</p>
 <div class="dv-choice" data-pv-tabs>
 <div class="dv-choice__list" role="tablist" aria-label="How to provide the file">
-<button class="dv-choice__tab" type="button" role="tab" id="provide-upload" aria-controls="provide-upload-p" aria-selected="true"><span class="dv-choice__name">Upload</span><span class="dv-choice__by">From this computer</span></button>
-<button class="dv-choice__tab" type="button" role="tab" id="provide-path" aria-controls="provide-path-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Server path</span><span class="dv-choice__by">A file already on the server</span></button>
-<button class="dv-choice__tab" type="button" role="tab" id="provide-dir" aria-controls="provide-dir-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Directory</span><span class="dv-choice__by">Many sections, one atlas</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="provide-upload" aria-controls="provide-upload-p" aria-selected="true"><span class="dv-choice__name">Browse</span><span class="dv-choice__by">In your file dialog</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="provide-path" aria-controls="provide-path-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Path</span><span class="dv-choice__by">Typed, read in place</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="provide-dir" aria-controls="provide-dir-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Folder</span><span class="dv-choice__by">Many sections, one atlas</span></button>
 </div>
 <div class="dv-choice__panel" role="tabpanel" id="provide-upload-p" aria-labelledby="provide-upload">
-<h3 class="dv-choice__heading">Upload</h3>
-<p>Drop the file on the upload zone, or press <strong>Choose file(s)</strong>. The browser sends it to the server; a file can be up to 2&nbsp;GiB this way. For anything larger, use a server path.</p>
+<h3 class="dv-choice__heading">Browse</h3>
+<p>Press <strong>Choose files</strong> and pick one or more <code translate="no">.h5ad</code> files in your computer's own file dialog. They are read where they are: nothing is copied, and their size has no limit. A SpatialData store is a folder, so it has a button of its own, <strong>Choose a .zarr store</strong>, which opens the folder dialog.</p>
+<p>The dialog opens on the computer that runs PointillViz. If that is another computer, Browse is off and the page opens on Path. Dropping a file onto the page does not work either: a web page is never told where a dropped file lives.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-upload-960.webp?v=20261111" srcset="../assets/media/importing-upload-640.webp?v=20261111 640w, ../assets/media/importing-upload-960.webp?v=20261111 960w, ../assets/media/importing-upload-1280.webp?v=20261111 1280w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="960" height="725" alt="The wizard's first step on Browse. A switch above the tile offers Browse, Path and Folder. The tile says Open .h5ad or .zarr and holds two buttons, Choose files and Choose a .zarr store." loading="lazy" decoding="async"></div></figure>
 </div>
 <div class="dv-choice__panel" role="tabpanel" id="provide-path-p" aria-labelledby="provide-path">
-<h3 class="dv-choice__heading">Server path</h3>
-<p>Expand <em>…or use absolute server path(s)</em>, paste the path and press <strong>Use these path(s)</strong>. Nothing is copied, and there is no size limit. The path is on the machine PointillViz runs on, which need not be the computer the browser is open on. Several paths, one per line, become the sections of one dataset.</p>
+<h3 class="dv-choice__heading">Path</h3>
+<p>Press <strong>Path</strong>, paste the absolute path and press <strong>Open</strong>. Nothing is copied, and there is no size limit. The path is on the machine PointillViz runs on, which need not be the computer the browser is open on. A SpatialData <code translate="no">.zarr</code> store can be given the same way, one at a time. Several paths, one per line, open a grouping step, where you decide which sections form one dataset.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-upload-path-960.webp?v=20261111" srcset="../assets/media/importing-upload-path-640.webp?v=20261111 640w, ../assets/media/importing-upload-path-960.webp?v=20261111 960w, ../assets/media/importing-upload-path-1280.webp?v=20261111 1280w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="960" height="725" alt="The wizard's first step on Path: the box holds one absolute path, /data/xenium/MFI-GD16-5_rep1_R7.h5ad, tagged .h5ad, with the button Open beside it." loading="lazy" decoding="async"></div></figure>
 </div>
 <div class="dv-choice__panel" role="tabpanel" id="provide-dir-p" aria-labelledby="provide-dir">
 <h3 class="dv-choice__heading">Directory</h3>
-<p>A whole directory of harmonized sections is imported as one atlas, without the mapping step below. See <a href="../atlases/">Atlases</a>.</p>
+<p>Press <strong>Folder</strong>, browse to a directory of harmonized sections and press <strong>Scan</strong>. It is imported as one atlas, without the mapping step below. See <a href="../atlases/">Atlases</a>.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-upload-folder-960.webp?v=20261111" srcset="../assets/media/importing-upload-folder-640.webp?v=20261111 640w, ../assets/media/importing-upload-folder-960.webp?v=20261111 960w, ../assets/media/importing-upload-folder-1280.webp?v=20261111 1280w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="960" height="725" alt="The wizard's first step on Folder. The address line reads /data / spatial / colon; below it, four small dot pictures, one for each .h5ad in the folder, the count 4 Sections, and the button Scan." loading="lazy" decoding="async"></div></figure>
 </div>
 </div>
 </li>
 <li><p class="pv-steps__title">Let PointillViz read it</p><p>PointillViz looks through the file, <code translate="no">.obs</code>, <code translate="no">.obsm</code>, <code translate="no">.X</code>, the layers and <code translate="no">.uns</code>, and notes what each entry is: its shape, its type, its categories, a few of its values. That takes a few seconds and is what the next step works from.</p></li>
 </ol>
-<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-upload-1280.webp" srcset="../assets/media/importing-upload-640.webp 640w, ../assets/media/importing-upload-960.webp 960w, ../assets/media/importing-upload-1280.webp 1280w, ../assets/media/importing-upload-1600.webp 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="710" alt="The wizard's first step, Upload: a drop zone for .h5ad files with a Choose file(s) button, and below it the expanded alternative, a text box holding one absolute server path, /data/xenium/MFI-GD16-5_rep1_R7.h5ad, with the button Use these path(s). A third, collapsed alternative imports a whole directory of harmonized sections as one atlas." loading="lazy" decoding="async"></div><figcaption class="pv-figure__caption">Step 1, Upload, with a server path pasted in.<span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;maternal–fetal&nbsp;interface&nbsp;· 235,803&nbsp;cells</span></figcaption></figure>
 <h3>Map fields onto the viewer</h3>
-<p>The second step is where you tell PointillViz what is what: which matrix holds the coordinates, which column the cell types, which matrix the expression. The page has three columns, and each part of the file (<code translate="no">.obsm</code>, the expression matrices, <code translate="no">.obs</code>, <code translate="no">.uns</code>) gets its own band across them.</p>
-<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-map-1280.webp" srcset="../assets/media/importing-map-640.webp 640w, ../assets/media/importing-map-960.webp 960w, ../assets/media/importing-map-1280.webp 1280w, ../assets/media/importing-map-1600.webp 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="800" alt="The wizard's second step, Map fields to tabs, with three columns. Your file, on the left, lists obsm IFQUANT, X_spatial and X_umap, each marked Assigned. The Workspace in the middle shows the band Coordinates and views, read from .obsm: the coordinate system with X_spatial, 235803 by 2, interpreted as 2D spatial; X_umap included as an embedding tab named UMAP; and the dense matrix IFQUANT with 20 channels, labelled Protein Channels. PointillViz fields, on the right, lists Coordinate system, Embeddings and Dense obsm matrices, all Assigned." loading="lazy" decoding="async"></div><figcaption class="pv-figure__caption">Step 2, Map fields, as it opens: the .obsm band, with the file's three matrices already placed.<span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;maternal–fetal&nbsp;interface&nbsp;· 235,803&nbsp;cells</span></figcaption></figure>
+<p>The second step is where you tell PointillViz what is what: which matrix holds the coordinates, which column the cell types, which matrix the expression. It opens with a proposed mapping for everything. If the file uses common field names, such as <code translate="no">cell_type</code>, <code translate="no">niche</code> or <code translate="no">X_spatial</code>, the proposal is usually correct, so you only need to confirm the mapping and press <strong>Convert</strong>.</p>
+<p style="margin-top: 16px;">The step has two views of the same mapping, <strong>Tiles</strong> and <strong>Wires</strong>, switched at the top right. Both change the same settings, so you can switch at any moment; the page remembers your choice.</p>
 <div class="dv-choice" data-pv-tabs>
-<div class="dv-choice__list" role="tablist" aria-label="The three columns">
-<button class="dv-choice__tab" type="button" role="tab" id="col-file" aria-controls="col-file-p" aria-selected="true"><span class="dv-choice__name">Your file</span><span class="dv-choice__by">Left column</span></button>
-<button class="dv-choice__tab" type="button" role="tab" id="col-ws" aria-controls="col-ws-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Workspace</span><span class="dv-choice__by">Middle column</span></button>
-<button class="dv-choice__tab" type="button" role="tab" id="col-fields" aria-controls="col-fields-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">PointillViz fields</span><span class="dv-choice__by">Right column</span></button>
+<div class="dv-choice__list" role="tablist" aria-label="The two views" style="max-width: 640px; grid-template-columns: repeat(2, minmax(0, 1fr));">
+<button class="dv-choice__tab" type="button" role="tab" id="view-tiles" aria-controls="view-tiles-p" aria-selected="true"><span class="dv-choice__name">Tiles</span><span class="dv-choice__by">One tile per tab</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="view-wires" aria-controls="view-wires-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Wires</span><span class="dv-choice__by">File to tabs, by lines</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="view-tiles-p" aria-labelledby="view-tiles">
+<h3 class="dv-choice__heading">Tiles</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-map-1280.webp?v=20261111" srcset="../assets/media/importing-map-640.webp?v=20261111 640w, ../assets/media/importing-map-960.webp?v=20261111 960w, ../assets/media/importing-map-1280.webp?v=20261111 1280w, ../assets/media/importing-map-1600.webp?v=20261111 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="857" alt="The wizard's second step, Map, in the Tiles view. Above the tiles: the file name, 235.8K cells, 5.1K genes, and the buttons Your file, Tiles and Wires. The tiles: Space with the cells' positions and X_spatial; Cell types, 19, with the colours and counts; Genes, 5.1K, with a histogram and the source .X; UMAP; Multi-dimensional, 20 channels; Niches, with niche_coarse, niche_medium and niche_fine; Home card; and Overlays, 9 of 13. Below them, the buttons that add optional fields, and Convert at the bottom right." loading="lazy" decoding="async"></div><figcaption class="pv-figure__caption">Step 2, Map fields, in the Tiles view, as it opens.<span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;maternal–fetal&nbsp;interface&nbsp;· 235,803&nbsp;cells</span></figcaption></figure>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="view-wires-p" aria-labelledby="view-wires" hidden>
+<h3 class="dv-choice__heading">Wires</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-map-wires-1280.webp?v=20261111" srcset="../assets/media/importing-map-wires-640.webp?v=20261111 640w, ../assets/media/importing-map-wires-960.webp?v=20261111 960w, ../assets/media/importing-map-wires-1280.webp?v=20261111 1280w, ../assets/media/importing-map-wires-1600.webp?v=20261111 1600w" sizes="(min-width: 1200px) 760px, (min-width: 1024px) calc(100vw - 360px), calc(100vw - 32px)" width="1280" height="845" alt="The same step in the Wires view. Your file, on the left, lists the entries of .obsm, .X and .layers, .obs and .uns, each with a small picture of its data and a dot at the end of the row. PointillViz, on the right, lists the tabs in groups, Where, Features, Cells, Layers and About, each with a dot at the start of the row. A green wire runs from every filled dot on the left to the tab on the right that uses it." loading="lazy" decoding="async"></div><figcaption class="pv-figure__caption">The same step in the Wires view: one wire for every assignment.<span class="pv-figure__meta">Xenium&nbsp;5K&nbsp;· mouse&nbsp;maternal–fetal&nbsp;interface&nbsp;· 235,803&nbsp;cells</span></figcaption></figure>
+</div>
+</div>
+<div class="dv-choice dv-wires" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="The three parts">
+<button class="dv-choice__tab" type="button" role="tab" id="col-file" aria-controls="col-file-p" aria-selected="true"><span class="dv-choice__name">Your file</span><span class="dv-choice__by">Wires: left column</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="col-ws" aria-controls="col-ws-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Workspace</span><span class="dv-choice__by">Tiles view</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="col-fields" aria-controls="col-fields-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">PointillViz fields</span><span class="dv-choice__by">Wires: right column</span></button>
 </div>
 <div class="dv-choice__panel" role="tabpanel" id="col-file-p" aria-labelledby="col-file">
 <h3 class="dv-choice__heading">Your file</h3>
-<div class="dv-split dv-split--match">
-<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-col-file-702.webp" srcset="../assets/media/importing-col-file-702.webp 702w, ../assets/media/importing-col-file-1404.webp 1404w" sizes="(min-width: 700px) 380px, calc(100vw - 64px)" width="1404" height="3405" alt="The Your file column of the .obs band: every column of the file with its state. obs_names, transcript_counts, total_counts, cell_area, nucleus_area, prot_area, prot_x, prot_y, n_counts, predicted_cell_type, niche_medium and niche_mean_neighbor_distance are Assigned; x_centroid, y_centroid, the control and codeword counts, nucleus_count, segmentation_method, xr_canonical_labels_archived, prot_ecode, count_outlier, predicted_label, niche_coarse, niche_fine, section_id and tissue_code are Not assigned; cell_id is Not assigned with the note that no PointillViz function uses it." loading="lazy" decoding="async"></div></figure>
+<p>Everything the file contains, one row per entry, whether PointillViz uses it or not.<br>In <strong>Wires</strong> it is the left column; in <strong>Tiles</strong>, the <strong>Your file</strong> button at the top opens the same list at the side.</p>
+<div class="dv-split dv-split--side">
+<figure class="dv-split__fig dv-split__fig--card" style="--dv-card-x: 0.362%; --dv-card-w: 96.286%; --dv-card-surface: rgb(20, 22, 29); --dv-card-line: rgb(29, 32, 40);" data-dv-wires-from="col-fields" data-dv-ports="0.1001 0.1359 0.1716 0.2396 0.3433 0.379 0.4148 0.4505 0.4863 0.5221 0.5578 0.5936 0.6293 0.6651 0.7008 0.7366 0.7723 0.8689"><img src="../assets/media/importing-col-file-560.webp?v=20261111" srcset="../assets/media/importing-col-file-560.webp?v=20261111 560w, ../assets/media/importing-col-file-1104.webp?v=20261111 1104w" sizes="(min-width: 1200px) 330px, (min-width: 700px) calc((100vw - 390px) * 0.45), calc(100vw - 64px)" width="1104" height="1678" alt="The Your file column of the Wires view, with the start of the wires. Entries of .obsm (X_spatial, X_umap, IFQUANT), of .X and .layers (X, null), of .obs (predicted_cell_type, niche_coarse, niche_medium, niche_fine and nine numeric columns, with 17 more folded away under +17) and of .uns (spatial_units, with 5 more under +5), each with a small picture of its data. Every entry in use has a filled dot at the end of its row with a green wire leaving it to the right; on the page, the wires run on behind the text to the PointillViz fields tab above. null has an empty ring and no wire." loading="lazy" decoding="async"><span class="dv-split__tail" aria-hidden="true"></span></figure>
 <div class="dv-split__text">
-<p>Everything the file contains, one row per entry, whether PointillViz uses it or not.</p>
 <dl>
-<dt>Assigned</dt><dd>The entry feeds at least one field of the viewer.<br>Press the badge to jump to that field in the workspace.</dd>
-<dt>Not assigned</dt><dd>It does not. That is fine for identifiers, QC counters and duplicates: the aim is to pick what matters, not to use everything.</dd>
+<dt><svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true" style="display:inline-block; vertical-align:-1px; margin-right:8px;"><path d="M13 7H34" stroke="var(--pv-accent, #7ee0b4)" stroke-width="1.5"/><circle cx="7" cy="7" r="5.25" fill="none" stroke="var(--pv-accent, #7ee0b4)" stroke-width="1.5"/><circle cx="7" cy="7" r="2.25" fill="var(--pv-accent, #7ee0b4)"/></svg>Assigned</dt><dd>PointillViz uses this entry from your file and includes it in the imported dataset as the field at the other end of the wire.<br><br>To take the assignment out again, press its wire. Space and Genes cannot be empty: there the wire opens the field's settings instead.</dd>
+<dt><svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true" style="display:inline-block; vertical-align:-1px; margin-right:8px;"><circle cx="7" cy="7" r="5.25" fill="none" stroke="var(--pv-text-2, #9aa3b5)" stroke-width="1.5"/></svg>Not assigned</dt><dd>PointillViz does not use this entry. That is fine for identifiers, QC counters and duplicates: the aim is to pick what matters, not to use everything.<br><br>To use one anyway, drag from its ring to a tab, or press the ring and then the tab (in Tiles, the <strong>+</strong> at the end of the row).</dd>
+</dl>
+</div>
+<figure class="dv-split__fig dv-split__fig--bare" style="width: 96.3%;"><img src="../assets/media/importing-preview-504.webp?v=20261111" srcset="../assets/media/importing-preview-504.webp?v=20261111 504w, ../assets/media/importing-preview-1008.webp?v=20261111 1008w" sizes="(min-width: 1200px) 330px, (min-width: 700px) calc((100vw - 390px) * 0.45), calc(100vw - 64px)" width="1008" height="683" alt="The preview of obs predicted_cell_type, opened under its row: 235,803 rows, dtype category, 19 distinct values, and the first ten rows with their cell number and value, nine of them Yolk sac and one Myometrium." loading="lazy" decoding="async"></figure>
+<div class="dv-split__text dv-split__text--second">
+<dl>
 <dt>Press an entry</dt><dd>A preview opens with its shape, its type and a few of its values.</dd>
 </dl>
-<figure class="pv-figure dv-split__fig" style="max-width: 320px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-preview-504.webp" srcset="../assets/media/importing-preview-504.webp 504w, ../assets/media/importing-preview-1008.webp 1008w" sizes="320px" width="1008" height="1338" alt="The AnnData preview card of obs predicted_cell_type: 235,803 rows, dtype category, 19 distinct values, and the first ten rows with their cell number and value, nine of them Yolk sac and one Myometrium." loading="lazy" decoding="async"></div></figure>
 </div>
 </div>
 </div>
-<div class="dv-choice__panel" role="tabpanel" id="col-ws-p" aria-labelledby="col-ws">
+<div class="dv-choice__panel" role="tabpanel" id="col-ws-p" aria-labelledby="col-ws" data-dv-wires-across="col-file col-fields">
 <h3 class="dv-choice__heading">Workspace</h3>
-<div class="dv-split dv-split--stack">
-<div class="dv-split__text">
-<p>The controls. Each field names what it needs and starts with PointillViz's proposal: the column or matrix whose name and shape fit best. Change it from the list, or tick and untick entries.</p>
-</div>
-<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-col-workspace-1000.webp" srcset="../assets/media/importing-col-workspace-1000.webp 1000w, ../assets/media/importing-col-workspace-2000.webp 2000w" sizes="(min-width: 1200px) 700px, (min-width: 1024px) calc(100vw - 400px), calc(100vw - 64px)" width="2457" height="2406" alt="The Workspace of the Cell annotations band. The Cell-type column is set to predicted_cell_type with 19 categories. Niches holds niche_medium with an automatic palette. Continuous overlays has nine columns ticked, each with its value range (transcript_counts, total_counts, cell_area, nucleus_area, prot_area, prot_x, prot_y, n_counts, niche_mean_neighbor_distance) and four more available (x_centroid, y_centroid, xr_canonical_labels_archived, prot_ecode). An (i) button sits beside each field." loading="lazy" decoding="async"></div></figure>
-<div class="dv-split__text">
-<p>The <strong>(i)</strong> beside a field opens its explanation, in four parts (here for the cell-type column):</p>
+<p>The controls, in the <strong>Tiles</strong> view. One tile stands for one tab of the viewer and is drawn from your own data: the cell types with their colours and counts, the genes with their histogram, the UMAP. Every field starts with PointillViz's proposal, the column or matrix whose name and shape fit best. What you can do on a tile:</p>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Change a value</p><p>Press the value at the bottom of a tile, <code translate="no">predicted_cell_type</code> on Cell types. A list opens with every column that could go here, each with a glimpse of its data and its number of values; the current choice is ticked. Type to search the list.</p>
+<figure class="pv-figure" style="max-width: 260px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-ws-picker-410.webp?v=20261111" srcset="../assets/media/importing-ws-picker-410.webp?v=20261111 410w, ../assets/media/importing-ws-picker-820.webp?v=20261111 820w" sizes="(min-width: 700px) 260px, calc(100vw - 64px)" width="820" height="935" alt="The bottom of the Cell types tile with its list open: a search box, Search 16 columns, then None and the columns, each with a small picture of its categories and their number: control_probe_counts 3, genomic_control_counts 3, control_codeword_counts 6, unassigned_codeword_counts 16, deprecated_codeword_counts 6, nucleus_count 3, segmentation_method 2, count_outlier 2, predicted_cell_type 19 (ticked), predicted_label 19, niche_coarse 8. Under the list, the value predicted_cell_type." loading="lazy" decoding="async"></div></figure></li>
+<li><p class="pv-steps__title">Tick what to include</p><p>Overlays, Embedding, Niches and Multi-dimensional take several entries. Press the tile and a sheet opens: what is selected, with a histogram and the range of each column, and what else is available. The count on the tile, 9/13, says how many are on.</p>
+<figure class="pv-figure" style="max-width: 700px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-ws-sheet-862.webp?v=20261111" srcset="../assets/media/importing-ws-sheet-862.webp?v=20261111 862w, ../assets/media/importing-ws-sheet-1725.webp?v=20261111 1725w" sizes="(min-width: 700px) 700px, calc(100vw - 64px)" width="1725" height="737" alt="The Overlays sheet, 9/13. Selected: transcript_counts, total_counts, cell_area, nucleus_area, prot_area, prot_x, prot_y, n_counts and niche_mean_neighbor_distance, each ticked, with a histogram and its range, 5 to 11.1K for transcript_counts. Available: x_centroid, y_centroid, xr_canonical_labels_archived and prot_ecode, unticked." loading="lazy" decoding="async"></div></figure></li>
+<li><p class="pv-steps__title">Name what the viewer will show</p><p>Some fields are words. The Home card holds the title and, empty at first, the organism, tissue and modality. Press a field and type; the words appear on the dataset's card on the home page and in the viewer's header.</p>
+<figure class="pv-figure" style="max-width: 520px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-ws-card-610.webp?v=20261111" srcset="../assets/media/importing-ws-card-610.webp?v=20261111 610w, ../assets/media/importing-ws-card-1221.webp?v=20261111 1221w" sizes="(min-width: 700px) 520px, calc(100vw - 64px)" width="1221" height="319" alt="The Home card tile: a small picture of the section, the title MFI-GD16-5_rep1_R7, and under it the organism field with Mouse being typed, then Tissue and Modality, still empty." loading="lazy" decoding="async"></div></figure></li>
+<li><p class="pv-steps__title">Add or take out a field</p><p>The chips under the tiles are the optional fields that are off: Section, Colors, Cell Type Hierarchy, Niche levels, Categories, Multi-omics, Transcripts, Image files, Cell Boundaries. Press one and its tile appears, with a proposal when the file has something for it, or empty for you to fill in; Transcripts asks for a table's path.</p>
+<figure class="pv-figure" style="max-width: 560px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-ws-chips-533.webp?v=20261111" srcset="../assets/media/importing-ws-chips-533.webp?v=20261111 533w, ../assets/media/importing-ws-chips-1066.webp?v=20261111 1066w" sizes="(min-width: 700px) 533px, calc(100vw - 64px)" width="1066" height="164" alt="The chips under the tiles, here in two rows: + Section, + Colors, + Cell Type Hierarchy, + Niche levels, + Categories; + Multi-omics, + Transcripts, + Image files, + Cell Boundaries." loading="lazy" decoding="async"></div></figure>
+<p>The <strong>×</strong> in a tile's corner takes the field out again, and it returns to the chips.</p>
+<figure class="pv-figure" style="max-width: 380px;"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-ws-remove-378.webp?v=20261111" srcset="../assets/media/importing-ws-remove-378.webp?v=20261111 378w, ../assets/media/importing-ws-remove-757.webp?v=20261111 757w" sizes="(min-width: 700px) 378px, calc(100vw - 64px)" width="757" height="96" alt="The head of the Cell types tile: its icon and name, then × and ? at the right." loading="lazy" decoding="async"></div></figure></li>
+<li><p class="pv-steps__title">Ask the ?</p><p>The <strong>?</strong> beside a field opens its explanation, in four parts (here for the cell-type column):</p>
 <ol>
 <li><strong>What should I choose?</strong> What belongs in this field, and what to avoid.</li>
 <li><strong>Why did PointillViz suggest this?</strong> Why this entry was proposed, and by what criterion.</li>
 <li><strong>How will this be used?</strong> What the viewer does with it: here the colours, the legend, the filters and every cell-type comparison.</li>
-<li><strong>Look it up in your file.</strong> Takes you to the entry in the left column, where you can open its preview.</li>
+<li><strong>Look it up in your file.</strong> Lists the entries of the file that could go here; press one to open its preview in Your file.</li>
 </ol>
 <aside class="pv-callout pv-callout--note">
 <p class="pv-callout__title">Judge a proposal yourself</p>
 <p>This lets you judge the quality of a proposal yourself, and see which properties the source data should have.</p>
-</aside>
-</div>
-</div>
+</aside></li>
+</ol>
 </div>
 <div class="dv-choice__panel" role="tabpanel" id="col-fields-p" aria-labelledby="col-fields">
 <h3 class="dv-choice__heading">PointillViz fields</h3>
-<div class="dv-split dv-split--img-right">
-<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-col-fields-567.webp" srcset="../assets/media/importing-col-fields-567.webp 567w, ../assets/media/importing-col-fields-1134.webp 1134w" sizes="(min-width: 700px) 300px, calc(100vw - 64px)" width="1134" height="1887" alt="Two parts of the PointillViz fields column. Above, from the dataset band: Tissue images, Cell boundaries and Tiled segmentation polygons, each marked Not in your data. Below, from the cell annotations band: Cell-type column, Niches and Continuous overlays are Assigned, each with a Remove button; Section column, Cell-type color column, Cell-type hierarchy, Niche hierarchy and Custom categorical columns are Not added, each with an Add button." loading="lazy" decoding="async"></div></figure>
+<p>Everything the viewer could show, and the state of each field.<br>In <strong>Wires</strong> it is the right column; in <strong>Tiles</strong>, the button beside Your file at the top lists the same fields, with a <strong>PointillViz fields</strong> tab.</p>
+<div class="dv-split dv-split--side dv-split--img-right">
+<figure class="dv-split__fig dv-split__fig--card" style="--dv-card-x: 3.114%; --dv-card-w: 96.54%; --dv-card-surface: rgb(20, 22, 29); --dv-card-line: rgb(29, 32, 40);" data-dv-wires-from="col-file" data-dv-ports="0.121 0.1688 0.2546 0.3024 0.4613 0.5457 0.6667 0.9001"><img src="../assets/media/importing-col-fields-560.webp?v=20261111" srcset="../assets/media/importing-col-fields-560.webp?v=20261111 560w, ../assets/media/importing-col-fields-1156.webp?v=20261111 1156w" sizes="(min-width: 1200px) 330px, (min-width: 700px) calc((100vw - 390px) * 0.45), calc(100vw - 64px)" width="1156" height="1422" alt="The PointillViz column of the Wires view, in the groups Where, Features, Cells, Layers and About, with the ends of the wires arriving from the left; on the page, they come from the Your file tab above. Space, Embedding, Multi-dimensional, Genes, Cell types, Niches, Overlays and Units have a filled dot at the start of the row, with a wire arriving, and their value at the end. Multi-omics, Section, Cell Type Hierarchy, Niche levels, Categories, Image files, Cell Boundaries and Transcripts are dimmed, with an empty ring or nothing, and a + at the end of the row. Home card has no dot." loading="lazy" decoding="async"><span class="dv-split__tail" aria-hidden="true"></span></figure>
 <div class="dv-split__text">
-<p>Everything the viewer could show for this part of the file, and the state of each field.</p>
 <dl>
-<dt>Assigned</dt><dd>It has a source in your file. <strong>Remove</strong> takes it out again; it then shows as <em>Not added</em>.</dd>
-<dt>Not added</dt><dd>An optional field that PointillViz found nothing to propose for, so it starts outside the workspace. If one of your columns fits, press <strong>+ Add</strong> and choose it.</dd>
-<dt>Not in your data</dt><dd>The file has nothing for it at all, so there is nothing to add. Tissue images, cell boundaries or polygons are extras: a file without them is still a complete dataset.</dd>
+<dt><svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true" style="display:inline-block; vertical-align:-1px; margin-right:8px;"><path d="M0 7H21" stroke="var(--pv-accent, #7ee0b4)" stroke-width="1.5"/><circle cx="27" cy="7" r="5.25" fill="none" stroke="var(--pv-accent, #7ee0b4)" stroke-width="1.5"/><circle cx="27" cy="7" r="2.25" fill="var(--pv-accent, #7ee0b4)"/></svg>Assigned</dt><dd>It has a source in your file, so it will be in the dataset. <strong>Remove</strong> takes it out again; it then shows as <em>Not added</em>.<br>In Wires, press its wire. Space and Genes cannot be empty: there the wire opens the field's settings instead.</dd>
+<dt><svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true" style="display:inline-block; vertical-align:-1px; margin-right:8px;"><circle cx="27" cy="7" r="5.25" fill="none" stroke="var(--pv-text-2, #9aa3b5)" stroke-width="1.5"/></svg>Not added</dt><dd>An optional field that PointillViz found nothing to propose for, so it starts outside the workspace. If one of your columns fits, press <strong>+ Add</strong> and choose it.<br>In Wires, press the <strong>+</strong> at the end of the row, or drag a wire from an entry of your file to its ring.</dd>
+<dt><svg width="34" height="14" viewBox="0 0 34 14" aria-hidden="true" style="display:inline-block; vertical-align:-1px; margin-right:8px;"></svg>Not in your data</dt><dd>The file has nothing for it at all, so there is nothing to add. Tissue images, cell boundaries or polygons are extras: a file without them is still a complete dataset.</dd>
 </dl>
 </div>
 </div>
 </div>
 </div>
-<h4>What to check</h4>
-<p>Three choices decide everything that follows, and a wrong one shows no error. Give them a look:</p>
-<div class="dv-choice" data-pv-tabs>
-<div class="dv-choice__list" role="tablist" aria-label="What to check" style="max-width: 620px;">
-<button class="dv-choice__tab" type="button" role="tab" id="chk-coord" aria-controls="chk-coord-p" aria-selected="true"><span class="dv-choice__name">Coordinates</span><span class="dv-choice__by">Tissue positions</span></button>
-<button class="dv-choice__tab" type="button" role="tab" id="chk-genes" aria-controls="chk-genes-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Expression</span><span class="dv-choice__by">Counts or normalized</span></button>
-<button class="dv-choice__tab" type="button" role="tab" id="chk-cells" aria-controls="chk-cells-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Cell types</span><span class="dv-choice__by">The main annotation</span></button>
-</div>
-<div class="dv-choice__panel" role="tabpanel" id="chk-coord-p" aria-labelledby="chk-coord">
-<h3 class="dv-choice__heading">Coordinates</h3>
-<p>The matrix with the cells' positions in the tissue. Without it there is no map. The common trap: an embedding such as a UMAP chosen as coordinates. It is a two-column matrix too, but not tissue positions. A file without positions takes <em>Non-spatial</em> instead.</p>
-</div>
-<div class="dv-choice__panel" role="tabpanel" id="chk-genes-p" aria-labelledby="chk-genes">
-<h3 class="dv-choice__heading">Expression</h3>
-<p>Which matrix holds the gene expression, and at what stage. Normalized values taken for counts, or the reverse, give wrong gene maps and wrong statistics everywhere, and nothing flags it. When the file holds both, PointillViz prefers the counts; the list shows what it detected (<code translate="no">✓ counts</code>) next to each choice.</p>
-</div>
-<div class="dv-choice__panel" role="tabpanel" id="chk-cells-p" aria-labelledby="chk-cells">
-<h3 class="dv-choice__heading">Cell types</h3>
-<p>The column that colours the cells and that every cell-type comparison is built on. A cluster column works too, but then clusters are what the viewer calls cell types. If one file holds several sections, also set the section column, or they all land in one panel.</p>
-</div>
-</div>
-<p>Last, make sure the extras you want are on: tissue images, cell boundaries, transcripts, embeddings, niches, continuous overlays. A field that says <em>Not added</em> is off; <strong>+ Add</strong> turns it on.</p>
+<h4>Key settings to check</h4>
+<p>Three choices determine everything that follows, and a wrong selection may not produce an error. Check each one:</p>
+<ol class="dv-keys">
+<li class="dv-keys__row"><span class="dv-keys__n" aria-hidden="true">1</span><span class="dv-keys__name">Coordinates</span><span class="dv-keys__what">tissue positions, not an embedding.</span></li>
+<li class="dv-keys__row"><span class="dv-keys__n" aria-hidden="true">2</span><span class="dv-keys__name">Expression</span><span class="dv-keys__what">counts or normalized values.</span></li>
+<li class="dv-keys__row"><span class="dv-keys__n" aria-hidden="true">3</span><span class="dv-keys__name">Cell types</span><span class="dv-keys__what">the main annotation.</span></li>
+</ol>
+<p>Make sure the extras you need are enabled:</p>
+<ul class="dv-extras">
+<li class="dv-extras__item"><svg class="dv-check__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5 8.2 14 15.5 6.2"/></svg><span>Tissue images</span></li>
+<li class="dv-extras__item"><svg class="dv-check__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5 8.2 14 15.5 6.2"/></svg><span>Cell boundaries</span></li>
+<li class="dv-extras__item"><svg class="dv-check__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5 8.2 14 15.5 6.2"/></svg><span>Transcripts</span></li>
+<li class="dv-extras__item"><svg class="dv-check__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5 8.2 14 15.5 6.2"/></svg><span>Embeddings</span></li>
+<li class="dv-extras__item"><svg class="dv-check__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5 8.2 14 15.5 6.2"/></svg><span>Niches</span></li>
+<li class="dv-extras__item"><svg class="dv-check__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5 8.2 14 15.5 6.2"/></svg><span>Continuous overlays</span></li>
+</ul>
 <h3>Convert and open</h3>
-<p>Press <strong>Convert →</strong>. The conversion runs on the server and its log streams into the page: the mapping you confirmed first, then what is being written, then a report. A Xenium section of 50,000 cells takes ten to thirty seconds, 200,000 cells about a minute and a half. When it is done, <strong>Choose view →</strong> opens the dataset; it is also on the home page from now on.</p>
-<div class="dv-split" style="grid-template-columns: minmax(0, 5fr) minmax(0, 3fr);">
-<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-convert-1280.webp" srcset="../assets/media/importing-convert-640.webp 640w, ../assets/media/importing-convert-1280.webp 1280w" sizes="(min-width: 700px) 440px, calc(100vw - 64px)" width="930" height="754" alt="The wizard's third step, Convert, with the end of its log: the written files as JSON, among them a gene summary of 5106 genes with value dtype u16, one obsm matrix IFQUANT labelled Protein Channels with 20 channels, one embedding UMAP for 235803 cells, and an empty list of warnings. Below the log, the button Choose view." loading="lazy" decoding="async"></div></figure>
+<p>Press <strong>Convert</strong>. The conversion runs on the server, whichever view the Map step was in. The page shows your file wired to the tabs it feeds, with a clock, and ticks each tab as it is written; the full log, with the mapping you confirmed and a report at the end, is behind <strong>Log</strong>. <strong>Choose view</strong> opens the dataset; it is also on the home page from now on.</p>
+<div class="dv-split dv-split--stack">
+<figure class="pv-figure dv-split__fig"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/importing-convert-1280.webp?v=20261111" srcset="../assets/media/importing-convert-640.webp?v=20261111 640w, ../assets/media/importing-convert-1280.webp?v=20261111 1280w" sizes="(min-width: 1200px) 700px, (min-width: 1024px) calc(100vw - 400px), calc(100vw - 64px)" width="1280" height="560" alt="The wizard's third step, Convert, when it is done. On the left, the file's entries as small pictures, each with a dot; wires run from them to the tabs Space, Embedding, Multi-dimensional, Genes, Cell types, Niches and Overlays, each with its count and a green tick; from the tabs, wires run on to the finished tissue, with the button Choose view, the time 5.3 s and the link Log." loading="lazy" decoding="async"></div></figure>
 <div class="dv-split__text">
 <aside class="pv-callout pv-callout--tip">
-<p class="pv-callout__title">Read the end of the log</p>
-<p>An extra that could not be used, tissue images for a file with more than one section, say, is skipped with a <code translate="no">WARN</code> line; the rest of the dataset is still written. If something is missing in the viewer, that line says why. To change a mapping, import the <code translate="no">.h5ad</code> again.</p>
+<p class="pv-callout__title">Look for the ticks, then read the log</p>
+<p>An extra that could not be used, tissue images for a file with more than one section, say, is skipped with a <code translate="no">WARN</code> line in the log; the rest of the dataset is still written. Its tab has no tick and no wire on to the tissue, and its <strong>?</strong> says why. To change a mapping, import the <code translate="no">.h5ad</code> again.</p>
 </aside>
 </div>
 </div>
