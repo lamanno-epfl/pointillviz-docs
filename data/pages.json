@@ -777,7 +777,7 @@
       "slug": "tool-store",
       "group": "Extend",
       "title": "Tool Store",
-      "summary": "Install community tools in their own environments, run them like built-in analyses, and publish your own.",
+      "summary": "Find a tool on the store website, add it to the viewer, run it on the open dataset, keep it up to date, and write and publish one of your own.",
       "keywords": [
         "plugin",
         "plugins",
@@ -832,68 +832,14 @@
       ],
       "sections": [
         {
-          "title": "What a tool is",
+          "title": "Get, use and publish tools",
           "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "Install a tool",
-          "preview": [
-            "steps",
-            "caution"
-          ]
-        },
-        {
-          "title": "Where a tool runs",
-          "preview": [
-            "note"
-          ]
-        },
-        {
-          "title": "Run a tool",
-          "preview": [
-            "figure"
-          ]
-        },
-        {
-          "title": "CPU or GPU",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "Sweep a parameter",
-          "preview": [
-            "table",
-            "tip"
-          ]
-        },
-        {
-          "title": "Write a tool in Python or R",
-          "preview": [
+            "figure",
+            "note",
             "code"
           ]
-        },
-        {
-          "title": "The gates",
-          "preview": [
-            "note"
-          ]
-        },
-        {
-          "title": "Publish to the registry",
-          "preview": [
-            "steps"
-          ]
         }
-      ],
-      "figure": {
-        "alt": "The Tool Store’s gallery: community tools with their artwork, outputs and tags.",
-        "caption": "The Tool Store’s gallery of community tools.",
-        "meta": "The Tool Store · community tools"
-      }
+      ]
     },
     {
       "slug": "ai-assistant",
