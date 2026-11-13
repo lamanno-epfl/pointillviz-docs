@@ -860,6 +860,54 @@
 .dv-choice__tab:focus-visible { outline-offset: 2px; }
 .dv-choice__panel { padding-top: 24px; }
 .dv-choice__heading { display: none; }
+
+/* Four parts of a page as one choice, and a compact bar of buttons for a choice inside a panel. */
+.dv-choice--four > .dv-choice__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.dv-choice--four > .dv-choice__list .dv-choice__by { white-space: normal; }
+@media (max-width: 899.98px) { .dv-choice--four > .dv-choice__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 699.98px) { .dv-choice--four > .dv-choice__list { grid-template-columns: minmax(0, 1fr); } }
+/* Five parts (Tool Store): three across (3 + 2), then two and one as the width shrinks; the
+   subtitles are sentences, so they wrap. */
+.dv-choice--five > .dv-choice__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dv-choice--five > .dv-choice__list .dv-choice__by { white-space: normal; }
+@media (max-width: 699.98px) { .dv-choice--five > .dv-choice__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 479.98px) { .dv-choice--five > .dv-choice__list { grid-template-columns: minmax(0, 1fr); } }
+.dv-choice--chips > .dv-choice__list { display: flex; flex-wrap: wrap; gap: 8px; }
+.dv-choice--chips > .dv-choice__list .dv-choice__tab { display: inline-flex; flex-direction: row; align-items: center; justify-content: center; width: auto; min-height: 0; padding: 7px 18px; }
+.dv-choice--chips .dv-choice__name { font-size: 0.875rem; }
+.dv-choice--chips > .dv-choice__panel { padding-top: 16px; }
+
+/* The three examples: one question at a time. */
+.dv-choice--examples > .dv-choice__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dv-choice--examples > .dv-choice__panel > blockquote { margin: 12px 0; }
+@media (max-width: 699.98px) { .dv-choice--examples > .dv-choice__list { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* Notebook panels: a clear gap between the introducing paragraph and the list. */
+.dv-choice--chips .dv-choice__panel > p + .dv-navlist { margin-top: 32px; }
+/* What it sees and can do: a compact row of buttons, then the chosen entry's text with its picture. */
+.dv-choice--four > .dv-choice__panel > p + .dv-choice--sees { margin-top: 20px; }
+.dv-sees > p + p { margin-top: 10px; }
+.dv-sees > .pv-figure { margin-top: 18px; }
+
+.dv-choice--four > .dv-choice__panel > p + .dv-navlist { margin-top: 28px; }
+.dv-choice--four > .dv-choice__panel > p + .dv-choice--side { margin-top: 24px; }
+.dv-choice--side .dv-split__text > p + p { margin-top: 10px; }
+.dv-navitem__body ul { margin: 10px 0 0; padding-left: 1.2em; }
+.dv-navitem__body ul li + li { margin-top: 4px; }
+
+p + .dv-choice--chips, .dv-choice__panel > p + .pv-steps { margin-top: 16px; }
+
+
+
+
+/* The three runtimes as static cards, drawn like the choice tabs above but not clickable. */
+.dv-runtimes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 16px 0 4px; }
+.dv-runtimes__item { display: grid; align-content: start; gap: 6px; min-width: 0; padding: 13px 14px 14px; border: 1px solid var(--pv-line); border-radius: 12px; background: var(--pv-surface); }
+.dv-runtimes__name { font-size: 1rem; font-weight: 600; line-height: 1.25; color: var(--pv-text); }
+.dv-runtimes__by { font: 500 var(--pv-text-2xs) / 1.35 var(--pv-font-mono); letter-spacing: var(--pv-track-label); text-transform: uppercase; color: var(--pv-text-3); }
+@media (max-width: 599.98px) { .dv-runtimes { grid-template-columns: minmax(0, 1fr); } }
+
 :root[data-os] .dv-choice:not(.is-ready) > [role="tabpanel"] ~ [role="tabpanel"] { display: none; }
 :root:not([data-os]) .dv-choice__list { display: none; }
 :root:not([data-os]) .dv-choice__heading { display: block; margin: 0 0 16px; font-size: 1.0625rem; }
@@ -910,6 +958,12 @@
 .dv-navitem__shotimg { display: block; width: 100%; height: auto; border-radius: 6px; }
 .dv-navitem__shot + .dv-navitem__shot { margin-top: 8px; }
 .dv-navitem__shot--narrow { display: inline-block; }
+.dv-navlist + .dv-choice--sub { margin-top: 18px; }
+.dv-navlist + .dv-choice--side { margin-top: 20px; }
+.dv-choice--side + .dv-navlist { margin-top: 20px; }
+
+.dv-navitem__shot--mid, .dv-tabdoc .dv-navitem__shot.dv-navitem__shot--mid { display: block; max-width: 320px; }
+.dv-navitem__shot--small, .dv-tabdoc .dv-navitem__shot.dv-navitem__shot--small { display: block; max-width: 240px; }
 .dv-navitem__shot--narrow .dv-navitem__shotimg { width: auto; max-width: 100%; max-height: 110px; }
 .dv-navitem__pair .pv-figure__stage > img { height: auto; }
 @media (max-width: 479.98px) {
@@ -939,13 +993,27 @@
 .dv-tabdoc__kind { display: flex; gap: 6px; margin: 0; }
 .dv-tabdoc__kind span { font: 600 0.6875rem/1.2 var(--pv-font-mono, 'JetBrains Mono', monospace); letter-spacing: 0.08em; text-transform: uppercase; color: var(--pv-accent); padding: 4px 9px; border: 1px solid var(--pv-accent-line); border-radius: 999px; }
 .dv-tabdoc__lead { margin: -8px 0 0; color: var(--pv-text-2); }
+.dv-choice__tab, .dv-choice__panel { scroll-margin-top: calc(var(--pv-topbar-block, 64px) + 16px); }
+.dv-flash { outline: 2px solid var(--pv-accent); outline-offset: 3px; border-radius: 12px; animation: dv-flash 1.8s ease-out; }
+@keyframes dv-flash { from { outline-color: var(--pv-accent); box-shadow: 0 0 18px var(--pv-accent-glow); } to { outline-color: transparent; box-shadow: 0 0 0 transparent; } }
+@media (prefers-reduced-motion: reduce) { .dv-flash { animation: none; } }
+.dv-tabdoc__hint { margin: -8px 0 0; font-size: 0.9375rem; font-style: italic; color: var(--pv-text-2); }
+.dv-tabdoc--flow { gap: 14px; padding: 0; }
+.dv-tabdoc--flow > p { margin: 0; }
+/* A side-by-side choice nested in the toolbar strip keeps its own tab stack, not the strip's 7 columns. */
+.dv-choice--tabsmap .dv-choice--side > .dv-choice__list { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.dv-choice--tabsmap .dv-choice--side > .dv-choice__list .dv-choice__tab { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; padding: 9px 12px 10px; }
+.dv-choice--tabsmap .dv-choice--sub > .dv-choice__list { display: flex; flex-wrap: wrap; gap: 8px; }
+.dv-choice--tabsmap .dv-choice--sub > .dv-choice__list .dv-choice__tab { display: inline-flex; flex-direction: row; align-items: center; justify-content: center; width: auto; min-height: 0; padding: 7px 18px; }
+.dv-choice--tabsmap .dv-choice--sub .dv-choice__name { font-size: 0.875rem; }
+.dv-choice--tabsmap .dv-choice--sub > .dv-choice__panel { padding-top: 16px; }
 .dv-tabdoc__sec > h4 { margin: 0 0 8px; font: 600 0.75rem/1.5 var(--pv-font-mono, 'JetBrains Mono', monospace); letter-spacing: 0.06em; text-transform: uppercase; color: var(--pv-text-2); }
 .dv-tabdoc__sec > p { margin: 0; }
 .dv-tabdoc__sec > * + * { margin-top: 10px; }
 .dv-tabdoc .dv-navitem__shot { display: inline-block; margin: 12px 0 4px; max-width: 100%; }
 .dv-tabdoc .dv-navitem__shot .pv-figure__stage { padding: 6px; }
 .dv-tabdoc .dv-navitem__shotimg { width: auto; max-width: 100%; }
-.dv-tabdoc .dv-navitem__body > p + p { margin-top: 12px; }
+.dv-navitem__body > p + p { margin-top: 12px; }
 .dv-tabdoc .dv-navitem__row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; margin: 12px 0 4px; }
 .dv-tabdoc .dv-navitem__row > .dv-navitem__shot { flex: 1 1 240px; min-width: 0; margin: 0; }
 .dv-tabdoc .dv-navitem__row .dv-navitem__shotimg { width: 100%; }
@@ -959,13 +1027,13 @@
    rule (not a text label) marks the join between the two question groups. */
 .dv-ways { display: flex; flex-direction: column; gap: 18px; }
 .dv-ways .pv-tabs__ind { display: none; }
-.dv-ways__rail { display: flex; align-items: stretch; gap: 6px; overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; scrollbar-width: thin; }
+.dv-ways__rail { display: flex; align-items: stretch; gap: 5px; overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; scrollbar-width: thin; }
 .dv-ways__divider { flex: 0 0 auto; width: 1px; margin: 4px 6px; background: var(--pv-line); align-self: stretch; }
-.dv-ways__tab { flex: 1 1 0; min-width: 76px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 6px 9px; text-align: center; border: 1px solid var(--pv-line); border-radius: 12px; background: var(--pv-surface); color: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
+.dv-ways__tab { flex: 1 1 0; min-width: 66px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 4px 9px; text-align: center; border: 1px solid var(--pv-line); border-radius: 12px; background: var(--pv-surface); color: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
 .dv-ways__tab:hover { border-color: var(--pv-line-strong, var(--pv-line)); background: var(--pv-surface-2); }
 .dv-ways__tab[aria-selected="true"] { border-color: var(--pv-accent-line); background: color-mix(in srgb, var(--pv-accent) 8%, var(--pv-surface)); }
 .dv-ways__tab:focus-visible { outline-offset: 2px; }
-.dv-ways__thumb { width: 100%; max-width: 72px; aspect-ratio: 4 / 3; border-radius: 7px; object-fit: cover; display: block; background: var(--pv-bg-2); }
+.dv-ways__thumb { width: 100%; max-width: 64px; aspect-ratio: 4 / 3; border-radius: 7px; object-fit: cover; display: block; background: var(--pv-bg-2); }
 .dv-ways__tab[aria-selected="true"] .dv-ways__thumb { box-shadow: 0 0 0 2px var(--pv-accent); }
 .dv-ways__name { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 0.75rem; font-weight: 600; line-height: 1.25; color: var(--pv-text); }
 .dv-ways__stage > [role="tabpanel"]:not([hidden]) { animation: dvWaysIn .32s ease; }
@@ -1004,6 +1072,33 @@
   .dv-split, .dv-split--img-right, .dv-split--match { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .dv-split--img-right > .dv-split__fig { order: 0; }
 }
+/* A picture drawn on the page, no stage and no corner marks: a panel cut out with its own rounded corners. */
+.dv-split__fig--bare > img { width: 100%; height: auto; display: block; border-radius: 12px; }
+/* A card from the app, continued: the picture ends under the card's last row, and the card's empty
+   surface goes on to the end of the text beside it, so both end level. The figure says where the
+   card sits in the picture (--dv-card-x, --dv-card-w, of the picture's width; the rest is the wires'
+   stubs) and the card's colours. */
+.dv-split__fig--card { display: flex; flex-direction: column; align-self: stretch; }
+.dv-split__fig--card > img { width: 100%; height: auto; display: block; flex: none; }
+.dv-split__fig--card > .dv-split__tail { flex: 1; min-height: 16px; box-sizing: border-box; margin-left: var(--dv-card-x, 0); width: var(--dv-card-w, 100%); border: 1px solid var(--dv-card-line, var(--pv-line)); border-top: 0; border-radius: 0 0 14px 14px; background: var(--dv-card-surface, var(--pv-surface)); }
+/* The picture beside its text, both starting at the top; a further figure after them sits under the picture, as wide as it. */
+.dv-split--side { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; row-gap: 24px; }
+.dv-split--side.dv-split--img-right { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+.dv-split--side > .dv-split__text ~ .dv-split__fig { grid-column: 1; }
+.dv-split--side > .dv-split__text--second { grid-column: 2; align-self: start; }
+.dv-split--side > .dv-split__text--second dt:first-child { margin-top: 0; }
+@media (max-width: 699.98px) { .dv-split--side, .dv-split--side.dv-split--img-right { grid-template-columns: minmax(0, 1fr); } .dv-split--side > .dv-split__text ~ .dv-split__fig, .dv-split--side > .dv-split__text--second { grid-column: 1; } }
+
+/* Wires from a picture to one tab of its choice: .dv-wires on the choice; on the picture
+   data-dv-wires-from (the tab's id) and data-dv-ports (its ports, as fractions of its height).
+   docs.js draws them behind the text; they leave the ports on the side that faces the tab and
+   arrive at the tab from below. Stacked (under 700px) there is nowhere for them to run. */
+.dv-wires { position: relative; }
+.dv-wires > .dv-choice__list, .dv-wires > .dv-choice__panel { position: relative; z-index: 1; }
+.dv-wires__svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible; pointer-events: none; }
+.dv-wires__svg path { fill: none; stroke-width: 1.25; }
+.dv-wires__svg stop { stop-color: var(--pv-accent); }
+@media (max-width: 699.98px) { .dv-wires__svg { display: none; } }
 
 
 /* 11 · On this page, previous and next ======================================= */
@@ -1647,3 +1742,54 @@
   .dv--page .dv-shell { display: block; }
   .dv-preview { display: none; }
 }
+
+/* A short checklist drawn as cards: three numbered choices (.dv-keys), then the extras as ticked chips (.dv-extras). */
+.dv-body--written .dv-keys { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; max-width: var(--pv-measure); }
+.dv-body--written .dv-keys + p, .dv-body--written .dv-extras + p { margin-top: 24px; }
+.dv-keys__row { display: grid; grid-template-columns: 26px 9.5rem minmax(0, 1fr); align-items: center; gap: 14px; padding: 11px 16px 11px 12px; border: 1px solid var(--pv-line); border-radius: 12px; background: var(--pv-surface); line-height: 1.4; }
+.dv-keys__n { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font: 600 0.8125rem / 1 var(--pv-font-mono); color: var(--pv-accent); border: 1.5px solid var(--pv-accent-line); background: color-mix(in srgb, var(--pv-accent) 8%, transparent); }
+.dv-keys__name { font-weight: 600; color: var(--pv-text); }
+.dv-keys__what { color: var(--pv-text-2); }
+.dv-body--written .dv-extras { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; max-width: var(--pv-measure); }
+.dv-extras__item { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border: 1px solid var(--pv-line); border-radius: 999px; background: var(--pv-surface); color: var(--pv-text); font-size: 0.9375rem; line-height: 1.3; }
+.dv-check__tick { flex: none; width: 15px; height: 15px; color: var(--pv-accent); }
+@media (max-width: 559.98px) { .dv-keys__row { grid-template-columns: 26px minmax(0, 1fr); row-gap: 2px; } .dv-keys__what { grid-column: 2; } }
+
+/* Steps as a snake (Tool Store, Run a tool): two cards a row, the rows running left to right,
+   then right to left, and so on. A small wave joins the two cards of a row; a round turn joins
+   the end of a row to the start of the next. One column below 700px. */
+@media (min-width: 700px) {
+  .pv-steps--snake { --snake-gap: 34px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row dense; column-gap: var(--snake-gap); row-gap: var(--snake-gap); padding: 0 22px 0 22px !important; }
+  .pv-steps--snake > li { align-self: stretch; padding: 14px 14px 16px; border: 1px solid var(--pv-line); border-radius: var(--pv-radius-lg); background: var(--pv-surface); }
+  .pv-steps--snake > li:nth-child(4n+1) { grid-column: 1; }
+  .pv-steps--snake > li:nth-child(4n+2) { grid-column: 2; }
+  .pv-steps--snake > li:nth-child(4n+3) { grid-column: 2; }
+  .pv-steps--snake > li:nth-child(4n+4) { grid-column: 1; }
+  .pv-steps--snake > li { grid-template-columns: 28px minmax(0, 1fr); column-gap: 10px; align-content: start; }
+  .pv-steps--snake > li::before { grid-row: 1; }
+  .pv-steps--snake > li > .pv-steps__title { grid-column: 2; align-self: center; padding-top: 0; }
+  .pv-steps--snake > li > :not(.pv-steps__title) { grid-column: 1 / -1; font-size: 0.9375rem; }
+  .pv-steps--snake > li .pv-figure { max-width: 100% !important; margin-top: 10px; }
+  .pv-steps--snake > li .pv-figure__caption { display: none; }
+  /* the joins */
+  .pv-steps--snake > li:not(:last-child)::after { content: ""; position: absolute; top: 23px; bottom: auto; left: auto; right: auto; width: var(--snake-gap); height: 10px; background: var(--pv-accent); opacity: 0.8;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='10'><path d='M0 5 Q3 1 6 5 T12 5' fill='none' stroke='black' stroke-width='1.8'/></svg>") repeat-x left center / 12px 10px;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='10'><path d='M0 5 Q3 1 6 5 T12 5' fill='none' stroke='black' stroke-width='1.8'/></svg>") repeat-x left center / 12px 10px; }
+  .pv-steps--snake > li:nth-child(4n+1):not(:last-child)::after { left: calc(100% + 1px); }
+  .pv-steps--snake > li:nth-child(4n+3):not(:last-child)::after { right: calc(100% + 1px); }
+  .pv-steps--snake > li:is(:nth-child(4n+2), :nth-child(4n+4)):not(:last-child)::after { -webkit-mask: none; mask: none; background: none; opacity: 0.8; width: 20px; height: calc(100% + var(--snake-gap)); top: 28px; border: 2px dashed var(--pv-accent); }
+  .pv-steps--snake > li:nth-child(4n+2):not(:last-child)::after { left: calc(100% + 1px); border-left: 0; border-radius: 0 22px 22px 0; }
+  .pv-steps--snake > li:nth-child(4n+4):not(:last-child)::after { right: calc(100% + 1px); border-right: 0; border-radius: 22px 0 0 22px; }
+}
+
+/* Tiles (Tool Store, Manage your tools): two a row, each a small card with its icon and title,
+   a sentence or two, and its picture at the foot, full width of the tile. One column on phones. */
+.dv-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; align-items: start; }
+.dv-tile { display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 16px; border: 1px solid var(--pv-line); border-radius: var(--pv-radius-lg); background: var(--pv-surface); min-width: 0; }
+.dv-tile__head { display: flex; align-items: center; gap: 10px; margin: 0; font-weight: 600; font-size: 1rem; color: var(--pv-text); }
+.dv-tile__head svg { flex: none; width: 24px; height: 24px; color: var(--pv-accent); }
+.dv-tile > p { margin: 0; font-size: 0.9375rem; color: var(--pv-text-2); }
+.dv-tile > .pv-figure { margin-top: auto; padding-top: 6px; max-width: 100% !important; }
+.dv-tile > .pv-figure .pv-figure__caption { display: none; }
+@media (max-width: 699.98px) { .dv-tiles { grid-template-columns: minmax(0, 1fr); } }
+.dv-tile .pv-figure__stage { padding: 10px; }
