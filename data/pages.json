@@ -331,7 +331,7 @@
       "case": "3d",
       "case_label": "3D volume",
       "title": "3D data",
-      "summary": "Orbit a volume, cut it into slabs and select the cells inside them.",
+      "summary": "Explore a tissue volume: colour cells by type or gene, orbit around it, reveal structures in depth and analyse selected regions.",
       "keywords": [
         "3D",
         "volume",
@@ -348,35 +348,17 @@
       ],
       "sections": [
         {
-          "title": "Import 3D coordinates",
-          "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "Orbit, pan and zoom",
-          "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Cut a slab",
+          "title": "Explore the volume through tabs",
           "preview": [
             "figure",
             "table"
           ]
         },
         {
-          "title": "Select through a slab",
+          "title": "Explore the data through the toolbar",
           "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "The Lens in 3D",
-          "preview": [
-            "caution"
+            "figure",
+            "table"
           ]
         }
       ],
