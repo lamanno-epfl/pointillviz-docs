@@ -326,6 +326,47 @@
       ]
     },
     {
+      "slug": "pathways",
+      "group": "Data",
+      "case": "2d",
+      "case_label": "2D section",
+      "title": "Pathways",
+      "summary": "Score a gene set in every cell: the Hallmark sets, Reactome and GO, or your own list, and how the score is calculated.",
+      "keywords": [
+        "GO",
+        "Gene Ontology",
+        "Hallmark",
+        "MSigDB",
+        "My Pathways",
+        "Quick score",
+        "Reactome",
+        "control genes",
+        "expression bins",
+        "gene set",
+        "gene sets",
+        "module score",
+        "ortholog",
+        "pathway gallery",
+        "score_genes",
+        "signature",
+        "species"
+      ],
+      "sections": [
+        {
+          "title": "Pick a gene set",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Score a gene set",
+          "preview": [
+            "figure"
+          ]
+        }
+      ]
+    },
+    {
       "slug": "3d-data",
       "group": "Data",
       "case": "3d",
