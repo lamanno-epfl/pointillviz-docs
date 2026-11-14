@@ -663,39 +663,32 @@
         "nuclei",
         "cell shape",
         "shapes",
-        "fill"
+        "fill",
+        "label mask",
+        "cell boundaries",
+        "Xenium",
+        "segmentation mask"
       ],
       "sections": [
         {
-          "title": "Import cell and nucleus boundaries",
+          "title": "Add cell outlines",
           "preview": [
-            "code",
-            "note"
+            "steps",
+            "table"
           ]
         },
         {
-          "title": "From points to outlines",
+          "title": "Draw the outlines",
           "preview": [
             "figure"
           ]
         },
         {
-          "title": "Colour outlines by any layer",
-          "preview": [
-            "steps",
-            "tip"
-          ]
-        },
-        {
-          "title": "Outlines at every zoom",
+          "title": "Export, and when nothing appears",
           "preview": [
             "table",
-            "caution"
+            "tip"
           ]
-        },
-        {
-          "title": "Outlines in exported figures",
-          "preview": []
         }
       ],
       "figure": {
