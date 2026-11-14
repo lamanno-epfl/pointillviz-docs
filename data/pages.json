@@ -519,7 +519,7 @@
       "case": "omics",
       "case_label": "Multi-omics",
       "title": "Multimodal",
-      "summary": "Compare RNA, chromatin accessibility, histone marks and protein measured on the same spots.",
+      "summary": "Show one feature in RNA, chromatin, histone marks and protein measured on the same spots, and compare two modalities with Coupling, States and Lead–lag.",
       "keywords": [
         "multi-omics",
         "multiomics",
@@ -533,48 +533,22 @@
         "protein",
         "Spatial-Mux-seq",
         "coupling",
-        "agreement",
         "lead–lag",
         "blend",
         "split",
-        "side by side"
+        "side by side",
+        "states",
+        "CLR",
+        "smoothing",
+        "Pde10a"
       ],
       "sections": [
         {
-          "title": "Declare modalities at import",
+          "title": "Explore modalities through the Multi-omics tab",
           "preview": [
-            "code",
-            "note"
+            "figure",
+            "table"
           ]
-        },
-        {
-          "title": "Find a feature across modalities",
-          "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Single, side by side, blend or split",
-          "preview": [
-            "figure"
-          ]
-        },
-        {
-          "title": "Coupling and agreement",
-          "preview": [
-            "table",
-            "tip"
-          ]
-        },
-        {
-          "title": "States and lead–lag",
-          "preview": [
-            "caution"
-          ]
-        },
-        {
-          "title": "Protein channels",
-          "preview": []
         }
       ],
       "figure": {
