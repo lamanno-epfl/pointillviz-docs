@@ -257,37 +257,14 @@
           ]
         },
         {
-          "title": "Upload a file or point to one",
+          "title": "Import a file",
           "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Map fields onto the viewer",
-          "preview": [
+            "steps",
             "figure",
-            "table"
-          ]
-        },
-        {
-          "title": "Convert and open",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "From the command line",
-          "preview": [
-            "code",
-            "caution"
+            "code"
           ]
         }
-      ],
-      "figure": {
-        "alt": "The import wizard at its Map fields step: the Spatial panel set to 2D spatial, with the spatial obsm key and pixel units, and the Cells panel with a cell-type column of 73 types, an automatic palette and the hierarchy options.",
-        "caption": "Map fields, the wizard’s second step: where the cells sit, in which units, and which column holds their types.",
-        "meta": "Xenium 5K · mouse colon · 135,232 cells"
-      }
+      ]
     },
     {
       "slug": "2d-data",
@@ -320,68 +297,117 @@
       ],
       "sections": [
         {
-          "title": "Cell types and hierarchies",
+          "title": "Explore and interact with the tissue",
           "preview": [
             "figure",
-            "note"
-          ]
-        },
-        {
-          "title": "Genes and pathways",
-          "preview": [
             "steps"
           ]
         },
         {
-          "title": "Under the lens",
+          "title": "Explore the data through tabs",
           "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "Lasso and region comparison",
-          "preview": [
+            "figure",
             "table"
           ]
         },
         {
-          "title": "Gating",
+          "title": "Explore the data through the toolbar",
           "preview": [
-            "code",
-            "caution"
+            "figure",
+            "table"
           ]
         },
         {
-          "title": "The Tools gallery",
-          "preview": [],
-          "keywords": [
-            "Cell-type distribution",
-            "composition",
-            "Alluvial plot",
-            "UMAP cluster explorer",
-            "Niche enrichment",
-            "Colocalization",
-            "Violin plot",
-            "Split distribution",
-            "Ridgeline plot",
-            "Marker dot plot",
-            "Radial profiles",
-            "Expression Landscape",
-            "Distance gradient",
-            "Spatial gene patterns",
-            "Moran’s I",
-            "Pathway gallery",
-            "Cell Communication",
-            "ligand–receptor",
-            "LIANA"
+          "title": "Explore one hypothesis from multiple angles",
+          "preview": [
+            "figure"
           ]
         }
+      ]
+    },
+    {
+      "slug": "pathways",
+      "group": "Data",
+      "case": "2d",
+      "case_label": "2D section",
+      "title": "Pathways",
+      "summary": "Score a gene set in every cell: the Hallmark sets, Reactome and GO, or your own list, and how the score is calculated.",
+      "keywords": [
+        "GO",
+        "Gene Ontology",
+        "Hallmark",
+        "MSigDB",
+        "My Pathways",
+        "Quick score",
+        "Reactome",
+        "control genes",
+        "expression bins",
+        "gene set",
+        "gene sets",
+        "module score",
+        "ortholog",
+        "pathway gallery",
+        "score_genes",
+        "signature",
+        "species"
       ],
-      "figure": {
-        "alt": "The Lens over a mouse colon section coloured by cell type: its loupe on the mucosa, and the Under the lens panel listing the cell types in view and in the loupe.",
-        "caption": "Under the lens: the cell types in view, recounted as the view moves.",
-        "meta": "Xenium 5K · mouse colon · 135,232 cells"
-      }
+      "sections": [
+        {
+          "title": "Pick a gene set",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Score a gene set",
+          "preview": [
+            "figure"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cell-communication",
+      "group": "Data",
+      "case": "2d",
+      "case_label": "2D section",
+      "title": "Cell communication",
+      "summary": "Rank the ligand–receptor pairs your gene panel can measure and map them in space.",
+      "keywords": [
+        "LIANA",
+        "Moran",
+        "Moran’s R",
+        "NATMI",
+        "OmniPath",
+        "bivariate Moran",
+        "cell-cell communication",
+        "co-variation",
+        "complex",
+        "consensus",
+        "heatmap",
+        "interaction",
+        "ligand",
+        "ligand-receptor",
+        "proximity",
+        "receiver",
+        "receptor",
+        "sender",
+        "specificity"
+      ],
+      "sections": [
+        {
+          "title": "Find a pair",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Score a pair",
+          "preview": [
+            "figure"
+          ]
+        }
+      ]
     },
     {
       "slug": "3d-data",
@@ -389,7 +415,7 @@
       "case": "3d",
       "case_label": "3D volume",
       "title": "3D data",
-      "summary": "Orbit a volume, cut it into slabs and select the cells inside them.",
+      "summary": "Explore a tissue volume: colour cells by type or gene, orbit around it, reveal structures in depth and analyse selected regions.",
       "keywords": [
         "3D",
         "volume",
@@ -406,35 +432,17 @@
       ],
       "sections": [
         {
-          "title": "Import 3D coordinates",
-          "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "Orbit, pan and zoom",
-          "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Cut a slab",
+          "title": "Explore the volume through tabs",
           "preview": [
             "figure",
             "table"
           ]
         },
         {
-          "title": "Select through a slab",
+          "title": "Explore the data through the toolbar",
           "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "The Lens in 3D",
-          "preview": [
-            "caution"
+            "figure",
+            "table"
           ]
         }
       ],
@@ -468,40 +476,35 @@
       ],
       "sections": [
         {
-          "title": "Import a directory of sections",
-          "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "The section strip",
-          "preview": [
-            "figure"
-          ]
-        },
-        {
-          "title": "Level of detail",
-          "preview": [
-            "table",
-            "tip"
-          ]
-        },
-        {
-          "title": "The Atlas tab",
+          "title": "Build an atlas",
           "preview": [
             "steps"
           ]
         },
         {
-          "title": "Differential abundance",
+          "title": "Explore the sections",
           "preview": [
-            "caution"
+            "figure"
           ]
         },
         {
-          "title": "Section quality",
-          "preview": []
+          "title": "Explore the cohort through the Atlas tab",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Explore the other tabs in an atlas",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Explore one question across a cohort",
+          "preview": [
+            "steps",
+            "tip"
+          ]
         }
       ],
       "figure": {
@@ -516,7 +519,7 @@
       "case": "omics",
       "case_label": "Multi-omics",
       "title": "Multimodal",
-      "summary": "Compare RNA, chromatin accessibility, histone marks and protein measured on the same spots.",
+      "summary": "Show one feature in RNA, chromatin, histone marks and protein measured on the same spots, and compare two modalities with Coupling, States and Lead–lag.",
       "keywords": [
         "multi-omics",
         "multiomics",
@@ -530,48 +533,22 @@
         "protein",
         "Spatial-Mux-seq",
         "coupling",
-        "agreement",
         "lead–lag",
         "blend",
         "split",
-        "side by side"
+        "side by side",
+        "states",
+        "CLR",
+        "smoothing",
+        "Pde10a"
       ],
       "sections": [
         {
-          "title": "Declare modalities at import",
+          "title": "Explore modalities through the Multi-omics tab",
           "preview": [
-            "code",
-            "note"
+            "figure",
+            "table"
           ]
-        },
-        {
-          "title": "Find a feature across modalities",
-          "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Single, side by side, blend or split",
-          "preview": [
-            "figure"
-          ]
-        },
-        {
-          "title": "Coupling and agreement",
-          "preview": [
-            "table",
-            "tip"
-          ]
-        },
-        {
-          "title": "States and lead–lag",
-          "preview": [
-            "caution"
-          ]
-        },
-        {
-          "title": "Protein channels",
-          "preview": []
         }
       ],
       "figure": {
@@ -629,40 +606,41 @@
       ],
       "sections": [
         {
-          "title": "Supported files",
-          "preview": [
-            "table",
-            "note"
-          ]
-        },
-        {
-          "title": "Attach an image",
-          "preview": [
-            "steps",
-            "code"
-          ]
-        },
-        {
-          "title": "Registration",
-          "preview": [
-            "caution"
-          ]
-        },
-        {
-          "title": "Channels and colours",
+          "title": "Show an image",
           "preview": [
             "figure"
           ]
         },
         {
-          "title": "Levels and gamma",
+          "title": "Explore the image through the tab",
           "preview": [
-            "tip"
+            "figure"
           ]
         },
         {
-          "title": "Several images at once",
-          "preview": []
+          "title": "Use the image to ask questions",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Explore the image with other tools",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Hover and keys at a glance",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Add an image",
+          "preview": [
+            "steps",
+            "code"
+          ]
         }
       ],
       "figure": {
@@ -685,39 +663,32 @@
         "nuclei",
         "cell shape",
         "shapes",
-        "fill"
+        "fill",
+        "label mask",
+        "cell boundaries",
+        "Xenium",
+        "segmentation mask"
       ],
       "sections": [
         {
-          "title": "Import cell and nucleus boundaries",
+          "title": "Add cell outlines",
           "preview": [
-            "code",
-            "note"
+            "steps",
+            "table"
           ]
         },
         {
-          "title": "From points to outlines",
+          "title": "Draw the outlines",
           "preview": [
             "figure"
           ]
         },
         {
-          "title": "Colour outlines by any layer",
-          "preview": [
-            "steps",
-            "tip"
-          ]
-        },
-        {
-          "title": "Outlines at every zoom",
+          "title": "Export, and when nothing appears",
           "preview": [
             "table",
-            "caution"
+            "tip"
           ]
-        },
-        {
-          "title": "Outlines in exported figures",
-          "preview": []
         }
       ],
       "figure": {
@@ -730,130 +701,143 @@
       "slug": "transcripts",
       "group": "Layers",
       "title": "Transcripts",
-      "summary": "Draw every detected molecule over the cells, and replay sequencing depth from 1% to 100%.",
+      "summary": "Draw the detected molecules of chosen genes over the cells, and replay sequencing depth from 1% to 100%.",
       "keywords": [
         "molecules",
         "transcript",
+        "transcripts table",
         "spots",
         "RNA",
         "detected",
+        "parquet",
+        "csv",
+        "Xenium",
+        "MERSCOPE",
+        "CosMx",
+        "Scale",
+        "Add transcripts",
+        "Replace transcripts",
+        "Show all transcripts",
+        "Glow",
+        "Crisp",
+        "Intensity",
+        "Min QV",
+        "quality value",
+        "Dim",
         "Depth replay",
         "sequencing depth",
         "saturation",
-        "glow",
-        "crisp",
-        "Xenium"
+        "Stability",
+        "Paint cells",
+        "1:r"
       ],
       "sections": [
         {
-          "title": "Attach a molecule table",
+          "title": "Add a transcript table",
           "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "Pick up to 12 genes",
-          "preview": [
+            "figure",
             "steps"
           ]
         },
         {
-          "title": "Show all transcripts",
-          "preview": [
-            "caution"
-          ]
-        },
-        {
-          "title": "Glow or crisp",
+          "title": "Explore molecules in the Transcripts tab",
           "preview": [
             "figure",
             "table"
           ]
         },
         {
-          "title": "Depth replay",
+          "title": "Replay sequencing depth",
           "preview": [
-            "tip"
+            "figure",
+            "note"
+          ]
+        },
+        {
+          "title": "Show, combine and capture",
+          "preview": [
+            "steps",
+            "note"
           ]
         }
-      ],
-      "figure": {
-        "alt": "Molecules of Epcam, Acta2 and Lyz1 as green, pink and cyan glowing spots over the greyed cells of a Xenium 5K mouse tissue microarray.",
-        "caption": "Every detected molecule of Epcam, Acta2 and Lyz1, drawn as glowing spots over the cells.",
-        "meta": "Xenium 5K · mouse tissue microarray"
-      }
+      ]
     },
     {
       "slug": "exporting",
       "group": "Results",
       "title": "Exporting",
-      "summary": "Save views as PNG, PDF or SVG figures at up to 8×, and computed results as CSV files.",
+      "summary": "Keep views, lassos and plots in a folder, go back to them and change them, and write them as one AnnData file; or set views out as a figure in PNG, PDF or SVG.",
       "keywords": [
+        "export",
+        "folder",
+        "h5ad",
+        "AnnData",
+        "obs",
+        "uns",
+        "selection",
+        "lasso",
+        "plot",
+        "result",
+        "item",
+        "Open",
+        "Done",
+        "Keep both",
+        "Capture",
+        "figure",
         "PNG",
         "PDF",
         "SVG",
-        "CSV",
-        "figure",
-        "Capture",
-        "screenshot",
+        "resolution",
         "legend",
         "scale bar",
-        "resolution",
+        "CSV",
         "download",
-        "report",
-        "8×"
+        "pv_in_lasso",
+        "manifest",
+        "Export sheet"
       ],
       "sections": [
         {
-          "title": "Capture views",
-          "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Export one view",
+          "title": "Choose what to export",
           "preview": [
             "figure",
+            "steps",
             "table"
-          ]
-        },
-        {
-          "title": "Compose a figure from several views",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "Legends, scale bars and resolution",
-          "preview": [
-            "note"
-          ]
-        },
-        {
-          "title": "Results as CSV files",
-          "preview": [
-            "code"
-          ]
-        },
-        {
-          "title": "Pathway maps as a PDF report",
-          "preview": [
-            "caution"
+          ],
+          "keywords": [
+            "folder",
+            "figure",
+            "+",
+            "Capture view",
+            "Export sheet",
+            "items",
+            "Cells",
+            "Columns",
+            "obs table",
+            "Generate",
+            "Open",
+            "Done",
+            "Keep both",
+            "Discard",
+            "ZIP",
+            "h5ad",
+            "CSV bundle",
+            "new dataset",
+            "kept views",
+            "panels",
+            "Resolution",
+            "legend",
+            "scale bar",
+            "Shift+S"
           ]
         }
-      ],
-      "figure": {
-        "alt": "A captured view of cells coloured by type, with the cell-type legend beside it.",
-        "caption": "A view written by Capture, with its cell-type legend.",
-        "meta": "Xenium 5K · mouse colon"
-      }
+      ]
     },
     {
       "slug": "tool-store",
       "group": "Extend",
       "title": "Tool Store",
-      "summary": "Install community tools in their own environments, run them like built-in analyses, and publish your own.",
+      "summary": "Find a tool on the store website, add it to the viewer, run it on the open dataset, keep it up to date, and write and publish one of your own.",
       "keywords": [
         "plugin",
         "plugins",
@@ -907,68 +891,14 @@
       ],
       "sections": [
         {
-          "title": "What a tool is",
+          "title": "Get, use and publish tools",
           "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "Install a tool",
-          "preview": [
-            "steps",
-            "caution"
-          ]
-        },
-        {
-          "title": "Where a tool runs",
-          "preview": [
-            "note"
-          ]
-        },
-        {
-          "title": "Run a tool",
-          "preview": [
-            "figure"
-          ]
-        },
-        {
-          "title": "CPU or GPU",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "Sweep a parameter",
-          "preview": [
-            "table",
-            "tip"
-          ]
-        },
-        {
-          "title": "Write a tool in Python or R",
-          "preview": [
+            "figure",
+            "note",
             "code"
           ]
-        },
-        {
-          "title": "The gates",
-          "preview": [
-            "note"
-          ]
-        },
-        {
-          "title": "Publish to the registry",
-          "preview": [
-            "steps"
-          ]
         }
-      ],
-      "figure": {
-        "alt": "The Tool Store’s gallery: community tools with their artwork, outputs and tags.",
-        "caption": "The Tool Store’s gallery of community tools.",
-        "meta": "The Tool Store · community tools"
-      }
+      ]
     },
     {
       "slug": "ai-assistant",
@@ -993,40 +923,77 @@
       ],
       "sections": [
         {
-          "title": "Open the Assistant and sign in",
+          "title": "Use the Assistant",
           "preview": [
             "steps",
-            "note"
-          ]
-        },
-        {
-          "title": "Choose a runtime and a model",
-          "preview": [
-            "table"
-          ]
-        },
-        {
-          "title": "What the agent sees",
-          "preview": [
             "figure"
-          ]
-        },
-        {
-          "title": "Viewer control: Off, Ask, Allow",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "The notebook",
-          "preview": [
-            "code"
-          ]
-        },
-        {
-          "title": "Permissions and limits",
-          "preview": [
-            "caution"
+          ],
+          "keywords": [
+            "open",
+            "Cmd+J",
+            "Ctrl+J",
+            "sign in",
+            "log in",
+            "login",
+            "account",
+            "plan",
+            "usage",
+            "cost",
+            "tokens",
+            "quota",
+            "privacy",
+            "what is sent",
+            "view context",
+            "selection",
+            "lasso",
+            "statistics",
+            "Wilcoxon",
+            "Moran",
+            "tools",
+            "script",
+            "Python",
+            "linked figures",
+            "viewer control",
+            "composer",
+            "Enter",
+            "Stop",
+            "screenshot",
+            "@",
+            "Auto",
+            "Ask",
+            "approval",
+            "Allow",
+            "Deny",
+            "entry",
+            "Method",
+            "Trace",
+            "Readouts",
+            "R01",
+            "FIGURE",
+            "INTERACTIVE",
+            "TABLE",
+            "METRICS",
+            "NOTE",
+            "Derivation",
+            "Linked to Cell View",
+            "Paint in Cell View",
+            "Viewer control",
+            "Off",
+            "Agent settings",
+            "Runtime",
+            "Model",
+            "Thinking effort",
+            "Export",
+            "PDF",
+            "Reopen",
+            "New",
+            "examples",
+            "prompts",
+            "neighbours",
+            "sections",
+            "differential expression",
+            "tool",
+            "plot"
           ]
         }
       ],

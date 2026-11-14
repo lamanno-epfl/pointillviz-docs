@@ -555,8 +555,18 @@
 
   function setupSystems() {
     const blocks = $$('[data-dv-os]');
-    if (!blocks.length) return;
     const html = doc.documentElement;
+    if (!blocks.length) {
+      // No per-system block on this page. Still name the reader's system:
+      // docs.css shows a choice's tabs (.dv-choice__list) only under
+      // <html data-os>, and a page can have choices without a command.
+      if (!html.hasAttribute('data-os')) {
+        let os = 'unix';
+        try { os = window.localStorage.getItem(OS_KEY) === 'win' ? 'win' : os; } catch (e) { /* not remembered */ }
+        html.setAttribute('data-os', os);
+      }
+      return;
+    }
     const apply = (os) => {
       html.setAttribute('data-os', os);
       blocks.forEach((b) => {
@@ -601,6 +611,182 @@
         if (panel) panel.hidden = t.getAttribute('aria-selected') !== 'true';
       });
       box.classList.add('is-ready');
+    });
+  }
+
+  /* ------------------------------------------------ links into tabs */
+
+  // A link, or the address, that points into a set of choice tabs opens the tabs on the way
+  // (outer first, then inner), scrolls there and flashes the target. Other anchors are untouched.
+  function openPath(el) {
+    const chain = [];
+    for (let p = el; p && p !== doc.body; p = p.parentElement) {
+      if (p.getAttribute('role') === 'tabpanel') chain.unshift(p);
+    }
+    chain.forEach((panel) => {
+      const tab = doc.querySelector(`[role="tab"][aria-controls="${panel.id}"]`);
+      if (tab && tab.getAttribute('aria-selected') !== 'true') tab.click();
+    });
+    if (el.getAttribute('role') === 'tab' && el.getAttribute('aria-selected') !== 'true') el.click();
+  }
+
+  function jumpTo(id) {
+    const el = doc.getElementById(id);
+    if (!el || !el.closest('.dv-choice')) return false;
+    openPath(el);
+    const target = el.getAttribute('role') === 'tabpanel'
+      ? doc.querySelector(`[role="tab"][aria-controls="${el.id}"]`) || el
+      : el;
+    const calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block: 'start', behavior: calm ? 'auto' : 'smooth' });
+      target.classList.add('dv-flash');
+      setTimeout(() => target.classList.remove('dv-flash'), 1800);
+    });
+    return true;
+  }
+
+  function setupJumps() {
+    doc.addEventListener('click', (e) => {
+      if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = decodeURIComponent(a.getAttribute('href').slice(1));
+      if (!id || !doc.getElementById(id) || !doc.getElementById(id).closest('.dv-choice')) return;
+      e.preventDefault();
+      history.pushState(null, '', '#' + id);
+      jumpTo(id);
+    });
+    const fromAddress = () => { if (location.hash.length > 1) jumpTo(decodeURIComponent(location.hash.slice(1))); };
+    window.addEventListener('hashchange', fromAddress);
+    fromAddress();
+  }
+
+  /* ------------------------------------------------------------ wires */
+
+  // Wires from a picture to one tab of its choice: .dv-wires on the choice, and on each picture
+  // data-dv-wires-from (the tab's id) and data-dv-ports (where its ports sit, as fractions of
+  // its height). The ports sit on the side of the picture that faces the tab; each wire leaves
+  // its port, runs behind the text and arrives at the tab from below, strongest where it leaves
+  // the picture and faint under the text. A picture in a hidden panel has no wires. Redrawn
+  // whenever the layout moves.
+  // A panel that sits between two tabs can carry data-dv-wires-across="<from tab id> <to tab id>":
+  // while it shows, a few faint wires leave the first tab from below, dip just under the tab row,
+  // run across behind the panel's first lines and rise to the second tab. They are the same
+  // wires the neighbouring panels draw, passing under this one.
+  function setupWires() {
+    const boxes = $$('.dv-wires');
+    if (!boxes.length) return;
+    const NS = 'http://www.w3.org/2000/svg';
+    const make = (tag) => doc.createElementNS(NS, tag);
+    boxes.forEach((box, n) => {
+      const svg = make('svg');
+      svg.setAttribute('class', 'dv-wires__svg');
+      svg.setAttribute('aria-hidden', 'true');
+      const defs = make('defs');
+      svg.appendChild(defs);
+      const sets = $$('[data-dv-wires-from]', box).map((from, k) => {
+        const to = doc.getElementById(from.getAttribute('data-dv-wires-from'));
+        const ports = (from.getAttribute('data-dv-ports') || '').split(/[\s,]+/).map(Number).filter((f) => f >= 0 && f <= 1);
+        if (!to || !ports.length) return null;
+        const grad = make('linearGradient');
+        grad.id = `dv-wires-${n}-${k}`;
+        grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+        [[0, 1], [1, 0.16]].forEach(([offset, alpha]) => {
+          const stop = make('stop');
+          stop.setAttribute('offset', offset);
+          stop.setAttribute('stop-opacity', alpha);
+          grad.appendChild(stop);
+        });
+        defs.appendChild(grad);
+        const paths = ports.map(() => {
+          const path = make('path');
+          path.setAttribute('stroke', `url(#${grad.id})`);
+          svg.appendChild(path);
+          return path;
+        });
+        const text = from.parentElement && from.parentElement.querySelector(':scope > .dv-split__text');
+        return { pic: from.querySelector('img') || from, to, text, ports, grad, paths };
+      }).filter(Boolean);
+      const across = $$('[data-dv-wires-across]', box).map((panel, k) => {
+        const [fromId, toId] = (panel.getAttribute('data-dv-wires-across') || '').split(/\s+/);
+        const a = doc.getElementById(fromId), z = doc.getElementById(toId);
+        if (!a || !z) return null;
+        const grad = make('linearGradient');
+        grad.id = `dv-wires-${n}-x${k}`;
+        grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+        [[0, 0.35], [1, 0.16]].forEach(([offset, alpha]) => {
+          const stop = make('stop');
+          stop.setAttribute('offset', offset);
+          stop.setAttribute('stop-opacity', alpha);
+          grad.appendChild(stop);
+        });
+        defs.appendChild(grad);
+        const paths = [0, 1, 2, 3, 4, 5, 6, 7].map(() => {
+          const path = make('path');
+          path.setAttribute('stroke', `url(#${grad.id})`);
+          svg.appendChild(path);
+          return path;
+        });
+        return { panel, a, z, grad, paths };
+      }).filter(Boolean);
+      if (!sets.length && !across.length) return;
+      box.prepend(svg);
+      const draw = () => {
+        const b = box.getBoundingClientRect();
+        svg.setAttribute('viewBox', `0 0 ${b.width} ${b.height}`);
+        across.forEach(({ panel, a, z, grad, paths }) => {
+          const ra = a.getBoundingClientRect(), rz = z.getBoundingClientRect();
+          const on = !panel.hidden && ra.width > 0 && rz.width > 0;
+          paths.forEach((path) => { path.style.display = on ? '' : 'none'; });
+          if (!on) return;
+          // Between the neighbouring panels' deep wires and a shallow arc: ports at 0.3 to 0.7 of each
+          // tab's width, runs 90 to 260 px below the tab row. Each wire is two smooth curves that meet
+          // at the middle with a level tangent, so it has no corner anywhere (a quarter-ellipse's
+          // handles, a little stretched along the bottom). The wire that leaves furthest left arrives
+          // furthest right and runs deepest, so none cross.
+          const ty = Math.max(ra.bottom, rz.bottom) - b.top, n = paths.length;
+          const xa = ra.left - b.left, xz = rz.left - b.left;
+          grad.setAttribute('x1', 0); grad.setAttribute('x2', 0);
+          grad.setAttribute('y1', ty); grad.setAttribute('y2', ty + 80);
+          paths.forEach((path, i) => {
+            const f = i / (n - 1), d = n - 1 - i;
+            const x0 = xa + ra.width * (0.3 + 0.4 * f), x1 = xz + rz.width * (0.7 - 0.4 * f);
+            const y0 = ty + 90 + 24 * d, xm = (x0 + x1) / 2, hs = xm - x0;
+            const kv = 0.5523 * (y0 - ty), kh = 0.7 * hs;
+            path.setAttribute('d', `M${x0} ${ty}C${x0} ${ty + kv} ${xm - kh} ${y0} ${xm} ${y0}C${xm + kh} ${y0} ${x1} ${ty + kv} ${x1} ${ty}`);
+          });
+        });
+        sets.forEach(({ pic, to, text, ports, grad, paths }) => {
+          const f = pic.getBoundingClientRect(), t = to.getBoundingClientRect();
+          const on = f.width > 0 && f.height > 0 && t.width > 0;
+          paths.forEach((path) => { path.style.display = on ? '' : 'none'; });
+          if (!on) return;
+          const dir = t.left + t.width / 2 < f.left + f.width / 2 ? -1 : 1;
+          const x0 = (dir < 0 ? f.left : f.right) - b.left, ty = t.bottom - b.top;
+          // The top port lands nearest the picture, the rest beside it, so no wire crosses another.
+          const near = t.left - b.left + t.width * (dir < 0 ? 0.7 : 0.3), far = t.left - b.left + t.width * (dir < 0 ? 0.3 : 0.7);
+          // Full strength across the gap, faint once under the text.
+          const tr = text && text.getBoundingClientRect();
+          const fade = tr && tr.width > 0 ? Math.max(12, Math.abs((dir < 0 ? tr.right : tr.left) - b.left - x0)) : 28;
+          grad.setAttribute('x1', x0); grad.setAttribute('x2', x0 + fade * dir);
+          grad.setAttribute('y1', 0); grad.setAttribute('y2', 0);
+          ports.forEach((fr, i) => {
+            const y0 = f.top - b.top + fr * f.height;
+            const tx = ports.length > 1 ? near + (far - near) * i / (ports.length - 1) : (near + far) / 2;
+            const xm = x0 + (tx - x0) * 0.4;
+            paths[i].setAttribute('d', `M${x0} ${y0}H${xm}C${xm + (tx - xm) * 0.55} ${y0} ${tx} ${ty + (y0 - ty) * 0.45} ${tx} ${ty}`);
+          });
+        });
+      };
+      const soon = () => requestAnimationFrame(draw);
+      if (window.ResizeObserver) { const ro = new ResizeObserver(soon); ro.observe(box); sets.forEach((set) => ro.observe(set.pic)); }
+      window.addEventListener('resize', soon);
+      box.addEventListener('click', soon);
+      box.addEventListener('keydown', () => setTimeout(soon, 0));
+      if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(soon);
+      $$('img', box).forEach((img) => img.addEventListener('load', soon));
+      draw();
     });
   }
 
@@ -857,6 +1043,8 @@
     setupScan();
     setupSystems();
     setupChoices();
+    setupWires();
+    setupJumps();
     setupLoops();
     setupField();
     setupBrand();
