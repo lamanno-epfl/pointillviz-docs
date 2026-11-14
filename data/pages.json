@@ -632,40 +632,41 @@
       ],
       "sections": [
         {
-          "title": "Supported files",
-          "preview": [
-            "table",
-            "note"
-          ]
-        },
-        {
-          "title": "Attach an image",
-          "preview": [
-            "steps",
-            "code"
-          ]
-        },
-        {
-          "title": "Registration",
-          "preview": [
-            "caution"
-          ]
-        },
-        {
-          "title": "Channels and colours",
+          "title": "Show an image",
           "preview": [
             "figure"
           ]
         },
         {
-          "title": "Levels and gamma",
+          "title": "Explore the image through the tab",
           "preview": [
-            "tip"
+            "figure"
           ]
         },
         {
-          "title": "Several images at once",
-          "preview": []
+          "title": "Use the image to ask questions",
+          "preview": [
+            "steps"
+          ]
+        },
+        {
+          "title": "Explore the image with other tools",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Hover and keys at a glance",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Add an image",
+          "preview": [
+            "steps",
+            "code"
+          ]
         }
       ],
       "figure": {
