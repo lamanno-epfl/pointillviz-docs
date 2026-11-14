@@ -476,40 +476,35 @@
       ],
       "sections": [
         {
-          "title": "Import a directory of sections",
-          "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "The section strip",
-          "preview": [
-            "figure"
-          ]
-        },
-        {
-          "title": "Level of detail",
-          "preview": [
-            "table",
-            "tip"
-          ]
-        },
-        {
-          "title": "The Atlas tab",
+          "title": "Build an atlas",
           "preview": [
             "steps"
           ]
         },
         {
-          "title": "Differential abundance",
+          "title": "Explore the sections",
           "preview": [
-            "caution"
+            "figure"
           ]
         },
         {
-          "title": "Section quality",
-          "preview": []
+          "title": "Explore the cohort through the Atlas tab",
+          "preview": [
+            "figure"
+          ]
+        },
+        {
+          "title": "Explore the other tabs in an atlas",
+          "preview": [
+            "table"
+          ]
+        },
+        {
+          "title": "Explore one question across a cohort",
+          "preview": [
+            "steps",
+            "tip"
+          ]
         }
       ],
       "figure": {
