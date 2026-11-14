@@ -766,66 +766,72 @@
       "slug": "exporting",
       "group": "Results",
       "title": "Exporting",
-      "summary": "Save views as PNG, PDF or SVG figures at up to 8×, and computed results as CSV files.",
+      "summary": "Keep views, lassos and plots in a folder, go back to them and change them, and write them as one AnnData file; or set views out as a figure in PNG, PDF or SVG.",
       "keywords": [
+        "export",
+        "folder",
+        "h5ad",
+        "AnnData",
+        "obs",
+        "uns",
+        "selection",
+        "lasso",
+        "plot",
+        "result",
+        "item",
+        "Open",
+        "Done",
+        "Keep both",
+        "Capture",
+        "figure",
         "PNG",
         "PDF",
         "SVG",
-        "CSV",
-        "figure",
-        "Capture",
-        "screenshot",
+        "resolution",
         "legend",
         "scale bar",
-        "resolution",
+        "CSV",
         "download",
-        "report",
-        "8×"
+        "pv_in_lasso",
+        "manifest",
+        "Export sheet"
       ],
       "sections": [
         {
-          "title": "Capture views",
-          "preview": [
-            "steps"
-          ]
-        },
-        {
-          "title": "Export one view",
+          "title": "Choose what to export",
           "preview": [
             "figure",
+            "steps",
             "table"
-          ]
-        },
-        {
-          "title": "Compose a figure from several views",
-          "preview": [
-            "tip"
-          ]
-        },
-        {
-          "title": "Legends, scale bars and resolution",
-          "preview": [
-            "note"
-          ]
-        },
-        {
-          "title": "Results as CSV files",
-          "preview": [
-            "code"
-          ]
-        },
-        {
-          "title": "Pathway maps as a PDF report",
-          "preview": [
-            "caution"
+          ],
+          "keywords": [
+            "folder",
+            "figure",
+            "+",
+            "Capture view",
+            "Export sheet",
+            "items",
+            "Cells",
+            "Columns",
+            "obs table",
+            "Generate",
+            "Open",
+            "Done",
+            "Keep both",
+            "Discard",
+            "ZIP",
+            "h5ad",
+            "CSV bundle",
+            "new dataset",
+            "kept views",
+            "panels",
+            "Resolution",
+            "legend",
+            "scale bar",
+            "Shift+S"
           ]
         }
-      ],
-      "figure": {
-        "alt": "A captured view of cells coloured by type, with the cell-type legend beside it.",
-        "caption": "A view written by Capture, with its cell-type legend.",
-        "meta": "Xenium 5K · mouse colon"
-      }
+      ]
     },
     {
       "slug": "tool-store",
