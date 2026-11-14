@@ -701,59 +701,66 @@
       "slug": "transcripts",
       "group": "Layers",
       "title": "Transcripts",
-      "summary": "Draw every detected molecule over the cells, and replay sequencing depth from 1% to 100%.",
+      "summary": "Draw the detected molecules of chosen genes over the cells, and replay sequencing depth from 1% to 100%.",
       "keywords": [
         "molecules",
         "transcript",
+        "transcripts table",
         "spots",
         "RNA",
         "detected",
+        "parquet",
+        "csv",
+        "Xenium",
+        "MERSCOPE",
+        "CosMx",
+        "Scale",
+        "Add transcripts",
+        "Replace transcripts",
+        "Show all transcripts",
+        "Glow",
+        "Crisp",
+        "Intensity",
+        "Min QV",
+        "quality value",
+        "Dim",
         "Depth replay",
         "sequencing depth",
         "saturation",
-        "glow",
-        "crisp",
-        "Xenium"
+        "Stability",
+        "Paint cells",
+        "1:r"
       ],
       "sections": [
         {
-          "title": "Attach a molecule table",
+          "title": "Add a transcript table",
           "preview": [
-            "code",
-            "note"
-          ]
-        },
-        {
-          "title": "Pick up to 12 genes",
-          "preview": [
+            "figure",
             "steps"
           ]
         },
         {
-          "title": "Show all transcripts",
-          "preview": [
-            "caution"
-          ]
-        },
-        {
-          "title": "Glow or crisp",
+          "title": "Explore molecules in the Transcripts tab",
           "preview": [
             "figure",
             "table"
           ]
         },
         {
-          "title": "Depth replay",
+          "title": "Replay sequencing depth",
           "preview": [
-            "tip"
+            "figure",
+            "note"
+          ]
+        },
+        {
+          "title": "Show, combine and capture",
+          "preview": [
+            "steps",
+            "note"
           ]
         }
-      ],
-      "figure": {
-        "alt": "Molecules of Epcam, Acta2 and Lyz1 as green, pink and cyan glowing spots over the greyed cells of a Xenium 5K mouse tissue microarray.",
-        "caption": "Every detected molecule of Epcam, Acta2 and Lyz1, drawn as glowing spots over the cells.",
-        "meta": "Xenium 5K · mouse tissue microarray"
-      }
+      ]
     },
     {
       "slug": "exporting",
