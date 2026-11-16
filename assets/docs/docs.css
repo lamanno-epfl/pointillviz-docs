@@ -1793,3 +1793,81 @@ p + .dv-choice--chips, .dv-choice__panel > p + .pv-steps { margin-top: 16px; }
 .dv-tile > .pv-figure .pv-figure__caption { display: none; }
 @media (max-width: 699.98px) { .dv-tiles { grid-template-columns: minmax(0, 1fr); } }
 .dv-tile .pv-figure__stage { padding: 10px; }
+
+
+/* 20 · Page title, page tone and tab hues ================================== */
+
+/* A page's title is set in the face of the docs home's title. */
+.pv-title.dv-title {
+  font-family: var(--pv-font-sans);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Each page takes its home card's colour as the accent of its article:
+   step numbers, the chosen tab, labels and the icons of the lists.
+   Installation keeps the site's accent. */
+.dv--page[data-tone="gold"]   { --dv-tone: var(--pv-gold); }
+.dv--page[data-tone="violet"] { --dv-tone: var(--pv-violet); }
+.dv--page[data-tone="cyan"]   { --dv-tone: var(--pv-cyan); }
+.dv--page[data-tone="pink"]   { --dv-tone: var(--pv-pink); }
+.dv--page[data-tone="mint"]   { --dv-tone: var(--pv-mint); }
+.dv--page[data-tone="orange"] { --dv-tone: var(--pv-orange); }
+[data-theme="light"] .dv--page[data-tone="gold"]   { --dv-tone: var(--pv-gold-deep); }
+[data-theme="light"] .dv--page[data-tone="violet"] { --dv-tone: #6B3FC4; }
+[data-theme="light"] .dv--page[data-tone="cyan"]   { --dv-tone: #076A8E; }
+[data-theme="light"] .dv--page[data-tone="pink"]   { --dv-tone: #B8326F; }
+[data-theme="light"] .dv--page[data-tone="mint"]   { --dv-tone: var(--pv-mint-deep); }
+[data-theme="light"] .dv--page[data-tone="orange"] { --dv-tone: #A8480B; }
+.dv--page[data-tone]:not([data-dv-page="installation"]) .dv-article {
+  --pv-accent: var(--dv-tone);
+  --pv-accent-line: color-mix(in srgb, var(--dv-tone) 45%, transparent);
+  --pv-accent-glow: color-mix(in srgb, var(--dv-tone) 45%, transparent);
+}
+/* A short bar of the page's colour before every section title. */
+.dv--page[data-tone]:not([data-dv-page="installation"]) .dv-body--written h2::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+  background: var(--dv-tone);
+}
+
+/* The tabs of one choice each carry their own hue, from the home's palette.
+   Installation keeps its own look. */
+.dv--page:not([data-dv-page="installation"]) .dv-choice__list > .dv-choice__tab:nth-child(6n+1) { --dv-hue: var(--pv-gold); }
+.dv--page:not([data-dv-page="installation"]) .dv-choice__list > .dv-choice__tab:nth-child(6n+2) { --dv-hue: var(--pv-violet); }
+.dv--page:not([data-dv-page="installation"]) .dv-choice__list > .dv-choice__tab:nth-child(6n+3) { --dv-hue: var(--pv-cyan); }
+.dv--page:not([data-dv-page="installation"]) .dv-choice__list > .dv-choice__tab:nth-child(6n+4) { --dv-hue: var(--pv-pink); }
+.dv--page:not([data-dv-page="installation"]) .dv-choice__list > .dv-choice__tab:nth-child(6n+5) { --dv-hue: var(--pv-mint); }
+.dv--page:not([data-dv-page="installation"]) .dv-choice__list > .dv-choice__tab:nth-child(6n+6) { --dv-hue: var(--pv-orange); }
+.dv-choice__tab .dv-choice__name::before { border-color: var(--dv-hue, var(--dv-pt-ring)); }
+.dv-choice__tab[aria-selected="true"] {
+  border-color: color-mix(in srgb, var(--dv-hue, var(--pv-accent)) 55%, transparent);
+  background: color-mix(in srgb, var(--dv-hue, var(--pv-accent)) 9%, var(--pv-surface));
+}
+.dv-choice__tab[aria-selected="true"] .dv-choice__name::before {
+  border-color: var(--dv-hue, var(--pv-accent));
+  background: var(--dv-hue, var(--pv-accent));
+  box-shadow: 0 0 9px color-mix(in srgb, var(--dv-hue, var(--pv-accent)) 50%, transparent);
+}
+
+/* A callout shows its kind's colour also without a title: a bar along its
+   left edge and a slightly stronger tint. */
+.dv-body--written .pv-callout {
+  border-left: 3px solid var(--_c);
+  background: color-mix(in srgb, var(--_c) 10%, var(--pv-surface));
+}
+/* A list item's title sits close to its text. */
+.dv-navitem__body > .dv-navitem__title + p { margin-top: 4px; }
+
+/* A group of six (Data: the four kinds of data, Pathways and Cell
+   communication): three across in two rows, square cards; two across on
+   tablets and phones. */
+.dv-group--n6 .dv-group__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dv-group--n6 .dv-card { aspect-ratio: 1; }
+@media (max-width: 699.98px) {
+  .dv-group--n6 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

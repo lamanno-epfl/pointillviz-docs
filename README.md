@@ -1,6 +1,6 @@
 # docs.pointillviz.com
 
-The PointillViz documentation: twelve tutorials in five groups, a docs home with search, and a 404 page. GitHub Pages serves this folder as it is (`CNAME`, `.nojekyll`), so there is no build step at serve time.
+The PointillViz documentation: fourteen tutorials in five groups, a docs home with search, and a 404 page. GitHub Pages serves this folder as it is (`CNAME`, `.nojekyll`), so there is no build step at serve time.
 
 Every page except the shared design system is **generated** from one data file. Edit the data, then regenerate. Do not edit the generated HTML by hand: the next build overwrites it.
 
@@ -24,7 +24,7 @@ The generators live in the web workspace, one folder up from this one (`tools/`)
 python3 -B tools/build_docs.py
 ```
 
-That rewrites the home, the twelve pages, the 404 page, the sitemap and the search index (inlined in every page). It uses only the Python standard library.
+That rewrites the home, the fourteen pages, the 404 page, the sitemap and the search index (inlined in every page). It uses only the Python standard library.
 
 GitHub Pages serves `404.html` at any unknown address, also a deep one (`/a/b/`). On the live site the page then sets its base to the site root, writes its stylesheets and scripts after that base (and lazy-loads its logos), so the browser never fetches them from the missing folder; without scripts, `<noscript>` links still style it.
 
@@ -61,7 +61,7 @@ Each page is in preparation until its tutorial exists. To publish one:
    | Block | Markup |
    |---|---|
    | Numbered steps | `<ol class="pv-steps"><li><p class="pv-steps__title">…</p><p>…</p></li></ol>` |
-   | Figure | `<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/…" alt="…" width="…" height="…"></div><figcaption class="pv-figure__caption">…<span class="pv-figure__meta">Xenium 5K · mouse colon</span></figcaption></figure>` |
+   | Figure | `<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/…" alt="…" width="…" height="…"></div><figcaption class="pv-figure__caption">…</figcaption></figure>` (the caption is optional: one short line) |
    | Code, with its copy button | `<figure class="pv-code"><figcaption class="pv-code__head"><span class="pv-code__title">file.py</span><button class="pv-code__copy" type="button" data-pv-copy><span class="pv-code__copy-label">Copy</span></button></figcaption><pre tabindex="0"><code>…</code></pre></figure>` |
    | Commands, the same on every system | `<figure class="pv-code"><pre><code>…</code></pre></figure>`: without a `<figcaption>`, the build adds the head ("All systems") and the copy button |
    | Commands per system | `<figure class="pv-code" id="…"><pre data-os="unix"><code>…</code></pre><pre data-os="win"><code>…</code></pre></figure>`: the head becomes a macOS / Linux · Windows switch. Every switch on the page follows one choice: the reader's system at first, then their own, remembered (`pv-docs-os`). Without scripts both systems show, named |
@@ -96,7 +96,8 @@ A new page also needs its capture: add it to `SOURCES` in `tools/build_docs_medi
 ## House rules
 
 - Copy follows `brief/CONTENT.md` in the workspace: precise, calm, no hype, README spelling (colour, visualize). An Assistant result is model output; say what the Assistant allows, never that it is right.
-- Real content only: every picture is a capture of the app, a frame of its footage, a figure panel, or real data drawn by the media script (the home's specimen plate: every cell of the colon section in its own cell-type colour; the Polygons figure: that section's own segmentation polygons), labelled by technology, tissue and scale, never by dataset ID. Molecule pictures of the colon carry "Molecule positions simulated from the measured counts."
+- Real content only: every picture shows one of the six example datasets of the app (the mouse colon, the mouse maternal-fetal interface and the mouse tissue array, all Xenium 5K; the 3D E7 embryo; the 3D HER2+ breast cancer; the multi-modal mouse brain), captured from the app or drawn from its own data, or shows no data at all (a bare control, the store website). No dataset ID appears in a picture or in the text. Molecule pictures of the colon carry "Molecule positions simulated from the measured counts."
+- Short pages: a step is an instruction in bold plus at most one short sentence, a section is a task, and a picture replaces a paragraph. No small text under tab names, buttons or pictures, and at most two callouts on a page. Prefer pictures of the data in its colours to crops of grey panels.
 - Links inside the site are relative. Links to the other two sites are `https://pointillviz.com/` and `https://store.pointillviz.com/`.
 - Nothing links to the PointillViz source code, and nothing credits a lab or an institute. Anything not available yet is `href="#"` with `data-placeholder`, and shows "Coming soon".
 - The top bar and the footer are the shared chrome in `shared/CHROME.md`; keep them as they are.

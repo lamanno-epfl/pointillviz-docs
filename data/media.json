@@ -24,46 +24,40 @@
    "file": "og/installation.jpg",
    "w": 1200,
    "h": 630
-  }
- },
- "importing": {
-  "card": {
-   "file": "importing-640.webp",
-   "w": 640,
-   "h": 400
   },
-  "mid": {
-   "file": "importing-960.webp",
-   "w": 960,
-   "h": 600
-  },
-  "large": {
-   "file": "importing-1280.webp",
-   "w": 1280,
-   "h": 800
-  },
-  "xl": {
-   "file": "importing-1600.webp",
-   "w": 1600,
-   "h": 1000
-  },
-  "phone": [
+  "thumb": [
    {
-    "file": "importing-phone-720.webp",
-    "w": 720,
-    "h": 415
+    "file": "tut-installation-card-640.webp",
+    "w": 640,
+    "h": 400
    },
    {
-    "file": "importing-phone-920.webp",
-    "w": 920,
-    "h": 530
+    "file": "tut-installation-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
+  "thumb_alt": "The PointillViz wordmark above the six example datasets, from flat sections to 3D volumes and a brain's five modalities as layers."
+ },
+ "importing": {
+  "thumb": [
+   {
+    "file": "tut-importing-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-importing-card-960.webp",
+    "w": 960,
+    "h": 600
    }
   ],
   "og": {
    "file": "og/importing.jpg",
    "w": 1200,
    "h": 630
-  }
+  },
+  "thumb_alt": "The import wizard's Space and Cell types tiles for the mouse maternal-fetal interface."
  },
  "2d-data": {
   "card": {
@@ -300,41 +294,24 @@
   }
  },
  "transcripts": {
-  "card": {
-   "file": "transcripts-640.webp",
-   "w": 640,
-   "h": 400
-  },
-  "mid": {
-   "file": "transcripts-960.webp",
-   "w": 960,
-   "h": 600
-  },
-  "large": {
-   "file": "transcripts-1280.webp",
-   "w": 1280,
-   "h": 800
-  },
-  "xl": {
-   "file": "transcripts-1600.webp",
-   "w": 1600,
-   "h": 1000
-  },
+  "thumb": [
+   {
+    "file": "tut-transcripts-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-transcripts-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
   "og": {
    "file": "og/transcripts.jpg",
    "w": 1200,
    "h": 630
   },
-  "loop": {
-   "file": "transcripts-loop.mp4",
-   "w": 1280,
-   "h": 800,
-   "bytes": 950452,
-   "crf": 38,
-   "dur": 4.67,
-   "source": "proto/S01_dive_glow.mp4",
-   "corner": "br"
-  }
+  "thumb_alt": "Molecules of four genes in four colours over the crypts of the mouse colon."
  },
  "exporting": {
   "card": {
@@ -448,5 +425,45 @@
    "w": 1200,
    "h": 630
   }
+ },
+ "pathways": {
+  "thumb": [
+   {
+    "file": "tut-pathways-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-pathways-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
+  "og": {
+   "file": "og/pathways.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "thumb_alt": "A pathway score on the mouse maternal-fetal interface, orange at the tissue's edge and blue at its centre."
+ },
+ "cell-communication": {
+  "thumb": [
+   {
+    "file": "tut-cell-communication-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-cell-communication-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
+  "og": {
+   "file": "og/cell-communication.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "thumb_alt": "A ligand-receptor co-variation map on the mouse maternal-fetal interface: a bright yellow band in a teal tissue."
  }
 }
