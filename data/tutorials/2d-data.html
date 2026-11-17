@@ -161,11 +161,58 @@
 <figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-tools-760.webp" srcset="../assets/media/tut-2d-data-tools-760.webp 1x, ../assets/media/tut-2d-data-tools-1520.webp 2x" width="760" height="463" alt="The Tools tab: the groups Composition and Markers &amp; Expression, each a row of cards with a small coloured preview." loading="lazy" decoding="async"></div></figure>
 
 <h2>Follow one question across tabs</h2>
-<p>Does Prl3a1 mark the junctional zone of the maternal-fetal interface?</p>
-<ol class="pv-steps">
-<li><p class="pv-steps__title">Paint Prl3a1 in Genes.</p><p>A bright band runs along the junctional zone.</p></li>
-<li><p class="pv-steps__title">In Niches, press None and tick M00.</p><p>The niche lies on the same band.</p><figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-q-paint-720.webp" srcset="../assets/media/tut-2d-data-q-paint-720.webp 1x, ../assets/media/tut-2d-data-q-paint-1440.webp 2x" width="720" height="517" alt="The same lobe twice: Prl3a1 in magma colours on the left, niche M00 alone in green on the right, both along the same band." loading="lazy" decoding="async"></div></figure></li>
-<li><p class="pv-steps__title">Open the <a href="#plot-violin">violin plot</a> by niche.</p><p>Prl3a1 is high in M00 only.</p></li>
-<li><p class="pv-steps__title"><a href="#tb-gating">Gate</a> Prl3a1 against Prl8a6.</p><p>Under <strong>By › Niche Medium</strong>, 30 % of M00 lies in the gate and under 3 % of any other niche.</p></li>
-<li><p class="pv-steps__title">Calculate <a href="#plot-spatial">spatial gene patterns</a>.</p><p>Prl3a1 ranks first, and its annotation match is M00.</p></li>
-</ol>
+<p>Does Prl3a1 mark the junctional zone? Pick a way to look.</p>
+<div class="dv-ways" data-pv-tabs>
+<div class="dv-ways__rail" role="tablist" aria-label="Eight ways to ask one question">
+<button class="dv-ways__tab" type="button" role="tab" id="way-paint" aria-controls="way-paint-p" aria-selected="true"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-paint-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Paint it</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-violin" aria-controls="way-violin-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-violin-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Count it per niche</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-radar" aria-controls="way-radar-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-radar-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Profile the niche</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-landscape" aria-controls="way-landscape-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-landscape-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Raise it</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-mix" aria-controls="way-mix-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-mix-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Mix three genes</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-gating" aria-controls="way-gating-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-gating-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Gate it</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-lasso" aria-controls="way-lasso-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-lasso-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Lasso it</span></button>
+<button class="dv-ways__tab" type="button" role="tab" id="way-rank" aria-controls="way-rank-p" aria-selected="false" tabindex="-1"><img class="dv-ways__thumb" src="../assets/media/tut-2d-data-way-rank-thumb-256.webp" width="256" height="192" alt="" loading="lazy" decoding="async"><span class="dv-ways__name">Rank it</span></button>
+</div>
+<div class="dv-ways__stage">
+<div class="dv-ways__panel" role="tabpanel" id="way-paint-p" aria-labelledby="way-paint">
+<h3 class="dv-choice__heading">Paint it</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-paint-760.webp" srcset="../assets/media/tut-2d-data-way-paint-760.webp 1x, ../assets/media/tut-2d-data-way-paint-1520.webp 2x" width="760" height="570" alt="The left lobe twice: Prl3a1 in magma colours, a bright band along its inner edge, and niche M00 alone in green on the same band." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Genes</span></li><li><span>Prl3a1</span></li></ol><ol class="dv-ways__path" aria-label="Then"><li><span>Niches</span></li><li><span>None</span></li><li><span>M00</span></li></ol><p class="dv-ways__finding"><strong>The bright band and niche M00 lie on top of each other.</strong></p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-violin-p" aria-labelledby="way-violin">
+<h3 class="dv-choice__heading">Count it per niche</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-violin-760.webp" srcset="../assets/media/tut-2d-data-way-violin-760.webp 1x, ../assets/media/tut-2d-data-way-violin-1520.webp 2x" width="760" height="570" alt="The lobe painted with Prl3a1 beside the violin window grouped by niche: M00 has a tall box, while M01, M07 and M05 stay at zero." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Genes</span></li><li><span>Prl3a1</span></li><li><span>Open Violin Plot</span></li><li><span>Niches</span></li></ol><p class="dv-ways__finding"><strong>Only M00 rises above zero</strong>; the other niches stay flat.</p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-radar-p" aria-labelledby="way-radar">
+<h3 class="dv-choice__heading">Profile the niche</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-radar-760.webp" srcset="../assets/media/tut-2d-data-way-radar-760.webp 1x, ../assets/media/tut-2d-data-way-radar-1520.webp 2x" width="760" height="570" alt="The lobe in the colours of four niches beside their radar profiles over eight genes: the green M00 profile reaches far out on Prl3a1, Prl8a6 and Tpbpa." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Types</span></li><li><span>Markers</span></li><li><span>eight genes</span></li><li><span>Group by: Niches</span></li><li><span>View: Radar profiles</span></li></ol><p class="dv-ways__finding"><strong>M00 leads on Prl3a1 and Prl8a6</strong>; Tpbpa is high in M07 as well.</p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-landscape-p" aria-labelledby="way-landscape">
+<h3 class="dv-choice__heading">Raise it</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-landscape-760.webp" srcset="../assets/media/tut-2d-data-way-landscape-760.webp 1x, ../assets/media/tut-2d-data-way-landscape-1520.webp 2x" width="760" height="570" alt="The lobe tilted and coloured by niche, each cell raised by its Prl3a1 level: the green columns of M00 stand tallest." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Landscape</span></li><li><span>Color by: Niche Medium</span></li><li><span>Height by: Prl3a1</span></li></ol><p class="dv-ways__finding"><strong>The green columns of M00 stand tallest</strong>; most of the tissue stays flat.</p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-mix-p" aria-labelledby="way-mix">
+<h3 class="dv-choice__heading">Mix three genes</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-mix-760.webp" srcset="../assets/media/tut-2d-data-way-mix-760.webp 1x, ../assets/media/tut-2d-data-way-mix-1520.webp 2x" width="760" height="570" alt="The lobe in three gene colours: a red Prl3a1 band between a green Ctsq core and blue Des outer layers." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Genes</span></li><li><span>Multi-RGB</span></li><li><span>R: Prl3a1</span></li><li><span>G: Ctsq</span></li><li><span>B: Des</span></li></ol><p class="dv-ways__finding"><strong>Prl3a1 (red) runs between the labyrinth (green) and the outer layers (blue)</strong>, where the junctional zone lies.</p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-gating-p" aria-labelledby="way-gating">
+<h3 class="dv-choice__heading">Gate it</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-gating-760.webp" srcset="../assets/media/tut-2d-data-way-gating-760.webp 1x, ../assets/media/tut-2d-data-way-gating-1520.webp 2x" width="760" height="570" alt="The Gating window with Prl3a1 against Prl8a6, a rectangle gate on the cells high in both and the cell types in it, beside the lobe where only the gated cells keep their colour, along the band." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Gating</span></li><li><span>X: Prl3a1</span></li><li><span>Y: Prl8a6</span></li><li><span>RECT</span></li></ol><p class="dv-ways__finding"><strong>Junctional-zone types are the most enriched in the gate</strong>, and its cells trace the band.</p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-lasso-p" aria-labelledby="way-lasso">
+<h3 class="dv-choice__heading">Lasso it</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-lasso-760.webp" srcset="../assets/media/tut-2d-data-way-lasso-760.webp 1x, ../assets/media/tut-2d-data-way-lasso-1520.webp 2x" width="760" height="570" alt="A blue outline drawn around the Prl3a1 band of the lobe, beside the Region window with the cell-type composition of the cells inside." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Genes</span></li><li><span>Prl3a1</span></li><li><span>Lasso</span></li><li><span>around the band</span></li></ol><p class="dv-ways__finding"><strong>Junctional-zone types are the most enriched inside the outline.</strong></p></div>
+</div>
+<div class="dv-ways__panel" role="tabpanel" hidden id="way-rank-p" aria-labelledby="way-rank">
+<h3 class="dv-choice__heading">Rank it</h3>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-2d-data-way-rank-760.webp" srcset="../assets/media/tut-2d-data-way-rank-760.webp 1x, ../assets/media/tut-2d-data-way-rank-1520.webp 2x" width="760" height="570" alt="The spatial gene patterns ranking with Prl3a1 first, and the lobe with its best-matching niche, M00, in yellow." loading="lazy" decoding="async"></div></figure>
+<div class="dv-ways__read"><ol class="dv-ways__path" aria-label="In the app"><li><span>Genes</span></li><li><span>Analysis</span></li><li><span>Spatial Analysis</span></li><li><span>Calculate spatial gene patterns</span></li><li><span>Best match</span></li></ol><p class="dv-ways__finding"><strong>Prl3a1 ranks first</strong>, and its hotspot best matches M00, in yellow.</p></div>
+</div>
+</div>
+</div>

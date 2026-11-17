@@ -1871,3 +1871,19 @@ p + .dv-choice--chips, .dv-choice__panel > p + .pv-steps { margin-top: 16px; }
 @media (max-width: 699.98px) {
   .dv-group--n6 .dv-group__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* The ways of one question: each tab carries its own hue, as the tabs of a
+   choice do; the names and the steps in the app are set at a reading size. */
+.dv--page:not([data-dv-page="installation"]) .dv-ways__tab:nth-of-type(6n+1) { --dv-hue: var(--pv-gold); }
+.dv--page:not([data-dv-page="installation"]) .dv-ways__tab:nth-of-type(6n+2) { --dv-hue: var(--pv-violet); }
+.dv--page:not([data-dv-page="installation"]) .dv-ways__tab:nth-of-type(6n+3) { --dv-hue: var(--pv-cyan); }
+.dv--page:not([data-dv-page="installation"]) .dv-ways__tab:nth-of-type(6n+4) { --dv-hue: var(--pv-pink); }
+.dv--page:not([data-dv-page="installation"]) .dv-ways__tab:nth-of-type(6n+5) { --dv-hue: var(--pv-mint); }
+.dv--page:not([data-dv-page="installation"]) .dv-ways__tab:nth-of-type(6n+6) { --dv-hue: var(--pv-orange); }
+.dv-ways__tab[aria-selected="true"] {
+  border-color: color-mix(in srgb, var(--dv-hue, var(--pv-accent)) 55%, transparent);
+  background: color-mix(in srgb, var(--dv-hue, var(--pv-accent)) 10%, var(--pv-surface));
+}
+.dv-ways__tab[aria-selected="true"] .dv-ways__thumb { box-shadow: 0 0 0 2px var(--dv-hue, var(--pv-accent)); }
+.dv-ways__path li, .dv-ways__path + .dv-ways__path::before { font-size: 0.8125rem; }
+@media (min-width: 480px) { .dv-ways__name { font-size: 0.8125rem; } }
