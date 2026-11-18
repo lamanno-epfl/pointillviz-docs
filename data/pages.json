@@ -64,9 +64,9 @@
     "meta": {
       "home": {
         "title": "PointillViz docs",
-        "description": "PointillViz tutorials: installing, importing, 2D and 3D data, atlases, multimodal sections, images, polygons, transcripts, exporting, tools and the assistant.",
+        "description": "PointillViz tutorials: installing, importing, 2D and 3D data, atlases, multimodal sections, images, polygons, transcripts, exporting results, designing figures, tools and the assistant.",
         "og_title": "PointillViz docs",
-        "og_description": "From your first import to your first figure: fourteen tutorials for PointillViz.",
+        "og_description": "From your first import to your first figure: fifteen tutorials for PointillViz.",
         "og_image_alt": "PointillViz docs: from your first import to your first figure, beside nine captures of the viewer."
       },
       "not_found": {
@@ -1065,10 +1065,12 @@
     {
       "slug": "exporting",
       "group": "Results",
-      "title": "Exporting",
-      "summary": "Collect views, selections and results in a folder, save them as one AnnData file, and lay out figures.",
+      "title": "Export Results",
+      "summary": "Collect views, selections and results in a folder, and save them as one AnnData file.",
       "keywords": [
+        "Exporting",
         "export",
+        "results",
         "folder",
         "+",
         "Add to the export folder",
@@ -1091,26 +1093,7 @@
         "ZIP",
         "CSV",
         "CSV bundle",
-        "exports folder",
-        "Design",
-        "canvas",
-        "figure",
-        "panels",
-        "panel letters",
-        "legend",
-        "colour key",
-        "scale bar",
-        "inset",
-        "zoom",
-        "PNG",
-        "PDF",
-        "SVG",
-        "journal",
-        "screenshot",
-        "Shift+S",
-        "Figure from kept views",
-        "Save figure",
-        "resolution"
+        "exports folder"
       ],
       "sections": [
         {
@@ -1189,7 +1172,41 @@
             "Save CSV bundle",
             "CSV"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "slug": "design-figures",
+      "group": "Results",
+      "title": "Design Figures",
+      "summary": "Lay out kept views on a journal page with keys, scale bars and close-ups, or save a quick picture.",
+      "keywords": [
+        "figure",
+        "Design",
+        "canvas",
+        "layout",
+        "panels",
+        "panel letters",
+        "legend",
+        "colour key",
+        "scale bar",
+        "inset",
+        "zoom",
+        "close-up",
+        "PNG",
+        "PDF",
+        "SVG",
+        "journal",
+        "publication",
+        "screenshot",
+        "Shift+S",
+        "Figure from kept views",
+        "Save figure",
+        "resolution",
+        "dpi",
+        "Exporting"
+      ],
+      "sections": [
         {
           "title": "Lay out a figure",
           "preview": [

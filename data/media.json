@@ -314,31 +314,24 @@
   "thumb_alt": "Molecules of four genes in four colours over the crypts of the mouse colon."
  },
  "exporting": {
-  "card": {
-   "file": "exporting-640.webp",
-   "w": 640,
-   "h": 400
-  },
-  "mid": {
-   "file": "exporting-960.webp",
-   "w": 960,
-   "h": 600
-  },
-  "large": {
-   "file": "exporting-1280.webp",
-   "w": 1280,
-   "h": 800
-  },
-  "xl": {
-   "file": "exporting-1600.webp",
-   "w": 1600,
-   "h": 1000
-  },
+  "thumb": [
+   {
+    "file": "tut-exporting-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-exporting-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
   "og": {
    "file": "og/exporting.jpg",
    "w": 1200,
    "h": 630
-  }
+  },
+  "thumb_alt": "One file as three sheets stacked above the table: the maternal-fetal interface's cells, a marker dot plot, and four kept pictures."
  },
  "tool-store": {
   "card": {
@@ -465,5 +458,25 @@
    "h": 630
   },
   "thumb_alt": "A ligand-receptor co-variation map on the mouse maternal-fetal interface: a bright yellow band in a teal tissue."
+ },
+ "design-figures": {
+  "thumb": [
+   {
+    "file": "tut-design-figures-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-design-figures-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
+  "og": {
+   "file": "og/design-figures.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "thumb_alt": "A figure page on the table: the maternal-fetal interface's cell types with a zoom, two gene maps, and panel c lifted with its selection handles."
  }
 }

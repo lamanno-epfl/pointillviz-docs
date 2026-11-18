@@ -1,6 +1,6 @@
 # docs.pointillviz.com
 
-The PointillViz documentation: fourteen tutorials in five groups, a docs home with search, and a 404 page. GitHub Pages serves this folder as it is (`CNAME`, `.nojekyll`), so there is no build step at serve time.
+The PointillViz documentation: fifteen tutorials in five groups, a docs home with search, and a 404 page. GitHub Pages serves this folder as it is (`CNAME`, `.nojekyll`), so there is no build step at serve time.
 
 Every page except the shared design system is **generated** from one data file. Edit the data, then regenerate. Do not edit the generated HTML by hand: the next build overwrites it.
 
@@ -24,7 +24,7 @@ The generators live in the web workspace, one folder up from this one (`tools/`)
 python3 -B tools/build_docs.py
 ```
 
-That rewrites the home, the fourteen pages, the 404 page, the sitemap and the search index (inlined in every page). It uses only the Python standard library.
+That rewrites the home, the fifteen pages, the 404 page, the sitemap and the search index (inlined in every page). It uses only the Python standard library.
 
 GitHub Pages serves `404.html` at any unknown address, also a deep one (`/a/b/`). On the live site the page then sets its base to the site root, writes its stylesheets and scripts after that base (and lazy-loads its logos), so the browser never fetches them from the missing folder; without scripts, `<noscript>` links still style it.
 
