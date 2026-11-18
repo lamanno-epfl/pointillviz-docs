@@ -98,6 +98,10 @@
     {
       "name": "Extend",
       "id": "extend"
+    },
+    {
+      "name": "ImmGen",
+      "id": "immgenmaps"
     }
   ],
   "pages": [
@@ -1479,6 +1483,122 @@
         "alt": "The Assistant panel beside a Spatial-Mux-seq mouse brain section coloured by cluster: its first notebook result, R01, a figure of chromatin signal against expression across RNA clusters, with its derivation script listed below.",
         "caption": "The notebook beside the viewer: R01, a figure an agent published with its script. Answers are model output; the notebook shows what ran."
       }
+    },
+    {
+      "slug": "immgenmaps",
+      "group": "ImmGen",
+      "title": "ImmGenMaps tutorial",
+      "summary": "Install PointillViz from the shared folder and open the ImmGenMaps colon as an atlas, Subtype under Class and Type.",
+      "keywords": [
+        "ImmGenMaps",
+        "ImmGen",
+        "colon",
+        "PointillViz-share",
+        "dist",
+        "dmg",
+        "installer",
+        "Mac app",
+        "Install PointillViz",
+        "Open Anyway",
+        "pixi",
+        "atlas",
+        "Multiple sections",
+        "Atlas view",
+        "Scan",
+        "sample_id",
+        "sections",
+        "Subtype",
+        "Type",
+        "Class",
+        "Cell Type Hierarchy",
+        "Split by Type",
+        "Drop these cells",
+        "Unspecified",
+        "Unresolved",
+        "X_spatial",
+        "IFQUANT",
+        "X_scVI",
+        "Import atlas"
+      ],
+      "sections": [
+        {
+          "title": "Install PointillViz",
+          "preview": [
+            "steps",
+            "caution",
+            "code"
+          ],
+          "keywords": [
+            "dmg",
+            "Install PointillViz",
+            "Applications",
+            "Dock",
+            "Open Anyway",
+            "Terminal",
+            "pixi install",
+            "pixi run serve",
+            "install.sh",
+            "Linux"
+          ]
+        },
+        {
+          "title": "Open the colon as an atlas",
+          "preview": [
+            "steps",
+            "figure"
+          ],
+          "keywords": [
+            "Upload",
+            "Multiple sections (Atlas view)",
+            "folder",
+            "Scan",
+            "Sections from",
+            "sample_id",
+            "X_spatial",
+            "Matrices",
+            "IFQUANT",
+            "X_pca",
+            "X_scVI",
+            "Embeddings",
+            "UMAP"
+          ]
+        },
+        {
+          "title": "Cell types by Subtype, under Class and Type",
+          "preview": [
+            "steps",
+            "figure"
+          ],
+          "keywords": [
+            "Cell types",
+            "Subtype",
+            "Cell Type Hierarchy",
+            "Class",
+            "Type",
+            "Split by Type",
+            "Drop these cells",
+            "Unspecified",
+            "Unresolved"
+          ]
+        },
+        {
+          "title": "Import and explore",
+          "preview": [
+            "steps",
+            "figure"
+          ],
+          "keywords": [
+            "Import atlas",
+            "Open",
+            "Multi",
+            "All",
+            "Single",
+            "sections",
+            "tree",
+            "Types tab"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -478,5 +478,25 @@
    "h": 630
   },
   "thumb_alt": "A figure page on the table: the maternal-fetal interface's cell types with a zoom, two gene maps, and panel c lifted with its selection handles."
+ },
+ "immgenmaps": {
+  "thumb": [
+   {
+    "file": "tut-immgenmaps-card-640.webp",
+    "w": 640,
+    "h": 400
+   },
+   {
+    "file": "tut-immgenmaps-card-960.webp",
+    "w": 960,
+    "h": 600
+   }
+  ],
+  "og": {
+   "file": "og/immgenmaps.jpg",
+   "w": 1200,
+   "h": 630
+  },
+  "thumb_alt": "The colon section as three glass plates above the table, coloured by compartment, lineage and cell type: the three levels of its cell-type hierarchy."
  }
 }

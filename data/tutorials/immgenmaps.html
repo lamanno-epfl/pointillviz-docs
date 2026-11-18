@@ -1,0 +1,52 @@
+<!-- lead-figure: none -->
+<h2>Install PointillViz</h2>
+<p>Keep the folder's two parts side by side: <code translate="no">PointillViz</code> is the app, <code translate="no">dist</code> its installers.</p>
+<div class="dv-choice" data-pv-tabs>
+<div class="dv-choice__list" role="tablist" aria-label="How to install">
+<button class="dv-choice__tab" type="button" role="tab" id="install-mac" aria-controls="install-mac-p" aria-selected="true"><span class="dv-choice__name">Mac app</span></button>
+<button class="dv-choice__tab" type="button" role="tab" id="install-terminal" aria-controls="install-terminal-p" aria-selected="false" tabindex="-1"><span class="dv-choice__name">Terminal</span></button>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="install-mac-p" aria-labelledby="install-mac">
+<h3 class="dv-choice__heading">Mac app</h3>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Open <code translate="no">dist/PointillViz-Installer.dmg</code> and double-click <strong>Install PointillViz</strong>.</p><p>A Terminal window shows each step; the first time takes 5 to 15 minutes.</p></li>
+<li><p class="pv-steps__title">Open <strong>PointillViz</strong> from Applications.</p><p>It starts PointillViz in your browser and stays in the Dock while it runs.</p></li>
+</ol>
+<aside class="pv-callout pv-callout--caution">
+<p class="pv-callout__title">The first double-click is blocked</p>
+<p>The installer is not signed: in <strong>System Settings › Privacy &amp; Security</strong>, press <strong>Open Anyway</strong>, then double-click it again.</p>
+</aside>
+</div>
+<div class="dv-choice__panel" role="tabpanel" id="install-terminal-p" aria-labelledby="install-terminal" hidden>
+<h3 class="dv-choice__heading">Terminal</h3>
+<p>Follow <a href="../installation/">Installation</a>, but skip <code translate="no">git clone</code>: you already have the folder.</p>
+<figure class="pv-code"><pre><code>cd PointillViz-share/PointillViz
+pixi install
+pixi run serve</code></pre></figure>
+<p>On Linux, <code translate="no">bash dist/install.sh</code> instead installs everything and adds PointillViz to the applications menu.</p>
+</div>
+</div>
+
+<h2>Open the colon as an atlas</h2>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Press <strong>Upload</strong>, then <strong>Multiple sections (Atlas view)</strong>.</p></li>
+<li><p class="pv-steps__title">Open the folder with the colon <code translate="no">.h5ad</code>, click the file, press <strong>Scan</strong>.</p><p>Clicked, only that file is read, split into its four sections by <strong>Sections from</strong>: <code translate="no">sample_id</code>. With none clicked, each <code translate="no">.h5ad</code> of the folder would be one section.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-immgenmaps-scan-760.webp" srcset="../assets/media/tut-immgenmaps-scan-760.webp 1x, ../assets/media/tut-immgenmaps-scan-1520.webp 2x" width="760" height="475" alt="The atlas import after Scan: four sections from sample_id, Space on X_spatial, the protein panel and the latent spaces as Matrices, the two UMAPs as Embeddings." loading="lazy" decoding="async"></div></figure></li>
+</ol>
+<p>Space is <code translate="no">X_spatial</code>; <code translate="no">IFQUANT</code>, <code translate="no">X_pca</code> and <code translate="no">X_scVI</code> are Matrices; the UMAPs are Embeddings, shared by the four sections.</p>
+
+<h2>Cell types by Subtype, under Class and Type</h2>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Set <strong>Cell types</strong> to <strong>Subtype</strong>.</p></li>
+<li><p class="pv-steps__title">Under <strong>Cell Type Hierarchy</strong>, tick <strong>Class</strong> and <strong>Type</strong>.</p></li>
+<li><p class="pv-steps__title">Keep <strong>Split by Type</strong>.</p><p>'Unspecified' and 'Unresolved' are Subtypes of several Types: each gets one per Type, such as 'Unspecified - enteric glial cell'. <strong>Drop these cells</strong> leaves them out instead.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-immgenmaps-types-760.webp" srcset="../assets/media/tut-immgenmaps-types-760.webp 1x, ../assets/media/tut-immgenmaps-types-1520.webp 2x" width="760" height="333" alt="The Cell types tile: Subtype, with Class and Type ticked above it; 'Unspecified' and 'Unresolved' have more than one Type, and Split by Type is chosen." loading="lazy" decoding="async"></div></figure></li>
+</ol>
+
+<h2>Import and explore</h2>
+<ol class="pv-steps">
+<li><p class="pv-steps__title">Press <strong>Import atlas</strong>, then <strong>Open</strong>.</p></li>
+<li><p class="pv-steps__title">Pick sections in the strip at the bottom: <strong>Multi</strong>, <strong>All</strong> or <strong>Single</strong>.</p><p>The Types tab holds Class › Type › Subtype as a tree.</p>
+<figure class="pv-figure"><div class="pv-figure__stage" data-theme="dark"><img src="../assets/media/tut-immgenmaps-atlas-760.webp" srcset="../assets/media/tut-immgenmaps-atlas-760.webp 1x, ../assets/media/tut-immgenmaps-atlas-1520.webp 2x" width="760" height="475" alt="The colon atlas in the viewer, coloured by Subtype: the Types tab's Class › Type › Subtype tree, the UMAP beside the section, and the four sections in the strip below." loading="lazy" decoding="async"></div></figure></li>
+</ol>
+<p>More on atlases: <a href="../atlases/">Atlases</a>.</p>
