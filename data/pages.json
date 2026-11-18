@@ -985,99 +985,174 @@
       "slug": "exporting",
       "group": "Results",
       "title": "Exporting",
-      "summary": "Save views as pictures or figures (PNG, PDF, SVG) and export cells and results as CSV tables.",
+      "summary": "Collect views, selections and results in a folder, save them as one AnnData file, and lay out figures.",
       "keywords": [
         "export",
-        "screenshot",
+        "folder",
+        "+",
+        "Add to the export folder",
         "capture",
+        "Capture view",
+        "kept views",
+        "AnnData",
+        "h5ad",
+        ".h5ad",
+        "obs",
+        "uns",
+        "X",
+        "expression matrix",
+        "pv_",
+        "scanpy",
+        "figures",
+        "manifest.json",
+        "README.txt",
+        "pointillviz_schema.json",
+        "ZIP",
+        "CSV",
+        "CSV bundle",
+        "exports folder",
+        "Design",
+        "canvas",
         "figure",
         "panels",
+        "panel letters",
+        "legend",
+        "colour key",
+        "scale bar",
+        "inset",
+        "zoom",
         "PNG",
         "PDF",
         "SVG",
-        "resolution",
-        "legend",
-        "scale bar",
-        "CSV",
-        "ZIP",
-        "download",
-        "cells.csv",
-        "manifest",
-        "README",
-        "Export builder",
-        "pathway report",
-        "lasso",
-        "region"
+        "journal",
+        "screenshot",
+        "Shift+S",
+        "Figure from kept views",
+        "Save figure",
+        "resolution"
       ],
       "sections": [
         {
-          "title": "Save a picture or a figure",
+          "title": "Collect what you want to keep",
           "preview": [
             "steps",
-            "figure",
-            "tip"
+            "figure"
           ],
           "keywords": [
             "Capture view",
+            "C",
+            "+",
+            "Add to the export folder",
             "kept views",
-            "Export…",
-            "Shift+S",
-            "Columns",
-            "Spacing",
-            "Labels",
-            "Titles",
-            "Resolution",
-            "Max",
-            "Save figure"
+            "title"
           ]
         },
         {
-          "title": "Export data",
+          "title": "Look through the folder",
+          "preview": [
+            "figure"
+          ],
+          "keywords": [
+            "Export",
+            "folder button",
+            "S",
+            "Items",
+            "reorder",
+            "rename",
+            "Compare with",
+            "Figure of",
+            "New folder",
+            "Move to"
+          ]
+        },
+        {
+          "title": "Change an item",
           "preview": [
             "steps",
             "figure"
           ],
           "keywords": [
-            "Export data",
-            "Selected",
-            "ZIP"
+            "Open in the viewer",
+            "Open · change its settings",
+            "Save changes",
+            "Save as new",
+            "Discard",
+            "Editing"
           ]
         },
         {
-          "title": "Choose what goes in",
+          "title": "Save the AnnData file",
+          "preview": [
+            "steps",
+            "figure",
+            "table"
+          ],
+          "keywords": [
+            "Cells",
+            "All cells",
+            "Visible now",
+            "AnnData file",
+            "Columns",
+            "obs",
+            "uns",
+            "X",
+            "Expression matrix",
+            "Save .h5ad",
+            "exports",
+            "pv_in_lasso",
+            "pv_expr",
+            "figures",
+            "manifest.json",
+            "README.txt",
+            "pointillviz_schema.json",
+            "Save CSV bundle",
+            "CSV"
+          ]
+        },
+        {
+          "title": "Lay out a figure",
+          "preview": [
+            "figure",
+            "steps",
+            "caution"
+          ],
+          "keywords": [
+            "Design",
+            "canvas",
+            "Add all",
+            "Page",
+            "journal column",
+            "A4",
+            "Letter",
+            "slide",
+            "panel letters",
+            "colour key",
+            "scale bar",
+            "inset",
+            "zoom",
+            "text",
+            "arrow",
+            "PNG",
+            "PDF",
+            "SVG",
+            "Edit design"
+          ]
+        },
+        {
+          "title": "Save a quick picture",
           "preview": [
             "figure"
           ],
           "keywords": [
-            "Adjust",
-            "Export builder",
-            "My Download",
-            "Add Content",
-            "Header preview",
-            "rename",
-            "Apply",
-            "Discard",
-            "Open designer",
-            "Create report",
-            "pathway report"
-          ]
-        },
-        {
-          "title": "Read the files",
-          "preview": [
-            "table",
-            "caution"
-          ],
-          "keywords": [
-            "cells.csv",
-            "cell_index",
-            "region",
-            "tables",
-            "regions",
-            "figures",
-            "manifest.json",
-            "README.txt",
-            "gene expression"
+            "Shift+S",
+            "screenshot",
+            "Figure from kept views",
+            "Save figure",
+            "Columns",
+            "Labels",
+            "Resolution",
+            "Legend",
+            "Scale bar"
           ]
         }
       ]
